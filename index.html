@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מסע אל בית המקדש · סיור וירטואלי בבית המקדש השני</title>
+<meta name="description" content="סיור וירטואלי מרהיב בבית המקדש השני על פי מסכת מידות — משערי חולדה ועד קודש הקודשים. כולל מפה אינטראקטיבית, מקורות חז״ל וחידון.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Heebo:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#d4a531; --gold-light:#f0cf7e; --gold-dark:#9c7418;
+  --stone:#d8c9a3; --stone-dark:#b3a077;
+  --night:#0b1026; --night2:#1a2247; --dawn:#2b3a6b;
+  --ink:#2a2416; --paper:#faf5e8; --paper2:#f2ead6;
+  --accent:#8b2f1c; --teal:#1f6f6b;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Heebo',sans-serif;
+  background:var(--night);
+  color:var(--paper);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+h1,h2,h3,.serif{font-family:'Frank Ruhl Libre',serif}
+
+/* ---------- HERO ---------- */
+#hero{
+  position:relative;min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;padding:24px;
+  background:linear-gradient(180deg,#070b1d 0%,#101736 35%,#2b3a6b 70%,#7a5b2e 100%);
+  overflow:hidden;
+}
+#hero .stars{position:absolute;inset:0;pointer-events:none}
+#hero .star{position:absolute;background:#fff;border-radius:50%;opacity:.7;animation:twinkle 3s infinite ease-in-out}
+@keyframes twinkle{0%,100%{opacity:.15}50%{opacity:.9}}
+#heroTemple{width:min(640px,92vw);margin-bottom:8px;filter:drop-shadow(0 12px 40px rgba(212,165,49,.35))}
+#hero h1{
+  font-size:clamp(2.4rem,7vw,4.6rem);font-weight:900;color:var(--gold-light);
+  text-shadow:0 2px 30px rgba(212,165,49,.5);letter-spacing:.02em;
+}
+#hero .sub{
+  font-size:clamp(1rem,2.6vw,1.35rem);color:#e9ddbd;max-width:640px;margin:14px auto 8px;
+  font-weight:300;line-height:1.8;
+}
+#hero .verse{
+  color:var(--gold);font-family:'Frank Ruhl Libre',serif;font-size:clamp(1rem,2.4vw,1.2rem);
+  margin-top:6px;opacity:.95;
+}
+.btnRow{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap;justify-content:center}
+.btn{
+  cursor:pointer;border:none;border-radius:14px;font-family:'Heebo';font-weight:700;
+  font-size:1.1rem;padding:14px 34px;transition:transform .15s,box-shadow .15s;
+}
+.btn:active{transform:scale(.97)}
+.btn-gold{
+  background:linear-gradient(160deg,var(--gold-light),var(--gold) 55%,var(--gold-dark));
+  color:#241a05;box-shadow:0 6px 24px rgba(212,165,49,.45);
+}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(212,165,49,.6)}
+.btn-ghost{background:rgba(255,255,255,.08);color:var(--paper);border:1px solid rgba(240,207,126,.5)}
+.btn-ghost:hover{background:rgba(240,207,126,.15)}
+#hero .credit{position:absolute;bottom:14px;font-size:.8rem;color:rgba(250,245,232,.55)}
+
+/* ---------- TOUR LAYOUT ---------- */
+#tour{display:none;min-height:100vh;background:linear-gradient(180deg,#0b1026,#151d3d 60%,#1a2247)}
+#tour.active,#mapPage.active,#quizPage.active{display:block}
+.topbar{
+  position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:12px;
+  padding:10px 18px;background:rgba(9,13,32,.92);backdrop-filter:blur(8px);
+  border-bottom:1px solid rgba(240,207,126,.25);
+}
+.topbar .title{font-weight:800;color:var(--gold-light);font-size:1.05rem;white-space:nowrap}
+.topbar .spacer{flex:1}
+.iconBtn{
+  cursor:pointer;background:rgba(255,255,255,.07);border:1px solid rgba(240,207,126,.35);
+  color:var(--paper);border-radius:10px;padding:7px 14px;font-family:'Heebo';font-size:.9rem;font-weight:500;
+}
+.iconBtn:hover{background:rgba(240,207,126,.18)}
+
+/* progress "steps of holiness" */
+#kedusha{display:flex;align-items:center;gap:4px;direction:rtl}
+#kedusha .dot{
+  width:11px;height:11px;border-radius:50%;background:rgba(255,255,255,.15);
+  border:1px solid rgba(240,207,126,.4);cursor:pointer;transition:all .25s;
+}
+#kedusha .dot.done{background:var(--gold);box-shadow:0 0 8px rgba(212,165,49,.8)}
+#kedusha .dot.now{transform:scale(1.5);background:var(--gold-light);box-shadow:0 0 12px rgba(240,207,126,1)}
+
+.tourWrap{max-width:1080px;margin:0 auto;padding:18px 16px 90px}
+.sceneBox{
+  position:relative;border-radius:20px;overflow:hidden;
+  border:1px solid rgba(240,207,126,.35);
+  box-shadow:0 18px 60px rgba(0,0,0,.55);
+  background:#0d1330;
+}
+.sceneBox svg{display:block;width:100%;height:auto}
+.sceneCaption{
+  position:absolute;bottom:0;right:0;left:0;padding:26px 20px 12px;
+  background:linear-gradient(0deg,rgba(5,8,20,.85),transparent);
+  display:flex;align-items:flex-end;justify-content:space-between;gap:10px;
+}
+.sceneCaption .where{
+  font-size:.85rem;color:var(--gold-light);background:rgba(9,13,32,.65);
+  border:1px solid rgba(240,207,126,.45);padding:4px 12px;border-radius:99px;font-weight:500;
+}
+.stationCard{
+  margin-top:-26px;position:relative;z-index:2;
+  background:var(--paper);color:var(--ink);border-radius:20px;
+  padding:30px 30px 24px;box-shadow:0 14px 50px rgba(0,0,0,.5);
+}
+.stationCard .kicker{
+  display:inline-block;font-size:.85rem;font-weight:700;color:var(--accent);
+  background:rgba(139,47,28,.09);padding:4px 14px;border-radius:99px;margin-bottom:10px;
+}
+.stationCard h2{font-size:clamp(1.6rem,4vw,2.3rem);font-weight:900;color:#1c1608;line-height:1.25}
+.stationCard .lead{font-size:1.12rem;line-height:2;margin-top:14px;color:#3a321d}
+.stationCard .lead b{color:var(--gold-dark)}
+.factRow{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:18px}
+.fact{
+  background:var(--paper2);border:1px solid #e2d5b0;border-radius:14px;padding:12px 16px;
+}
+.fact .fl{font-size:.78rem;color:#8a7440;font-weight:700;margin-bottom:2px}
+.fact .fv{font-size:1.02rem;font-weight:700;color:#241c07}
+.sourceBox{
+  margin-top:18px;border-right:4px solid var(--gold);background:#fdf9ee;
+  padding:14px 18px;border-radius:10px;font-family:'Frank Ruhl Libre',serif;
+}
+.sourceBox .q{font-size:1.08rem;line-height:1.9;color:#2c2410}
+.sourceBox .ref{margin-top:6px;font-size:.88rem;color:#8a7440;font-family:'Heebo'}
+.dykBtn{
+  margin-top:16px;cursor:pointer;background:none;border:none;color:var(--teal);
+  font-family:'Heebo';font-weight:700;font-size:.98rem;display:flex;align-items:center;gap:6px;
+}
+.dyk{
+  display:none;margin-top:10px;background:rgba(31,111,107,.07);border:1px dashed rgba(31,111,107,.5);
+  border-radius:12px;padding:14px 18px;line-height:1.9;color:#173f3c;font-size:1rem;
+}
+.dyk.open{display:block;animation:fadeUp .35s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+.navRow{
+  display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:22px;
+}
+.navBtn{
+  cursor:pointer;flex:1;max-width:270px;border-radius:14px;padding:14px 18px;font-family:'Heebo';
+  font-weight:700;font-size:1.05rem;border:none;transition:all .15s;
+}
+.navBtn.next{background:linear-gradient(160deg,var(--gold-light),var(--gold) 60%,var(--gold-dark));color:#241a05;box-shadow:0 6px 20px rgba(212,165,49,.4)}
+.navBtn.next:hover{transform:translateY(-2px)}
+.navBtn.prev{background:rgba(255,255,255,.1);color:var(--paper);border:1px solid rgba(240,207,126,.4)}
+.navBtn.prev:hover{background:rgba(240,207,126,.15)}
+.navBtn:disabled{opacity:.35;cursor:default;transform:none!important}
+.stationCount{color:rgba(250,245,232,.7);font-size:.9rem;white-space:nowrap}
+
+/* mini map */
+.miniMapWrap{margin-top:26px;background:rgba(255,255,255,.04);border:1px solid rgba(240,207,126,.25);border-radius:18px;padding:16px}
+.miniMapWrap h3{color:var(--gold-light);font-size:1.05rem;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+.miniMapWrap .hint{font-size:.8rem;color:rgba(250,245,232,.6);font-family:'Heebo';font-weight:400}
+
+/* ---------- MAP PAGE ---------- */
+#mapPage,#quizPage{display:none;min-height:100vh;background:linear-gradient(180deg,#0b1026,#151d3d)}
+.pageWrap{max-width:1080px;margin:0 auto;padding:24px 16px 80px}
+.pageWrap h2.pageTitle{color:var(--gold-light);font-size:2rem;font-weight:900;margin-bottom:6px}
+.pageWrap .pageSub{color:rgba(250,245,232,.75);margin-bottom:18px;line-height:1.8}
+.mapBox{background:#0d1330;border:1px solid rgba(240,207,126,.35);border-radius:20px;padding:10px;box-shadow:0 18px 60px rgba(0,0,0,.5)}
+.legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.legend .li{display:flex;align-items:center;gap:6px;font-size:.85rem;color:rgba(250,245,232,.85);background:rgba(255,255,255,.05);padding:5px 12px;border-radius:99px;border:1px solid rgba(255,255,255,.1)}
+.legend .sw{width:12px;height:12px;border-radius:3px;display:inline-block}
+
+/* map svg interactivity */
+.mapArea{cursor:pointer;transition:filter .2s}
+.mapArea:hover{filter:brightness(1.25)}
+.mapLabel{font-family:'Heebo';fill:#f5ecd2;pointer-events:none}
+.mapTip{
+  position:fixed;z-index:99;background:rgba(9,13,32,.95);border:1px solid var(--gold);
+  color:var(--paper);padding:8px 14px;border-radius:10px;font-size:.88rem;pointer-events:none;
+  display:none;max-width:260px;line-height:1.6;box-shadow:0 8px 30px rgba(0,0,0,.6);
+}
+
+/* ---------- QUIZ ---------- */
+.quizCard{background:var(--paper);color:var(--ink);border-radius:20px;padding:28px;box-shadow:0 14px 50px rgba(0,0,0,.5)}
+.quizCard h3{font-size:1.35rem;color:#1c1608;margin-bottom:16px;line-height:1.6}
+.qOpt{
+  display:block;width:100%;text-align:right;cursor:pointer;margin-top:10px;padding:13px 18px;
+  border-radius:12px;border:2px solid #e2d5b0;background:#fdf9ee;font-family:'Heebo';font-size:1rem;
+  transition:all .15s;
+}
+.qOpt:hover{border-color:var(--gold);background:#fbf3da}
+.qOpt.correct{border-color:#2e7d32;background:#e8f5e9;font-weight:700}
+.qOpt.wrong{border-color:#c62828;background:#ffebee}
+.qOpt:disabled{cursor:default}
+.qProgress{font-size:.9rem;color:#8a7440;margin-bottom:8px;font-weight:500}
+.qFeedback{margin-top:14px;padding:12px 16px;border-radius:10px;line-height:1.8;display:none;font-size:.98rem}
+.qFeedback.show{display:block;animation:fadeUp .3s}
+.qFeedback.good{background:#e8f5e9;color:#1b5e20}
+.qFeedback.bad{background:#ffebee;color:#b71c1c}
+#quizResult{text-align:center;display:none}
+#quizResult .score{font-size:3.4rem;font-weight:900;color:var(--gold-dark);font-family:'Frank Ruhl Libre'}
+
+/* miracles */
+.miracles{margin-top:26px;background:rgba(255,255,255,.04);border:1px solid rgba(240,207,126,.25);border-radius:18px;padding:22px}
+.miracles h3{color:var(--gold-light);font-size:1.3rem;margin-bottom:12px}
+.miracles ol{padding-right:22px;color:rgba(250,245,232,.9);line-height:2.05;font-size:1rem}
+.miracles .src{margin-top:10px;font-size:.85rem;color:rgba(250,245,232,.55)}
+
+footer{
+  text-align:center;padding:26px 16px 34px;color:rgba(250,245,232,.55);font-size:.85rem;line-height:1.9;
+  border-top:1px solid rgba(240,207,126,.15);background:#080c1e;
+}
+footer b{color:rgba(240,207,126,.8)}
+
+/* flame + smoke animations */
+.flame{transform-origin:center bottom;animation:flick .9s infinite alternate ease-in-out}
+.flame2{transform-origin:center bottom;animation:flick 1.3s .3s infinite alternate ease-in-out}
+@keyframes flick{from{transform:scaleY(1) scaleX(1)}to{transform:scaleY(1.15) scaleX(.92)}}
+.smoke{animation:rise 7s linear infinite;opacity:0}
+@keyframes rise{0%{transform:translateY(0) scale(.6);opacity:0}15%{opacity:.5}100%{transform:translateY(-130px) scale(1.7);opacity:0}}
+.glowPulse{animation:glow 3s infinite ease-in-out}
+@keyframes glow{0%,100%{opacity:.5}50%{opacity:1}}
+.marker{animation:bob 1.6s infinite ease-in-out}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+
+@media(max-width:640px){
+  .stationCard{padding:22px 18px}
+  .navBtn{font-size:.95rem;padding:12px}
+  .topbar .title{font-size:.9rem}
+  #kedusha .dot{width:8px;height:8px}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= HERO ================= -->
+<section id="hero">
+  <div class="stars" id="starField"></div>
+  <svg id="heroTemple" viewBox="0 0 640 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <linearGradient id="hgold" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#f6dc95"/><stop offset="1" stop-color="#c1912a"/>
+      </linearGradient>
+      <linearGradient id="hstone" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#efe3c0"/><stop offset="1" stop-color="#c8b285"/>
+      </linearGradient>
+      <radialGradient id="hglow" cx=".5" cy=".45" r=".6">
+        <stop offset="0" stop-color="#f0cf7e" stop-opacity=".55"/><stop offset="1" stop-color="#f0cf7e" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <ellipse cx="320" cy="150" rx="300" ry="140" fill="url(#hglow)" class="glowPulse"/>
+    <!-- podium -->
+    <rect x="80" y="252" width="480" height="14" fill="#a08a5b"/>
+    <rect x="100" y="238" width="440" height="14" fill="#b39a67"/>
+    <rect x="120" y="224" width="400" height="14" fill="#c4ab77"/>
+    <!-- facade 100x100 -->
+    <rect x="170" y="80" width="300" height="144" fill="url(#hstone)" stroke="#8f7947" stroke-width="2"/>
+    <!-- golden crown line -->
+    <rect x="162" y="70" width="316" height="14" fill="url(#hgold)"/>
+    <g fill="url(#hgold)">
+      <rect x="170" y="58" width="10" height="14"/><rect x="196" y="58" width="10" height="14"/>
+      <rect x="222" y="58" width="10" height="14"/><rect x="248" y="58" width="10" height="14"/>
+      <rect x="274" y="58" width="10" height="14"/><rect x="300" y="58" width="10" height="14"/>
+      <rect x="326" y="58" width="10" height="14"/><rect x="352" y="58" width="10" height="14"/>
+      <rect x="378" y="58" width="10" height="14"/><rect x="404" y="58" width="10" height="14"/>
+      <rect x="430" y="58" width="10" height="14"/><rect x="456" y="58" width="10" height="14"/>
+    </g>
+    <!-- entrance -->
+    <rect x="285" y="120" width="70" height="104" fill="#3a2f14"/>
+    <rect x="285" y="120" width="70" height="10" fill="url(#hgold)"/>
+    <rect x="279" y="112" width="82" height="10" fill="url(#hgold)"/>
+    <!-- golden vine -->
+    <path d="M295 132 q25 16 50 0" stroke="#e8c15c" stroke-width="3" fill="none"/>
+    <circle cx="305" cy="138" r="3.4" fill="#e8c15c"/><circle cx="320" cy="141" r="3.4" fill="#e8c15c"/><circle cx="335" cy="138" r="3.4" fill="#e8c15c"/>
+    <!-- side pilasters -->
+    <rect x="182" y="92" width="16" height="132" fill="#d9c797" stroke="#8f7947"/>
+    <rect x="442" y="92" width="16" height="132" fill="#d9c797" stroke="#8f7947"/>
+    <rect x="214" y="100" width="12" height="124" fill="#e4d4a8"/>
+    <rect x="414" y="100" width="12" height="124" fill="#e4d4a8"/>
+    <!-- smoke from altar (right/east) -->
+    <g>
+      <circle class="smoke" cx="530" cy="215" r="12" fill="#cfd4de" style="animation-delay:0s"/>
+      <circle class="smoke" cx="536" cy="215" r="9" fill="#dde1e8" style="animation-delay:2.2s"/>
+      <circle class="smoke" cx="524" cy="215" r="10" fill="#c4cad6" style="animation-delay:4.4s"/>
+    </g>
+    <!-- altar -->
+    <path d="M495 252 h70 l-8 -34 h-54 z" fill="#b3a077" stroke="#8f7947"/>
+    <rect x="500" y="212" width="60" height="8" fill="#a08a5b"/>
+    <path class="flame" d="M523 214 q-6 -12 7 -22 q-2 10 6 14 q6 -6 4 -14 q10 12 -1 22 z" fill="#f5a623"/>
+  </svg>
+  <h1>מסע אל בית המקדש</h1>
+  <div class="sub">סיור וירטואלי בבית המקדש השני בשיא תפארתו — בעקבות עולי הרגל, משערי חולדה שבדרום ועד קודש הקודשים. על פי מסכת מידות, מסכת תמיד ומקורות חז״ל.</div>
+  <div class="verse serif">״מִי שֶׁלֹּא רָאָה בִּנְיַן הוֹרְדוֹס — לֹא רָאָה בִּנְיָן נָאֶה מִיָּמָיו״ (בבא בתרא ד ע״א)</div>
+  <div class="btnRow">
+    <button class="btn btn-gold" onclick="startTour()">🕊️ התחלת המסע</button>
+    <button class="btn btn-ghost" onclick="showMap()">🗺️ המפה הגדולה</button>
+  </div>
+  <div class="credit">סיור לימודי־חווייתי · המידות באמות על פי מסכת מידות (אמה ≈ 48 ס״מ)</div>
+</section>
+
+<!-- ================= TOUR ================= -->
+<section id="tour">
+  <div class="topbar">
+    <button class="iconBtn" onclick="goHome()">🏠 ראשי</button>
+    <div class="title">מסע אל בית המקדש</div>
+    <div class="spacer"></div>
+    <div id="kedusha" title="מעלות הקדושה — התקדמות המסע"></div>
+    <button class="iconBtn" onclick="showMap()">🗺️ מפה</button>
+  </div>
+  <div class="tourWrap">
+    <div class="sceneBox">
+      <div id="sceneHolder"></div>
+      <div class="sceneCaption"><span class="where" id="whereChip"></span></div>
+    </div>
+    <div class="stationCard">
+      <span class="kicker" id="stKicker"></span>
+      <h2 id="stTitle"></h2>
+      <div class="lead" id="stLead"></div>
+      <div class="factRow" id="stFacts"></div>
+      <div class="sourceBox" id="stSource"></div>
+      <button class="dykBtn" id="dykBtn" onclick="toggleDyk()">✨ הידעת? <span id="dykArrow">▾</span></button>
+      <div class="dyk" id="dykBox"></div>
+    </div>
+    <div class="navRow">
+      <button class="navBtn prev" id="btnPrev" onclick="move(-1)">→ התחנה הקודמת</button>
+      <span class="stationCount" id="stCount"></span>
+      <button class="navBtn next" id="btnNext" onclick="move(1)">התחנה הבאה ←</button>
+    </div>
+    <div class="miniMapWrap">
+      <h3>המיקום שלך במקדש <span class="hint">לחיצה על אזור במפה תעביר אליו</span></h3>
+      <div id="miniMap"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MAP PAGE ================= -->
+<section id="mapPage">
+  <div class="topbar">
+    <button class="iconBtn" onclick="goHome()">🏠 ראשי</button>
+    <div class="title">מפת בית המקדש — מבט־על</div>
+    <div class="spacer"></div>
+    <button class="iconBtn" onclick="startTour()">🕊️ למסע</button>
+  </div>
+  <div class="pageWrap">
+    <h2 class="pageTitle">מפת המקדש על פי מסכת מידות</h2>
+    <div class="pageSub">מבט־על סכמטי: המזרח מימין והמערב משמאל, כפי שראה אותו הנכנס בהר הבית. רחפו על אזור לפרטים, ולחצו כדי לקפוץ לתחנה במסע. הר הבית כולו — ת״ק אמה על ת״ק אמה (כ־240 מ׳).</div>
+    <div class="mapBox" id="bigMap"></div>
+    <div class="legend">
+      <span class="li"><span class="sw" style="background:#3d4a75"></span> הר הבית</span>
+      <span class="li"><span class="sw" style="background:#57648f"></span> החיל</span>
+      <span class="li"><span class="sw" style="background:#7d6b3a"></span> עזרת נשים</span>
+      <span class="li"><span class="sw" style="background:#9c8443"></span> העזרה</span>
+      <span class="li"><span class="sw" style="background:#c9a94e"></span> ההיכל</span>
+      <span class="li"><span class="sw" style="background:#e8c15c"></span> קודש הקודשים</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= QUIZ ================= -->
+<section id="quizPage">
+  <div class="topbar">
+    <button class="iconBtn" onclick="goHome()">🏠 ראשי</button>
+    <div class="title">חידון המקדש</div>
+    <div class="spacer"></div>
+    <button class="iconBtn" onclick="startTour()">🕊️ חזרה למסע</button>
+  </div>
+  <div class="pageWrap">
+    <h2 class="pageTitle">בחנו את עצמכם 🏆</h2>
+    <div class="pageSub">שמונה שאלות על מה שראינו במסע. בהצלחה!</div>
+    <div class="quizCard" id="quizCard"></div>
+    <div class="quizCard" id="quizResult">
+      <div style="font-size:1.2rem;color:#8a7440">הציון שלך</div>
+      <div class="score" id="scoreNum"></div>
+      <div id="scoreMsg" style="font-size:1.15rem;line-height:1.9;margin-top:6px"></div>
+      <div class="btnRow" style="justify-content:center">
+        <button class="btn btn-gold" onclick="startQuiz()">🔄 עוד פעם</button>
+        <button class="btn btn-ghost" style="color:#2a2416;border-color:#c9b06a" onclick="startTour()">חזרה למסע</button>
+      </div>
+    </div>
+    <div class="miracles">
+      <h3>✨ עשרה ניסים שנעשו לאבותינו בבית המקדש</h3>
+      <ol>
+        <li>לא הפילה אישה מריח בשר הקודש</li>
+        <li>לא הסריח בשר הקודש מעולם</li>
+        <li>לא נראה זבוב בבית המטבחיים</li>
+        <li>לא אירע קרי לכהן גדול ביום הכיפורים</li>
+        <li>לא כיבו הגשמים אש של עצי המערכה</li>
+        <li>לא נצחה הרוח את עמוד העשן</li>
+        <li>לא נמצא פסול בעומר, בשתי הלחם ובלחם הפנים</li>
+        <li>עומדים צפופים ומשתחווים רווחים</li>
+        <li>לא הזיק נחש ועקרב בירושלים מעולם</li>
+        <li>לא אמר אדם לחברו: צר לי המקום שאלין בירושלים</li>
+      </ol>
+      <div class="src">מסכת אבות ה, ה</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <b>מקורות עיקריים:</b> משנה, מסכת מידות · מסכת תמיד · מסכת יומא · מסכת סוכה · מסכת אבות ה, ה · בבא בתרא ד ע״א · רמב״ם הלכות בית הבחירה<br>
+  הסיור להמחשה לימודית; בפרטים שונים קיימות מחלוקות ראשונים (רש״י, רמב״ם, ראב״ד ועוד). המידות באמות; אמה ≈ 48–58 ס״מ לשיטות השונות.
+</footer>
+
+<div class="mapTip" id="mapTip"></div>
+
+<script>
+/* ============================================================
+   SVG SCENE HELPERS
+============================================================ */
+const SKY = {
+  dawn:'<linearGradient id="skyDawn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0e1533"/><stop offset=".55" stop-color="#2b3a6b"/><stop offset="1" stop-color="#c98d4b"/></linearGradient>',
+  day:'<linearGradient id="skyDay" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#274b7e"/><stop offset=".6" stop-color="#5a83b3"/><stop offset="1" stop-color="#cfd9e4"/></linearGradient>',
+  gold:'<linearGradient id="skyGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a2247"/><stop offset=".55" stop-color="#4a4a7d"/><stop offset="1" stop-color="#d9a45b"/></linearGradient>',
+  dark:'<radialGradient id="skyDark" cx=".5" cy=".6" r=".9"><stop offset="0" stop-color="#241c07"/><stop offset="1" stop-color="#07050f"/></radialGradient>'
+};
+const DEFS = `
+<defs>
+${SKY.dawn}${SKY.day}${SKY.gold}${SKY.dark}
+<linearGradient id="gStone" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#efe3c0"/><stop offset="1" stop-color="#c3ab7c"/></linearGradient>
+<linearGradient id="gStone2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e0d0a6"/><stop offset="1" stop-color="#a8946a"/></linearGradient>
+<linearGradient id="gGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6dc95"/><stop offset="1" stop-color="#b8860b"/></linearGradient>
+<linearGradient id="gCopper" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8a25c"/><stop offset="1" stop-color="#8f4f1e"/></linearGradient>
+<linearGradient id="gMarble" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4f0e4"/><stop offset=".5" stop-color="#d7d9d3"/><stop offset="1" stop-color="#eef4ee"/></linearGradient>
+<radialGradient id="gGlow" cx=".5" cy=".5" r=".55"><stop offset="0" stop-color="#f0cf7e" stop-opacity=".7"/><stop offset="1" stop-color="#f0cf7e" stop-opacity="0"/></radialGradient>
+<radialGradient id="gFire" cx=".5" cy=".8" r=".8"><stop offset="0" stop-color="#fff3c4"/><stop offset=".45" stop-color="#f5a623"/><stop offset="1" stop-color="#c0392b"/></radialGradient>
+</defs>`;
+
+function person(x,y,s=1,color='#5b4a2f'){
+  return `<g transform="translate(${x},${y}) scale(${s})">
+    <circle cx="0" cy="-30" r="7" fill="${color}"/>
+    <path d="M-9 -22 q9 -6 18 0 l3 34 q-12 5 -24 0 z" fill="${color}"/>
+  </g>`;
+}
+function crowd(cx,y,n,spread,s=1,colors=['#5b4a2f','#6e5a3a','#4a3c26','#7d6647','#59431f']){
+  let out='';
+  for(let i=0;i<n;i++){
+    const x=cx+(i-(n-1)/2)*(spread/Math.max(n-1,1))+((i*37)%11-5);
+    out+=person(x,y+((i*53)%9-4),s*(0.9+((i*29)%5)/22),colors[i%colors.length]);
+  }
+  return out;
+}
+function column(x,y,h,w=18){
+  return `<g>
+    <rect x="${x-w/2-4}" y="${y-h}" width="${w+8}" height="8" fill="#d9c797" stroke="#8f7947" stroke-width="1"/>
+    <path d="M${x-w/2-6} ${y-h+8} h${w+12} l-4 8 h-${w+4} z" fill="#cbb682"/>
+    <rect x="${x-w/2}" y="${y-h+16}" width="${w}" height="${h-24}" fill="url(#gStone)" stroke="#8f7947" stroke-width="1"/>
+    <rect x="${x-w/2+3}" y="${y-h+16}" width="3" height="${h-24}" fill="#fff" opacity=".35"/>
+    <rect x="${x-w/2-5}" y="${y-8}" width="${w+10}" height="8" fill="#b3a077" stroke="#8f7947" stroke-width="1"/>
+  </g>`;
+}
+function fire(x,y,s=1){
+  return `<g transform="translate(${x},${y}) scale(${s})">
+    <ellipse cx="0" cy="4" rx="26" ry="8" fill="url(#gFire)" opacity=".55"/>
+    <path class="flame" d="M-14 2 q-6 -22 10 -34 q-3 14 8 20 q9 -9 5 -22 q16 18 -1 36 z" fill="#f5a623"/>
+    <path class="flame2" d="M-6 2 q-3 -12 6 -19 q-1 8 5 11 q4 -5 3 -12 q9 11 -1 20 z" fill="#ffd766"/>
+  </g>`;
+}
+function smokeCol(x,y,s=1){
+  return `<g transform="translate(${x},${y}) scale(${s})">
+    <circle class="smoke" cx="0" cy="0" r="14" fill="#cfd4de" style="animation-delay:0s"/>
+    <circle class="smoke" cx="6" cy="0" r="11" fill="#dde1e8" style="animation-delay:1.8s"/>
+    <circle class="smoke" cx="-6" cy="0" r="12" fill="#c4cad6" style="animation-delay:3.6s"/>
+    <circle class="smoke" cx="2" cy="0" r="10" fill="#e6e9ee" style="animation-delay:5.2s"/>
+  </g>`;
+}
+function scene(inner,sky='skyDawn',vb='0 0 1000 460'){
+  return `<svg viewBox="${vb}" xmlns="http://www.w3.org/2000/svg" role="img">${DEFS}
+  <rect width="1000" height="460" fill="url(#${sky})"/>${inner}</svg>`;
+}
+function stars(n=40){
+  let s='';for(let i=0;i<n;i++){const x=(i*263)%1000,y=(i*97)%200;
+  s+=`<circle cx="${x}" cy="${y}" r="${1+(i%3)*0.6}" fill="#fff" opacity="${0.3+(i%5)/8}"/>`}return s;
+}
+
+/* ============================================================
+   SCENES (per station)
+============================================================ */
+const SCENES = {
+
+huldah(){ // שערי חולדה — המדרגות הדרומיות
+  let steps='';
+  for(let i=0;i<11;i++){
+    steps+=`<rect x="${80+i*8}" y="${430-i*16}" width="${840-i*16}" height="16" fill="${i%2?'#c8b285':'#d8c9a3'}" stroke="#9c8757" stroke-width=".6"/>`;
+  }
+  return scene(`
+  ${stars()}
+  <circle cx="850" cy="80" r="26" fill="#f6ecd2" opacity=".9"/>
+  <circle cx="840" cy="74" r="26" fill="url(#skyDawn)" opacity=".85"/>
+  <!-- Temple mount wall -->
+  <rect x="0" y="150" width="1000" height="130" fill="url(#gStone2)"/>
+  ${[0,1,2,3].map(r=>[...Array(10)].map((_,c)=>`<rect x="${c*104+(r%2?52:0)-52}" y="${150+r*33}" width="102" height="31" fill="none" stroke="#8f7947" stroke-width="1.4" opacity=".55"/>`).join('')).join('')}
+  <!-- Two Huldah gates -->
+  <g>
+    <path d="M330 280 v-85 a45 45 0 0 1 90 0 v85 z" fill="#2e2410"/>
+    <path d="M330 280 v-85 a45 45 0 0 1 90 0 v85" fill="none" stroke="url(#gGold)" stroke-width="7"/>
+    <path d="M580 280 v-85 a45 45 0 0 1 90 0 v85 z" fill="#2e2410"/>
+    <path d="M580 280 v-85 a45 45 0 0 1 90 0 v85" fill="none" stroke="url(#gGold)" stroke-width="7"/>
+  </g>
+  <ellipse cx="375" cy="235" rx="60" ry="70" fill="url(#gGlow)" class="glowPulse"/>
+  ${steps}
+  <!-- pilgrims ascending -->
+  ${crowd(500,395,7,340,1.05)}
+  ${crowd(380,345,5,200,.85)}
+  ${person(620,300,.7,'#6e5a3a')}${person(660,306,.72,'#4a3c26')}
+  <!-- lambs -->
+  <g transform="translate(300,398)"><ellipse cx="0" cy="0" rx="14" ry="9" fill="#efe9db"/><circle cx="13" cy="-5" r="5.5" fill="#efe9db"/><rect x="-8" y="6" width="3" height="8" fill="#bfb49c"/><rect x="5" y="6" width="3" height="8" fill="#bfb49c"/></g>
+  <g transform="translate(700,392) scale(.9)"><ellipse cx="0" cy="0" rx="14" ry="9" fill="#efe9db"/><circle cx="13" cy="-5" r="5.5" fill="#efe9db"/><rect x="-8" y="6" width="3" height="8" fill="#bfb49c"/><rect x="5" y="6" width="3" height="8" fill="#bfb49c"/></g>
+  `,'skyDawn');
+},
+
+harHabayit(){ // הר הבית והסטיו המלכותי
+  let cols='';
+  for(let i=0;i<9;i++){ cols+=column(90+i*103,330,190,22); }
+  return scene(`
+  <circle cx="140" cy="90" r="30" fill="#f9e9b0" opacity=".95"/>
+  <!-- royal stoa roof -->
+  <path d="M40 128 h920 l-26 -34 h-868 z" fill="#8f7947"/>
+  <rect x="52" y="128" width="896" height="14" fill="#b3a077"/>
+  ${cols}
+  <rect x="0" y="330" width="1000" height="130" fill="url(#gStone2)"/>
+  <rect x="0" y="330" width="1000" height="10" fill="#9c8757"/>
+  <!-- distant temple -->
+  <g transform="translate(700,150) scale(.62)" opacity=".97">
+    <rect x="0" y="120" width="300" height="160" fill="url(#gStone)" stroke="#8f7947" stroke-width="2"/>
+    <rect x="-10" y="106" width="320" height="16" fill="url(#gGold)"/>
+    <g fill="url(#gGold)">${[...Array(11)].map((_,i)=>`<rect x="${4+i*28}" y="92" width="10" height="14"/>`).join('')}</g>
+    <rect x="115" y="160" width="70" height="120" fill="#3a2f14"/>
+    <rect x="109" y="150" width="82" height="12" fill="url(#gGold)"/>
+    <ellipse cx="150" cy="118" rx="190" ry="60" fill="url(#gGlow)" class="glowPulse"/>
+  </g>
+  ${smokeCol(818,180,.9)}
+  <!-- people walking right to left (entering right, circling) -->
+  ${crowd(300,420,8,420,1.1)}
+  ${crowd(600,390,5,260,.9)}
+  ${person(150,400,1,'#7d6647')}
+  <!-- money changers table -->
+  <g transform="translate(120,352)"><rect x="-34" y="-14" width="68" height="8" fill="#7a5b2e"/><rect x="-28" y="-6" width="6" height="18" fill="#5b431f"/><rect x="22" y="-6" width="6" height="18" fill="#5b431f"/><circle cx="-10" cy="-18" r="3" fill="#e8c15c"/><circle cx="0" cy="-19" r="3" fill="#e8c15c"/><circle cx="10" cy="-18" r="3" fill="#e8c15c"/></g>
+  `,'skyDay');
+},
+
+soreg(){ // הסורג והחיל
+  let lattice='';
+  for(let i=0;i<26;i++){
+    lattice+=`<line x1="${i*44-30}" y1="352" x2="${i*44+30}" y2="272" stroke="#7a5b2e" stroke-width="7"/>
+              <line x1="${i*44+30}" y1="352" x2="${i*44-30}" y2="272" stroke="#8a683b" stroke-width="7"/>`;
+  }
+  let steps='';
+  for(let i=0;i<12;i++){
+    steps+=`<rect x="${240+i*20}" y="${268-i*9}" width="${520-i*40}" height="9" fill="${i%2?'#c8b285':'#d8c9a3'}" stroke="#9c8757" stroke-width=".5"/>`;
+  }
+  return scene(`
+  <circle cx="130" cy="80" r="28" fill="#f9e9b0" opacity=".9"/>
+  <!-- inner walls in distance -->
+  <rect x="150" y="60" width="700" height="100" fill="url(#gStone2)" opacity=".95"/>
+  <g transform="translate(430,52)"><rect x="0" y="0" width="140" height="108" fill="#3a2f14"/><rect x="-8" y="-10" width="156" height="12" fill="url(#gGold)"/></g>
+  ${steps}
+  <!-- cheil strip -->
+  <rect x="0" y="352" width="1000" height="24" fill="#cbb682"/>
+  <g>${lattice}</g>
+  <rect x="0" y="346" width="1000" height="8" fill="#6e5124"/>
+  <rect x="0" y="270" width="1000" height="8" fill="#6e5124"/>
+  <!-- warning tablet (greek inscription) -->
+  <g transform="translate(700,250)">
+    <rect x="-64" y="-38" width="128" height="76" rx="6" fill="url(#gMarble)" stroke="#8f8f85" stroke-width="2"/>
+    <text x="0" y="-14" text-anchor="middle" font-size="13" fill="#7c2d1c" font-family="serif">ΜΗΘΕΝΑ ΑΛΛΟΓΕΝΗ</text>
+    <text x="0" y="4" text-anchor="middle" font-size="13" fill="#7c2d1c" font-family="serif">ΕΙΣΠΟΡΕΥΕΣΘΑΙ</text>
+    <text x="0" y="24" text-anchor="middle" font-size="11" fill="#9c5a48" font-family="serif">— אין לנוכרי להיכנס —</text>
+  </g>
+  ${crowd(280,436,6,300,1.1)}
+  ${person(620,430,1.15,'#4a3c26')}
+  <rect x="0" y="376" width="1000" height="84" fill="url(#gStone2)"/>
+  ${crowd(500,448,5,600,1)}
+  `,'skyDay');
+},
+
+ezratNashim(){ // עזרת הנשים
+  return scene(`
+  ${stars(26)}
+  <!-- courtyard -->
+  <rect x="0" y="300" width="1000" height="160" fill="url(#gStone2)"/>
+  <!-- surrounding walls + corner chambers -->
+  <rect x="0" y="120" width="230" height="185" fill="url(#gStone)" stroke="#8f7947" stroke-width="2"/>
+  <rect x="770" y="120" width="230" height="185" fill="url(#gStone)" stroke="#8f7947" stroke-width="2"/>
+  <rect x="230" y="170" width="540" height="135" fill="#cbb682" stroke="#8f7947" stroke-width="2"/>
+  <rect x="440" y="200" width="120" height="105" fill="#3a2f14"/>
+  <rect x="432" y="190" width="136" height="12" fill="url(#gGold)"/>
+  <text x="115" y="200" text-anchor="middle" font-size="21" fill="#5b4a2f" font-family="Heebo" font-weight="700">לשכת העצים</text>
+  <text x="885" y="200" text-anchor="middle" font-size="21" fill="#5b4a2f" font-family="Heebo" font-weight="700">לשכת הנזירים</text>
+  <!-- balcony (gzuztra) -->
+  <rect x="230" y="150" width="540" height="16" fill="#7a5b2e"/>
+  ${[...Array(14)].map((_,i)=>`<rect x="${242+i*38}" y="166" width="6" height="20" fill="#6e5124"/>`).join('')}
+  <!-- four giant menorot of Beit HaShoeva -->
+  <g transform="translate(300,300)">
+    <rect x="-5" y="-130" width="10" height="130" fill="url(#gGold)"/>
+    <path d="M-38 -130 q0 -26 38 -26 q38 0 38 26" fill="none" stroke="url(#gGold)" stroke-width="9"/>
+    ${fire(-38,-136,.5)}${fire(0,-162,.55)}${fire(38,-136,.5)}
+  </g>
+  <g transform="translate(700,300)">
+    <rect x="-5" y="-130" width="10" height="130" fill="url(#gGold)"/>
+    <path d="M-38 -130 q0 -26 38 -26 q38 0 38 26" fill="none" stroke="url(#gGold)" stroke-width="9"/>
+    ${fire(-38,-136,.5)}${fire(0,-162,.55)}${fire(38,-136,.5)}
+  </g>
+  <ellipse cx="500" cy="240" rx="330" ry="120" fill="url(#gGlow)" class="glowPulse" opacity=".6"/>
+  <!-- dancers & crowd -->
+  ${crowd(500,410,9,520,1.1)}
+  ${crowd(500,360,6,380,.9)}
+  ${person(430,330,.8)}${person(560,335,.8,'#6e5a3a')}
+  `,'skyGold');
+},
+
+maalot(){ // ט"ו המעלות ושער ניקנור
+  let steps='';
+  for(let i=0;i<15;i++){
+    const w=920-i*44, y=440-i*15;
+    steps+=`<path d="M${(1000-w)/2} ${y} q${w/2} -26 ${w} 0 l0 15 q-${w/2} -26 -${w} 0 z" fill="${i%2?'#c8b285':'#dccda8'}" stroke="#9c8757" stroke-width=".8"/>`;
+  }
+  return scene(`
+  ${stars(20)}
+  <!-- Nicanor gate -->
+  <rect x="330" y="30" width="340" height="200" fill="url(#gStone)" stroke="#8f7947" stroke-width="2"/>
+  <path d="M400 230 v-105 a100 100 0 0 1 200 0 v105 z" fill="#241a05"/>
+  <path d="M400 230 v-105 a100 100 0 0 1 200 0 v105" fill="none" stroke="url(#gCopper)" stroke-width="12"/>
+  <rect x="404" y="140" width="94" height="90" fill="url(#gCopper)" opacity=".92"/>
+  <rect x="502" y="140" width="94" height="90" fill="url(#gCopper)" opacity=".92"/>
+  ${[...Array(4)].map((_,i)=>`<circle cx="${426+i*20}" cy="165" r="3.4" fill="#5c3210"/><circle cx="${426+i*20}" cy="205" r="3.4" fill="#5c3210"/><circle cx="${524+i*20}" cy="165" r="3.4" fill="#5c3210"/><circle cx="${524+i*20}" cy="205" r="3.4" fill="#5c3210"/>`).join('')}
+  <ellipse cx="500" cy="150" rx="170" ry="110" fill="url(#gGlow)" class="glowPulse" opacity=".7"/>
+  <rect x="150" y="120" width="180" height="110" fill="url(#gStone2)" stroke="#8f7947"/>
+  <rect x="670" y="120" width="180" height="110" fill="url(#gStone2)" stroke="#8f7947"/>
+  ${steps}
+  <!-- Levites with instruments on the steps -->
+  ${person(370,392,1)}${person(410,390,1,'#4a3c26')}
+  <g transform="translate(370,352)"><path d="M-8 0 q8 -18 16 0" stroke="#e8c15c" stroke-width="3" fill="none"/><line x1="-8" y1="0" x2="8" y2="0" stroke="#e8c15c" stroke-width="3"/><line x1="-5" y1="-11" x2="-5" y2="0" stroke="#e8c15c" stroke-width="1.6"/><line x1="0" y1="-13" x2="0" y2="0" stroke="#e8c15c" stroke-width="1.6"/><line x1="5" y1="-11" x2="5" y2="0" stroke="#e8c15c" stroke-width="1.6"/></g>
+  ${person(590,390,1,'#6e5a3a')}${person(630,392,1)}
+  <g transform="translate(632,354)"><circle cx="0" cy="0" r="9" fill="none" stroke="#e8c15c" stroke-width="3"/></g>
+  ${person(500,362,1.05,'#59431f')}
+  <g transform="translate(505,332)"><rect x="-2" y="-14" width="4" height="18" fill="#e8c15c" transform="rotate(35)"/></g>
+  ${crowd(500,445,7,700,1.05)}
+  `,'skyGold');
+},
+
+azara(){ // עזרת ישראל
+  return scene(`
+  <circle cx="120" cy="70" r="26" fill="#f9e9b0" opacity=".92"/>
+  <!-- Heichal in background -->
+  <g transform="translate(280,18) scale(1.05)">
+    <rect x="0" y="90" width="420" height="180" fill="url(#gStone)" stroke="#8f7947" stroke-width="2"/>
+    <rect x="-12" y="74" width="444" height="18" fill="url(#gGold)"/>
+    <g fill="url(#gGold)">${[...Array(15)].map((_,i)=>`<rect x="${4+i*28}" y="60" width="10" height="14"/>`).join('')}</g>
+    <rect x="165" y="140" width="90" height="130" fill="#241a05"/>
+    <rect x="157" y="128" width="106" height="14" fill="url(#gGold)"/>
+    <path d="M180 155 q30 18 60 0" stroke="#e8c15c" stroke-width="4" fill="none"/>
+    <circle cx="192" cy="162" r="4" fill="#e8c15c"/><circle cx="210" cy="166" r="4" fill="#e8c15c"/><circle cx="228" cy="162" r="4" fill="#e8c15c"/>
+    <ellipse cx="210" cy="140" rx="240" ry="90" fill="url(#gGlow)" class="glowPulse" opacity=".55"/>
+  </g>
+  <!-- altar to the right (east of heichal) with smoke -->
+  <g transform="translate(790,190)">
+    <path d="M-70 120 h140 l-14 -68 h-112 z" fill="#b3a077" stroke="#8f7947" stroke-width="2"/>
+    <rect x="-60" y="44" width="120" height="10" fill="#a08a5b"/>
+    <line x1="-63" y1="86" x2="63" y2="86" stroke="#8b2f1c" stroke-width="4"/>
+    ${fire(0,46,1)}
+  </g>
+  ${smokeCol(790,190,1.15)}
+  <rect x="0" y="310" width="1000" height="150" fill="url(#gStone2)"/>
+  <rect x="0" y="310" width="1000" height="9" fill="#9c8757"/>
+  <!-- Israelites section - people davening -->
+  ${crowd(430,420,10,660,1.15)}
+  ${crowd(500,375,7,520,.95,['#7d6647','#5b4a2f','#8a7450'])}
+  <!-- kohanim in white near heichal -->
+  ${person(330,352,.85,'#f2ead6')}${person(370,350,.85,'#faf5e8')}${person(660,352,.85,'#f2ead6')}
+  `,'skyDay');
+},
+
+duchan(){ // עזרת הכהנים והדוכן
+  let steps='';
+  for(let i=0;i<3;i++){
+    steps+=`<rect x="${140+i*40}" y="${372-i*22}" width="${720-i*80}" height="22" fill="${i%2?'#c8b285':'#d8c9a3'}" stroke="#9c8757" stroke-width="1"/>`;
+  }
+  return scene(`
+  <circle cx="880" cy="70" r="26" fill="#f9e9b0" opacity=".92"/>
+  <rect x="0" y="150" width="1000" height="180" fill="url(#gStone2)" opacity=".6"/>
+  <g transform="translate(300,-30) scale(1)" opacity=".9">
+    <rect x="0" y="120" width="400" height="160" fill="url(#gStone)" stroke="#8f7947" stroke-width="2"/>
+    <rect x="-10" y="106" width="420" height="15" fill="url(#gGold)"/>
+    <rect x="160" y="170" width="80" height="110" fill="#241a05"/>
+  </g>
+  ${steps}
+  <!-- Levites choir standing on duchan -->
+  ${person(310,340,1.05,'#3b3b52')}${person(360,338,1.05,'#454564')}${person(410,340,1.05,'#3b3b52')}
+  ${person(590,340,1.05,'#454564')}${person(640,338,1.05,'#3b3b52')}${person(690,340,1.05,'#454564')}
+  <!-- instruments: kinor, nevel, trumpets -->
+  <g transform="translate(315,305)"><path d="M-9 0 q9 -20 18 0" stroke="#e8c15c" stroke-width="3.4" fill="none"/><line x1="-9" y1="0" x2="9" y2="0" stroke="#e8c15c" stroke-width="3.4"/><line x1="-5" y1="-12" x2="-5" y2="0" stroke="#e8c15c" stroke-width="1.8"/><line x1="0" y1="-15" x2="0" y2="0" stroke="#e8c15c" stroke-width="1.8"/><line x1="5" y1="-12" x2="5" y2="0" stroke="#e8c15c" stroke-width="1.8"/></g>
+  <g transform="translate(645,303)"><path d="M-10 2 a12 12 0 1 1 20 0 l-4 -2 a8 8 0 1 0 -12 0 z" fill="#e8c15c"/></g>
+  <g transform="translate(500,282)">
+    ${person(0,26,1.1,'#59431f')}
+    <rect x="6" y="-8" width="26" height="4" fill="#e8c15c" transform="rotate(-28 6 -8)"/>
+    <rect x="-32" y="4" width="26" height="4" fill="#e8c15c" transform="rotate(208 -6 6)"/>
+  </g>
+  <!-- kohanim in white below, one raising hands (birkat kohanim) -->
+  ${person(180,430,1.25,'#faf5e8')}${person(240,432,1.25,'#f2ead6')}${person(760,430,1.25,'#faf5e8')}${person(820,432,1.25,'#f2ead6')}
+  ${crowd(500,445,6,360,1.1)}
+  `,'skyDay');
+},
+
+mizbeach(){ // המזבח החיצון
+  return scene(`
+  ${stars(18)}
+  <circle cx="870" cy="80" r="24" fill="#f6ecd2" opacity=".85"/>
+  <!-- big altar front view: 32x32, chut hasikra, keranot -->
+  <g transform="translate(500,120)">
+    <!-- yesod -->
+    <path d="M-330 320 h660 l-18 -40 h-624 z" fill="#a8946a" stroke="#8f7947" stroke-width="2"/>
+    <!-- body to sovev -->
+    <path d="M-312 280 h624 l-22 -130 h-580 z" fill="#b8a678" stroke="#8f7947" stroke-width="2"/>
+    <!-- sovev ledge -->
+    <rect x="-292" y="142" width="584" height="12" fill="#94805a"/>
+    <!-- upper body -->
+    <path d="M-290 142 h580 l-16 -100 h-548 z" fill="#c3ab7c" stroke="#8f7947" stroke-width="2"/>
+    <!-- chut hasikra red line -->
+    <line x1="-301" y1="212" x2="301" y2="212" stroke="#a52a1a" stroke-width="6"/>
+    <!-- keranot -->
+    <rect x="-286" y="16" width="34" height="30" fill="#b3a077" stroke="#8f7947" stroke-width="2"/>
+    <rect x="252" y="16" width="34" height="30" fill="#b3a077" stroke="#8f7947" stroke-width="2"/>
+    <!-- top line -->
+    <rect x="-274" y="34" width="548" height="10" fill="#9c8757"/>
+    <!-- maarachot fire -->
+    ${fire(-90,32,1.5)}${fire(60,34,1.1)}${fire(160,36,.8)}
+    <!-- kevesh ramp on the left (south) -->
+    <path d="M-312 280 l-260 62 h96 l182 -62 z" fill="#c8b285" stroke="#8f7947" stroke-width="2" opacity=".98"/>
+    <path d="M-330 320 l-250 22 h580 z" fill="#b3a077" opacity=".6"/>
+  </g>
+  ${smokeCol(410,120,1.5)}
+  ${smokeCol(560,130,1)}
+  <!-- kohen ascending the ramp with wood -->
+  ${person(160,428,1.15,'#faf5e8')}
+  ${person(240,415,1.1,'#f2ead6')}
+  ${person(700,442,1.2,'#faf5e8')}
+  <rect x="0" y="442" width="1000" height="18" fill="url(#gStone2)"/>
+  `,'skyDawn');
+},
+
+kiyor(){ // הכיור
+  return scene(`
+  ${stars(16)}
+  <rect x="0" y="330" width="1000" height="130" fill="url(#gStone2)"/>
+  <!-- heichal steps behind -->
+  ${[...Array(6)].map((_,i)=>`<rect x="${170+i*44}" y="${330-i*14}" width="${660-i*88}" height="14" fill="${i%2?'#c8b285':'#d8c9a3'}" stroke="#9c8757" stroke-width=".6"/>`).join('')}
+  <rect x="220" y="60" width="560" height="186" fill="url(#gStone)" stroke="#8f7947" stroke-width="2"/>
+  <rect x="208" y="46" width="584" height="16" fill="url(#gGold)"/>
+  <rect x="425" y="120" width="150" height="126" fill="#241a05"/>
+  <!-- the kiyor: large copper laver with 12 spouts on stand -->
+  <g transform="translate(500,368)">
+    <ellipse cx="0" cy="26" rx="120" ry="16" fill="#5c4526" opacity=".45"/>
+    <path d="M-96 -60 q0 66 96 66 q96 0 96 -66 q-30 14 -96 14 q-66 0 -96 -14 z" fill="url(#gCopper)" stroke="#6e3a12" stroke-width="2"/>
+    <ellipse cx="0" cy="-60" rx="96" ry="17" fill="#f0b978" stroke="#6e3a12" stroke-width="2"/>
+    <ellipse cx="0" cy="-62" rx="82" ry="12" fill="#7ec8d8" opacity=".85"/>
+    <rect x="-14" y="6" width="28" height="34" fill="url(#gCopper)" stroke="#6e3a12"/>
+    <!-- spouts -->
+    ${[-70,-42,-14,14,42,70].map(x=>`<rect x="${x-4}" y="-34" width="8" height="15" rx="3" fill="#8f4f1e"/><path d="M${x} -18 q2 12 0 22" stroke="#9fd8e8" stroke-width="3.2" fill="none" opacity=".9"/>`).join('')}
+    <ellipse cx="0" cy="10" rx="112" ry="9" fill="#7ec8d8" opacity=".28"/>
+  </g>
+  <!-- kohanim washing -->
+  ${person(340,420,1.2,'#faf5e8')}${person(660,420,1.2,'#f2ead6')}
+  ${person(240,435,1.05,'#faf5e8')}${person(760,435,1.05,'#faf5e8')}
+  <ellipse cx="500" cy="300" rx="280" ry="120" fill="url(#gGlow)" class="glowPulse" opacity=".45"/>
+  `,'skyDawn');
+},
+
+ulam(){ // האולם
+  let steps='';
+  for(let i=0;i<12;i++){
+    steps+=`<rect x="${90+i*34}" y="${450-i*11}" width="${820-i*68}" height="11" fill="${i%2?'#c8b285':'#dccda8'}" stroke="#9c8757" stroke-width=".5"/>`;
+  }
+  return scene(`
+  ${stars(22)}
+  <!-- massive facade 100x100 amot -->
+  <rect x="120" y="26" width="760" height="300" fill="url(#gStone)" stroke="#8f7947" stroke-width="3"/>
+  ${[0,1,2,3,4,5].map(r=>[...Array(8)].map((_,c)=>`<rect x="${122+c*95+(r%2?47:0)}" y="${28+r*50}" width="93" height="48" fill="none" stroke="#8f7947" stroke-width="1" opacity=".4"/>`).join('')).join('')}
+  <rect x="104" y="10" width="792" height="18" fill="url(#gGold)"/>
+  <g fill="url(#gGold)">${[...Array(23)].map((_,i)=>`<rect x="${120+i*34}" y="-4" width="12" height="14"/>`).join('')}</g>
+  <!-- huge open entrance 40x20 amot, no doors -->
+  <rect x="404" y="120" width="192" height="206" fill="#1c1408"/>
+  <rect x="392" y="106" width="216" height="16" fill="url(#gGold)"/>
+  <!-- golden vine above entrance -->
+  <path d="M420 146 q40 30 80 4 q40 -26 80 4" stroke="#e8c15c" stroke-width="5" fill="none"/>
+  ${[440,468,500,532,560].map((x,i)=>`<circle cx="${x}" cy="${152+(i%2?10:2)}" r="6" fill="#e8c15c"/><circle cx="${x+8}" cy="${160+(i%2?8:0)}" r="4.6" fill="#d9ab34"/>`).join('')}
+  <!-- inner heichal doors glimpse -->
+  <rect x="462" y="180" width="76" height="146" fill="url(#gGold)" opacity=".85"/>
+  <line x1="500" y1="180" x2="500" y2="326" stroke="#8a6410" stroke-width="3"/>
+  <ellipse cx="500" cy="210" rx="290" ry="150" fill="url(#gGlow)" class="glowPulse" opacity=".5"/>
+  ${steps}
+  ${person(300,430,1.2,'#faf5e8')}${person(660,428,1.2,'#f2ead6')}${person(500,442,1.25,'#faf5e8')}
+  `,'skyDawn');
+},
+
+kodesh(){ // הקודש: מנורה, שולחן, מזבח הזהב
+  return scene(`
+  <rect width="1000" height="460" fill="url(#skyDark)"/>
+  <!-- interior walls covered in gold -->
+  <rect x="0" y="0" width="1000" height="380" fill="#2a1f08"/>
+  <rect x="0" y="0" width="1000" height="380" fill="url(#gGold)" opacity=".14"/>
+  ${[...Array(9)].map((_,i)=>`<rect x="${i*112}" y="0" width="4" height="380" fill="#4a3a12"/>`).join('')}
+  <rect x="0" y="380" width="1000" height="80" fill="#1c1408"/>
+  <ellipse cx="500" cy="380" rx="430" ry="34" fill="#e8c15c" opacity=".08"/>
+  <!-- parochet at back -->
+  <rect x="330" y="40" width="340" height="300" fill="#3b2a4d"/>
+  <path d="M330 40 h340 v300 h-340 z" fill="none" stroke="url(#gGold)" stroke-width="5"/>
+  ${[...Array(7)].map((_,i)=>`<path d="M${352+i*45} 40 q10 150 0 300" stroke="#2a1d38" stroke-width="9" fill="none"/>`).join('')}
+  <g opacity=".8"><path d="M460 150 q20 -24 40 0 q-20 8 -40 0" fill="#c9a94e"/><path d="M540 150 q-20 -24 -40 0 q20 8 40 0" fill="#b8912e"/></g>
+  <!-- Menorah (south = left in this view? place right for RTL drama) -->
+  <g transform="translate(190,378)">
+    <ellipse cx="0" cy="2" rx="70" ry="9" fill="#000" opacity=".4"/>
+    <path d="M-16 0 h32 l-7 -18 h-18 z" fill="url(#gGold)"/>
+    <rect x="-4" y="-120" width="8" height="104" fill="url(#gGold)"/>
+    ${[1,2,3].map(i=>`<path d="M${-i*26} -120 q0 ${26+i*13} ${i*26} ${26+i*13} M${i*26} -120 q0 ${26+i*13} ${-i*26} ${26+i*13}" stroke="url(#gGold)" stroke-width="7" fill="none"/>`).join('')}
+    ${[-78,-52,-26,0,26,52,78].map(x=>`<rect x="${x-5}" y="-128" width="10" height="8" fill="#d9ab34"/>`).join('')}
+    ${[-78,-52,-26,0,26,52,78].map(x=>fire(x,-130,.34)).join('')}
+    <ellipse cx="0" cy="-120" rx="130" ry="80" fill="url(#gGlow)" class="glowPulse" opacity=".7"/>
+  </g>
+  <!-- Golden altar center -->
+  <g transform="translate(500,382)">
+    <ellipse cx="0" cy="2" rx="52" ry="8" fill="#000" opacity=".4"/>
+    <rect x="-40" y="-92" width="80" height="92" fill="url(#gGold)" stroke="#8a6410" stroke-width="2"/>
+    <rect x="-46" y="-100" width="92" height="10" fill="#e8c15c"/>
+    <rect x="-44" y="-112" width="9" height="14" fill="#d9ab34"/><rect x="35" y="-112" width="9" height="14" fill="#d9ab34"/>
+    ${smokeCol(0,-116,.55)}
+    ${fire(0,-104,.5)}
+  </g>
+  <!-- Shulchan with lechem hapanim -->
+  <g transform="translate(810,380)">
+    <ellipse cx="0" cy="2" rx="66" ry="9" fill="#000" opacity=".4"/>
+    <rect x="-60" y="-64" width="120" height="12" fill="url(#gGold)" stroke="#8a6410"/>
+    <rect x="-52" y="-52" width="10" height="52" fill="#d9ab34"/><rect x="42" y="-52" width="10" height="52" fill="#d9ab34"/>
+    ${[0,1,2,3,4,5].map(i=>`<rect x="-46" y="${-78-i*11}" width="40" height="9" rx="4" fill="#f0dcae" stroke="#c9a94e"/>`).join('')}
+    ${[0,1,2,3,4,5].map(i=>`<rect x="8" y="${-78-i*11}" width="40" height="9" rx="4" fill="#f0dcae" stroke="#c9a94e"/>`).join('')}
+  </g>
+  <!-- kohen with ketoret -->
+  ${person(390,436,1.3,'#faf5e8')}
+  `,'skyDark','0 0 1000 460');
+},
+
+kodashim(){ // קודש הקודשים
+  return scene(`
+  <rect width="1000" height="460" fill="url(#skyDark)"/>
+  <!-- two curtains with amah gap -->
+  <rect x="0" y="0" width="395" height="460" fill="#332347"/>
+  ${[...Array(5)].map((_,i)=>`<path d="M${28+i*80} 0 q12 230 0 460" stroke="#241832" stroke-width="12" fill="none"/>`).join('')}
+  <rect x="605" y="0" width="395" height="460" fill="#332347"/>
+  ${[...Array(5)].map((_,i)=>`<path d="M${633+i*80} 0 q12 230 0 460" stroke="#241832" stroke-width="12" fill="none"/>`).join('')}
+  <path d="M395 0 h8 v460 h-8 z" fill="url(#gGold)" opacity=".7"/>
+  <path d="M597 0 h8 v460 h-8 z" fill="url(#gGold)" opacity=".7"/>
+  <!-- inside: darkness and the Even HaShtiya -->
+  <rect x="403" y="0" width="194" height="460" fill="#0a0714"/>
+  <g transform="translate(500,340)">
+    <ellipse cx="0" cy="26" rx="120" ry="20" fill="#000" opacity=".5"/>
+    <path d="M-105 24 q-12 -46 28 -64 q6 -26 44 -26 q40 -4 52 22 q36 8 30 44 q10 24 -14 24 z" fill="#8f8574" stroke="#6b6152" stroke-width="3"/>
+    <path d="M-70 -18 q30 -14 80 -6 M-88 6 q60 -16 148 -2" stroke="#7a7060" stroke-width="2.4" fill="none" opacity=".8"/>
+  </g>
+  <ellipse cx="500" cy="230" rx="130" ry="200" fill="url(#gGlow)" class="glowPulse" opacity=".35"/>
+  <!-- shechina light beam -->
+  <path d="M470 0 L410 320 h180 L530 0 z" fill="#f0cf7e" opacity=".13" class="glowPulse"/>
+  <text x="500" y="120" text-anchor="middle" font-family="Frank Ruhl Libre" font-size="30" fill="#e8c15c" opacity=".9">אֶבֶן הַשְּׁתִיָּה</text>
+  <text x="500" y="152" text-anchor="middle" font-family="Heebo" font-size="15" fill="#c9b06a" opacity=".8">שֶׁמִּמֶּנָּה הֻשְׁתַּת הָעוֹלָם</text>
+  `,'skyDark');
+},
+
+finale(){ // מבט פרידה
+  return scene(`
+  ${stars(50)}
+  <circle cx="160" cy="90" r="34" fill="#f6ecd2" opacity=".95"/>
+  <!-- panoramic temple on the mount -->
+  <path d="M0 340 q250 -70 500 -60 q250 -10 500 60 v120 h-1000 z" fill="#2c2c50"/>
+  <path d="M0 372 q250 -60 500 -52 q250 -8 500 52 v88 h-1000 z" fill="#232345"/>
+  <g transform="translate(320,108) scale(.75)">
+    <rect x="-60" y="180" width="600" height="70" fill="url(#gStone2)"/>
+    <rect x="0" y="60" width="480" height="140" fill="url(#gStone)" stroke="#8f7947" stroke-width="2"/>
+    <rect x="-14" y="44" width="508" height="18" fill="url(#gGold)"/>
+    <g fill="url(#gGold)">${[...Array(16)].map((_,i)=>`<rect x="${6+i*30}" y="30" width="11" height="15"/>`).join('')}</g>
+    <rect x="195" y="110" width="90" height="90" fill="#241a05"/>
+    <rect x="187" y="98" width="106" height="13" fill="url(#gGold)"/>
+    <ellipse cx="240" cy="90" rx="330" ry="110" fill="url(#gGlow)" class="glowPulse"/>
+    ${smokeCol(560,180,1.2)}
+    <path d="M520 250 h80 l-9 -36 h-62 z" fill="#b3a077"/>
+    ${fire(560,212,.9)}
+  </g>
+  ${crowd(500,442,9,700,1.05)}
+  <text x="500" y="60" text-anchor="middle" font-family="Frank Ruhl Libre" font-size="26" fill="#f0cf7e">״וְעָשׂוּ לִי מִקְדָּשׁ וְשָׁכַנְתִּי בְּתוֹכָם״</text>
+  `,'skyGold');
+}
+};
+
+/* ============================================================
+   STATIONS DATA
+============================================================ */
+const STATIONS = [
+{
+  key:'huldah', where:'דרום הר הבית · מחוץ לחומות', kicker:'תחנה 1 · השער אל הקודש',
+  title:'שערי חולדה — העלייה אל ההר',
+  lead:`השמש עולה על ירושלים, ואתם עומדים למרגלות <b>הכותל הדרומי</b> של הר הבית, בתוך נהר אדם של עולי רגל. מדרגות רחבות — צרה ורחבה לסירוגין, כדי שאיש לא ירוץ אלא יעלה במתינות וביראה — מוליכות אל שני <b>שערי חולדה</b>. בשער הימני (המזרחי) נכנסים, ובשמאלי יוצאים. סביבכם: משפחות עם כבשי קרבן, סלי ביכורים מוזהבים, וקול המולה של רבבות שעלו לרגל.`,
+  facts:[['גודל הר הבית','ת״ק × ת״ק אמה (כ־240 מ׳)'],['שערי הדרום','שני שערי חולדה'],['כלל הכניסה','נכנסים מימין ויוצאים משמאל']],
+  source:{q:'״כָּל הַנִּכְנָסִין לְהַר הַבַּיִת נִכְנָסִין דֶּרֶךְ יָמִין, וּמַקִּיפִין וְיוֹצְאִין דֶּרֶךְ שְׂמֹאל, חוּץ מִמִּי שֶׁאֵרְעוֹ דָבָר, שֶׁהוּא מַקִּיף לִשְׂמֹאל״',ref:'משנה, מידות ב, ב'},
+  dyk:'מי שאירע לו אסון — אָבֵל או מנודה — הקיף דווקא לשמאל, וכל מי שפגש בו שאל: ״מה לך מקיף לשמאל?״ וניחם אותו: ״השוכן בבית הזה ינחמך״. כך הפך המבנה עצמו למכונת חסד — איש לא נשאר לבדו בצערו.'
+},
+{
+  key:'harHabayit', where:'הר הבית · הסטיו המלכותי', kicker:'תחנה 2 · הרחבה הגדולה',
+  title:'הר הבית והסטיו המלכותי',
+  lead:`עברתם בשער — ולפניכם נפתחת <b>רחבת ענק</b> מוקפת סטווים (שדרות עמודים מקוֹרות). בדרום מתנשא <b>הסטיו המלכותי</b> שבנה הורדוס: מאה ושישים ושתיים עמודי אבן אדירים, שכל אחד מהם — שלושה אנשים אוחזי ידיים בקושי מקיפים אותו. כאן מחליפים מעות לשקלי קודש וקונים קיני יונים. ממרחק כבר מבהיקה חזית ההיכל, ועמוד עשן דק עולה מן המזבח אל שמים.`,
+  facts:[['שטח ההר','ת״ק אמה × ת״ק אמה'],['עמודי הסטיו','162 עמודים ב־4 שורות'],['רוב שימוש ההר','מקום כינוס, שווקי קודש ולימוד']],
+  source:{q:'״מִי שֶׁלֹּא רָאָה בִּנְיַן הוֹרְדוֹס — לֹא רָאָה בִּנְיָן נָאֶה מִיָּמָיו. בְּמָה בְנָיָהּ? בְּאַבְנֵי שֵׁישָׁא וּמַרְמְרָא... דָּמֵי לְגַלֵּי יַמָּא״',ref:'בבא בתרא ד ע״א'},
+  dyk:'חכמים אמרו שאבני הבניין — שיש כחלחל, ירקרק ולבן — נראו מרחוק כ<b>גלי ים</b> נעים ברוח. הורדוס רצה לצפות הכול זהב, וחכמים אמרו לו: הנח, כך יפה יותר.'
+},
+{
+  key:'soreg', where:'בין ההר לעזרות · הסורג והחיל', kicker:'תחנה 3 · גבול הקדושה',
+  title:'הסורג והחיל — עולים במעלות הקדושה',
+  lead:`ככל שמתקרבים למרכז ההר, הקדושה עולה. אתם עוברים את <b>הסורג</b> — מחיצת שׂבכה נמוכה בגובה עשרה טפחים (כ־80 ס״מ) המקיפה את המקדש. עליה קבועים שלטי אבן ביוונית ובלטינית המזהירים נוכרים לא להיכנס פנימה. מעבר לסורג — <b>החיל</b>, רצועה ברוחב עשר אמות, ובה <b>שתים עשרה מעלות</b> המטפסות אל חומת העזרות.`,
+  facts:[['גובה הסורג','עשרה טפחים (כ־80 ס״מ)'],['רוחב החיל','10 אמות'],['מספר המעלות בחיל','12 מעלות, רום חצי אמה כל אחת']],
+  source:{q:'״לִפְנִים מִמֶּנּוּ סוֹרֵג גָּבוֹהַּ עֲשָׂרָה טְפָחִים... לִפְנִים מִמֶּנּוּ הַחֵיל עֶשֶׂר אַמּוֹת, וּשְׁתֵּים עֶשְׂרֵה מַעֲלוֹת הָיוּ שָׁם״',ref:'משנה, מידות ב, ג'},
+  dyk:'שניים משלטי האזהרה היווניים נמצאו בירושלים בעת החדשה! השלם שבהם התגלה ב־1871 ומוצג היום במוזיאון באיסטנבול: ״לא ייכנס איש נוכרי לפנים מן המחיצה... ומי שייתפס — דמו בראשו״. עדות מוחשית ומרגשת למשנה שלנו.'
+},
+{
+  key:'ezratNashim', where:'עזרת הנשים · 135×135 אמה', kicker:'תחנה 4 · חצר השמחה',
+  title:'עזרת הנשים — לב ההתכנסות',
+  lead:`נכנסתם אל חצר עצומה — <b>135 על 135 אמה</b> (כ־65 מ׳) — היא ״עזרת הנשים״, אליה נכנסים גברים ונשים כאחד. בארבע פינותיה ארבע לשכות גדולות: <b>לשכת הנזירים</b> (דרום־מזרח) שם מבשלים הנזירים את שלמיהם, <b>לשכת העצים</b> (צפון־מזרח) שם בודקים כהנים את עצי המערכה מתולעים, <b>לשכת המצורעים</b> (צפון־מערב) ו<b>לשכת בית שמניא</b> (דרום־מערב) — אוצר היין והשמן. סביב החצר — <b>גזוזטרה</b>, מרפסת שנבנתה כדי שהנשים יצפו מלמעלה בשמחת בית השואבה.`,
+  facts:[['מידות החצר','135 × 135 אמה'],['לשכות בפינות','נזירים · עצים · מצורעים · שמנים'],['אירוע השיא','שמחת בית השואבה בסוכות']],
+  source:{q:'״מִי שֶׁלֹּא רָאָה שִׂמְחַת בֵּית הַשּׁוֹאֵבָה — לֹא רָאָה שִׂמְחָה מִיָּמָיו... חֲסִידִים וְאַנְשֵׁי מַעֲשֶׂה הָיוּ מְרַקְּדִים לִפְנֵיהֶם בַּאֲבוּקוֹת שֶׁל אוֹר״',ref:'משנה, סוכה ה, א–ד'},
+  dyk:'בלילות חג הסוכות הוצבו כאן מנורות זהב ענקיות בגובה חמישים אמה, ובראשן ספלים שדלקו בפתילות מבלאי בגדי הכהונה — <b>ולא הייתה חצר בירושלים שלא האירה מאור בית השואבה</b>. רבן שמעון בן גמליאל היה מרקד כאן עם שמונה אבוקות אש!'
+},
+{
+  key:'maalot', where:'ט״ו המעלות ושער ניקנור', kicker:'תחנה 5 · שירת הלויים',
+  title:'חמש עשרה המעלות ושער ניקנור',
+  lead:`ממערב עזרת הנשים עולות <b>חמש עשרה מעלות עגולות</b> — כחצי גורן — אל שער מפואר. על המעלות הללו עמדו <b>הלויים</b> בכינורות, בנבלים, במצלתיים ובחצוצרות, ושרו את חמש עשרה <b>״שיר המעלות״</b> שבתהילים — שיר כנגד מעלה. ובראש המעלות: <b>שער ניקנור</b> ודלתות הנחושת המופלאות שלו, שנעשה להן נס בים — ולכן לא צופו זהב כשאר השערים, כי נחושתן הייתה מוזהבת מעצמה ביופיה.`,
+  facts:[['מספר המעלות','15, עגולות כחצי גורן'],['כנגד','ט״ו שירי המעלות בתהילים'],['דלתות ניקנור','נחושת קורינתית מאלכסנדריה']],
+  source:{q:'״וַחֲמֵשׁ עֶשְׂרֵה מַעֲלוֹת עוֹלוֹת מִתּוֹכָהּ לְעֶזְרַת יִשְׂרָאֵל, כְּנֶגֶד חֲמֵשׁ עֶשְׂרֵה מַעֲלוֹת שֶׁבַּתְּהִלִּים, שֶׁעֲלֵיהֶן לְוִיִּם עוֹמְדִין בַּשִּׁיר״',ref:'משנה, מידות ב, ה'},
+  dyk:'ניקנור הביא את הדלתות באונייה מאלכסנדריה של מצרים. עמד עליהם נחשול לטבעם — נטלו אחת מהן והטילוה לים, וביקשו להטיל את חברתה. חיבק אותה ניקנור ואמר: הטילוני עמה! מיד נח הים מזעפו. וכשהגיעו לנמל עכו — <b>הדלת שהוטלה צפה ועלתה מתחת דופני הספינה</b> (יומא לח ע״א).'
+},
+{
+  key:'azara', where:'עזרת ישראל · 135×11 אמה', kicker:'תחנה 6 · בתוך העזרה',
+  title:'עזרת ישראל — פנים המקדש',
+  lead:`עברתם בשער ניקנור ואתם עומדים ב<b>עזרת ישראל</b> — רצועה של 135 על 11 אמה, המקום שעד אליו רשאי כל ישראל טהור להיכנס. כאן ההמון עומד צפוף בעת העבודה, וכשמשתחווים — נעשה נס וכל אחד מוצא סביבו ארבע אמות רווחות. מכאן נגלה במלוא עוצמתו המחזה: המזבח הגדול מימין, ההיכל הנישא ממול, כהנים בבגדי לבן נעים בזריזות שקטה, וריח הקטורת באוויר.`,
+  facts:[['מידות עזרת ישראל','135 × 11 אמה'],['העזרה כולה','187 × 135 אמה'],['שערי העזרה','שבעה שערים']],
+  source:{q:'״כָּל הָעֲזָרָה הָיְתָה אֹרֶךְ מֵאָה וּשְׁמוֹנִים וָשֶׁבַע עַל רֹחַב מֵאָה שְׁלוֹשִׁים וְחָמֵשׁ... אַחַת עֶשְׂרֵה אַמָּה מְקוֹם דְּרִיסַת רַגְלֵי יִשְׂרָאֵל״',ref:'משנה, מידות ה, א'},
+  dyk:'לעזרה שבעה שערים: שלושה בצפון (שער הניצוץ, שער הקרבן, בית המוקד), שלושה בדרום (שער הדלק, שער הבכורות, שער המים) — ושער ניקנור במזרח, שדרכו נכנסתם זה עתה.'
+},
+{
+  key:'duchan', where:'עזרת הכהנים והדוכן', kicker:'תחנה 7 · המוזיקה של המקדש',
+  title:'עזרת הכהנים — הדוכן ושירת התמיד',
+  lead:`לפני עזרת ישראל, גבוהה ממנה, משתרעת <b>עזרת הכהנים</b> (גם היא 135 על 11 אמה), ובגבול שביניהן — <b>הדוכן</b>: במה בת שלוש מדרגות. עליו עומדת מקהלת הלויים, לא פחות משנים עשר משוררים, עם תשעה כינורות, שני נבלים ו<b>צלצל</b> אחד. בשעת ניסוך היין של קרבן התמיד הם פוצחים ב<b>שיר של יום</b>, שתי חצוצרות כסף מריעות, וכשמגיעים לסוף פרק — תוקעים, וכל העם משתחווה.`,
+  facts:[['הרכב מינימלי','12 לויים משוררים'],['כלי הנגינה','9 כינורות, 2 נבלים, צלצל'],['שיר של יום א׳','״לַה׳ הָאָרֶץ וּמְלוֹאָהּ״ (תהילים כד)']],
+  source:{q:'״בֶּן אַרְזָה מַקִּישׁ בַּצֶּלְצָל, וְדִבְּרוּ הַלְוִיִּם בַּשִּׁיר. הִגִּיעוּ לְפֶרֶק — תָּקְעוּ, וְהִשְׁתַּחֲווּ הָעָם. עַל כָּל פֶּרֶק תְּקִיעָה, וְעַל כָּל תְּקִיעָה הִשְׁתַּחֲוָיָה״',ref:'משנה, תמיד ז, ג'},
+  dyk:'לכל יום בשבוע היה מזמור משלו: ביום ראשון ״לַה׳ הָאָרֶץ וּמְלוֹאָהּ״, בשני ״גָּדוֹל ה׳ וּמְהֻלָּל מְאֹד״... ובשבת ״מִזְמוֹר שִׁיר לְיוֹם הַשַּׁבָּת״ — אותם מזמורים שאנו אומרים עד היום בתפילת שחרית, זכר לשירת הלויים.'
+},
+{
+  key:'mizbeach', where:'המזבח החיצון · 32×32 אמה', kicker:'תחנה 8 · לב העבודה',
+  title:'המזבח הגדול ואש התמיד',
+  lead:`לפניכם מתנשא <b>המזבח החיצון</b> — ריבוע אדיר של 32 על 32 אמה (כ־15 מ׳!) בגובה עשר אמות, בנוי אבנים שלמות <b>שלא הונף עליהן ברזל</b> מעולם. סביב אמצעו עובר <b>חוט הסקרא</b> — קו אדום המבדיל בין דמים עליונים לתחתונים. על גגו בוערות המערכות, ומעליהן מיתמר עמוד עשן ישר כתמר. מדרומו — <b>הכבש</b>, רמפה משופעת באורך 32 אמה, שבה עולים הכהנים, כי במעלות אסור לעלות למזבח.`,
+  facts:[['מידות הבסיס','32 × 32 אמה'],['הכבש','32 אמה אורך × 16 רוחב'],['אש התמיד','״אֵשׁ תָּמִיד תּוּקַד עַל הַמִּזְבֵּחַ לֹא תִכְבֶּה״']],
+  source:{q:'״הַמִּזְבֵּחַ הָיָה שְׁלֹשִׁים וּשְׁתַּיִם עַל שְׁלֹשִׁים וּשְׁתַּיִם... וְחוּט שֶׁל סִקְרָא חוֹגְרוֹ בָאֶמְצַע, לְהַבְדִּיל בֵּין הַדָּמִים הָעֶלְיוֹנִים לַדָּמִים הַתַּחְתּוֹנִים״',ref:'משנה, מידות ג, א'},
+  dyk:'אבני המזבח נחצבו מבקעת בית כרם ולוטשו בלי מגע ברזל — כי הברזל מקצר ימי אדם והמזבח מאריכם, ואין ראוי שיונף המקצר על המאריך. פעמיים בשנה מלבנים את המזבח בסיד מחדש, לקראת הפסח ולקראת החג.'
+},
+{
+  key:'kiyor', where:'בין האולם ולמזבח', kicker:'תחנה 9 · קידוש ידיים ורגליים',
+  title:'הכיור והמוכני',
+  lead:`בין המזבח לאולם, משוך מעט דרומה, ניצב <b>הכיור</b> — מכל נחושת גדול ולו <b>שנים עשר דדים</b> (ברזים), כדי ששנים עשר הכהנים העוסקים בתמיד יקדשו ידיהם ורגליהם בבת אחת. שום כהן אינו רשאי לגשת לעבודה בלי קידוש זה. לצדו <b>המוכני</b> — מתקן גלגל מחוכם שהמציא בן קטין הכהן, המשקיע את הכיור בבור מים בלילה כדי שמימיו לא ייפסלו בלינה.`,
+  facts:[['מספר הדדים','12 ברזים — לי״ב כהני התמיד'],['הממציא','בן קטין הכהן הגדול'],['החומר','נחושת — וממראות הצובאות במשכן']],
+  source:{q:'״בֶּן קָטִין עָשָׂה שְׁנֵים עָשָׂר דַּד לַכִּיּוֹר, שֶׁלֹּא הָיוּ לוֹ אֶלָּא שְׁנַיִם. וְאַף הוּא עָשָׂה מוּכְנִי לַכִּיּוֹר, שֶׁלֹּא יִהְיוּ מֵימָיו נִפְסָלִין בְּלִינָה״',ref:'משנה, יומא ג, י'},
+  dyk:'המשנה משמרת את שמות ״עושי החסד״ של המקדש לצד מבקריה: בן קטין וכיורו נזכרים לשבח לדורות — כך לימדונו חכמים שגם שיפור טכני קטן בעבודת הקודש הוא נצח.'
+},
+{
+  key:'ulam', where:'האולם · חזית 100×100 אמה', kicker:'תחנה 10 · בשער הבית',
+  title:'האולם — שער ההיכל',
+  lead:`שתים עשרה מעלות אחרונות — ואתם תחת <b>חזית ענק של מאה על מאה אמה</b> (כ־48 מ׳ — כבניין בן 16 קומות!). פתח האולם, גובהו ארבעים אמה ורוחבו עשרים, <b>ואין לו דלתות</b> — פתוח תמיד. מעל פתח ההיכל שבפנים מתנוססת <b>גפן הזהב</b> המפורסמת: כל המתנדב עלה, גרגיר או אשכול — תולים בה, וכבר נצטרפו לה שלוש מאות כהנים לפנותה מרוב כובדה. מן הפתח נשקפות דלתות הזהב של ההיכל.`,
+  facts:[['חזית האולם','100 × 100 אמה'],['פתח האולם','גובה 40 × רוחב 20 אמה, בלי דלתות'],['גפן הזהב','תרומות זהב תלויות על כלונסות']],
+  source:{q:'״וְגֶפֶן שֶׁל זָהָב הָיְתָה עוֹמֶדֶת עַל פִּתְחוֹ שֶׁל הֵיכָל, וּמֻדְלָה עַל גַּבֵּי כְלוֹנְסוֹת. כָּל מִי שֶׁהוּא מִתְנַדֵּב עָלֶה אוֹ גַרְגִּיר אוֹ אֶשְׁכּוֹל — מֵבִיא וְתוֹלֶה בָהּ״',ref:'משנה, מידות ג, ח'},
+  dyk:'על גג ההיכל הותקן ״<b>כַּלֵּה עוֹרֵב</b>״ — טס זהב משונן שמנע מעורבים לנחות על הבית. ובכל בוקר, כשהשמש זרחה על טסי הזהב של החזית, היה הברק מסנוור עיניים עד שנאלצו להביט הצידה.'
+},
+{
+  key:'kodesh', where:'ההיכל · הקודש · 40×20 אמה', kicker:'תחנה 11 · בקודש פנימה',
+  title:'הקודש — המנורה, השולחן ומזבח הזהב',
+  lead:`רק כהני המשמר נכנסים הנה, אך במסענו נציץ פנימה בעיני רוחנו. אולם מוזהב, ארבעים אמה אורכו — ובו שלושה כלים: בדרום <b>מנורת הזהב</b> בת שבעת הקנים, זהב טהור מקשה אחת; בצפון <b>שולחן לחם הפנים</b> ועליו שתים עשרה חלות בשתי מערכות, טריות בנס משבת לשבת; ובאמצע, משוך כלפי חוץ, <b>מזבח הקטורת</b> — עליו מקטיר כהן קטורת בכל בוקר ובין הערביים. בקצה — <b>הפרוכת</b>.`,
+  facts:[['מידות הקודש','40 × 20 אמה, גובה 40'],['המנורה','דרום · השולחן — צפון · מזבח הזהב — באמצע'],['נר מערבי','דולק תמיד — עדות שהשכינה שורה בישראל']],
+  source:{q:'״שֻׁלְחָן בַּצָּפוֹן... וּמְנוֹרָה בַּדָּרוֹם... מִזְבַּח הַזָּהָב הָיָה בְאֶמְצַע הַבַּיִת, מְכֻוָּן בֵּין הַקֹּדֶשׁ... עָלָיו הָיוּ מַקְטִירִים קְטֹרֶת בְּכָל יוֹם״',ref:'רמב״ם, הלכות בית הבחירה א, ז (ע״פ יומא לג)'},
+  dyk:'הקטורת נעשתה מאחד עשר סממנים על פי מסורת בית אבטינס, שידעו סוד ״מעלה עשן״ — צמח שגרם לעשן לעלות <b>ישר כמקל</b> ולא להתפזר. ריחה היה מגיע עד יריחו, ועיזים בירושלים היו מתעטשות ממנו!'
+},
+{
+  key:'kodashim', where:'קודש הקודשים · 20×20 אמה', kicker:'תחנה 12 · המקום המקודש בעולם',
+  title:'קודש הקודשים ואבן השתייה',
+  lead:`מעבר לשתי פרוכות (ואמה ביניהן — ״אמה טרקסין״) שוכן החדר המקודש בעולם: <b>קודש הקודשים</b>, עשרים על עשרים אמה. בבית שני אין בו דבר — הארון נגנז — מלבד <b>אבן השתייה</b>, סלע המתרומם שלוש אצבעות מן הקרקע, שממנו, אומרים חכמים, <b>הושתת העולם</b>. רק אדם אחד נכנס לכאן, יום אחד בשנה: <b>הכהן הגדול ביום הכיפורים</b>, ובידו מחתת גחלים וכף קטורת. דממה. גם אנחנו נעמוד בחוץ, בראש מורכן.`,
+  facts:[['מידות','20 × 20 אמה'],['בתוכו','אבן השתייה בלבד (בבית שני)'],['הנכנס היחיד','כהן גדול, ביום הכיפורים בלבד']],
+  source:{q:'״מִשֶּׁנִּטַּל הָאָרוֹן, אֶבֶן הָיְתָה שָׁם מִימוֹת נְבִיאִים רִאשׁוֹנִים, וּשְׁתִיָּה הָיְתָה נִקְרֵאת, גְּבוֹהָה מִן הָאָרֶץ שָׁלֹשׁ אֶצְבָּעוֹת, וְעָלֶיהָ הָיָה נוֹתֵן [אֶת הַמַּחְתָּה]״',ref:'משנה, יומא ה, ב'},
+  dyk:'תפילה קצרה התפלל הכהן הגדול בצאתו בשלום: שתהא השנה גשומה ומבורכת, ״ולא ייכנסו לפניך תפילת עוברי דרכים״ — שלא תישמע תפילת הולכי הדרכים המבקשים שייפסק הגשם... תפילה של אחריות על כלל העולם.'
+},
+{
+  key:'finale', where:'מבט אחרון מן ההר', kicker:'תחנה 13 · סוף המסע',
+  title:'צאת המסע — ״שאלו שלום ירושלים״',
+  lead:`המסע תם. אתם יוצאים כדרך שנכנסתם — דרך שמאל, פנים אל הקודש — כי <b>אין פונים עורף למקדש</b>. מאחוריכם נותרות חצרות שוקקות, שירת לויים, עשן מערכה וריח קטורת. חכמים מנו <b>עשרה ניסים</b> שנעשו במקדש דבר יום ביומו, ועולי הרגל נשאו איתם הביתה את הזיכרון הזה כל השנה. רוצים לבדוק מה זכרתם מן הדרך? עברו לחידון — או פִּתחו את המפה הגדולה למבט־על אחרון.`,
+  facts:[['סדר היציאה','דרך שמאל, בלי לפנות עורף'],['שלוש רגלים','פסח · שבועות · סוכות'],['מצוות הראייה','״יֵרָאֶה כָּל זְכוּרְךָ אֶת פְּנֵי ה׳״']],
+  source:{q:'״עֲשָׂרָה נִסִּים נַעֲשׂוּ לַאֲבוֹתֵינוּ בְּבֵית הַמִּקְדָּשׁ... עוֹמְדִים צְפוּפִים וּמִשְׁתַּחֲוִים רְוָחִים, וְלֹא אָמַר אָדָם לַחֲבֵרוֹ: צַר לִי הַמָּקוֹם שֶׁאָלִין בִּירוּשָׁלָיִם״',ref:'משנה, אבות ה, ה'},
+  dyk:'האמה שבה מדדנו את כל המסע — כ־48 ס״מ (ויש אומרים עד 58 ס״מ). נסו לתרגם: המזבח לבדו — כמגרש כדורסל בגובהו של בית שלוש קומות; חזית ההיכל — כבניין בן 16 קומות מצופה זהב. ״מי שלא ראה — לא ראה בניין נאה מימיו.״',
+  final:true
+}
+];
+
+/* ============================================================
+   MAP (top view) — shared by mini & big
+============================================================ */
+const MAP_STATIONS = {
+  huldah:{x:640,y:565},harHabayit:{x:800,y:470},soreg:{x:868,y:300},
+  ezratNashim:{x:700,y:300},maalot:{x:592,y:300},azara:{x:552,y:300},
+  duchan:{x:512,y:300},mizbeach:{x:432,y:322},kiyor:{x:346,y:268},
+  ulam:{x:308,y:300},kodesh:{x:250,y:300},kodashim:{x:170,y:300},finale:{x:640,y:565}
+};
+function buildMapSVG(interactive,currentKey){
+  const cur=MAP_STATIONS[currentKey]||null;
+  const area=(x,y,w,h,fill,key,label,fs=15,stroke='#8f7947')=>{
+    const attrs=interactive?`class="mapArea" data-key="${key}" data-label="${label}"`:'';
+    return `<g ${attrs}><rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${fill}" stroke="${stroke}" stroke-width="1.6"/></g>`;
+  };
+  let s=`<svg viewBox="0 0 1000 620" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block">
+  <defs>
+    <linearGradient id="mGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6dc95"/><stop offset="1" stop-color="#b8860b"/></linearGradient>
+  </defs>
+  <rect width="1000" height="620" fill="#101736"/>
+  <!-- Har HaBayit 500x500 -->
+  <rect x="40" y="40" width="920" height="540" fill="#3d4a75" stroke="#57648f" stroke-width="3"/>
+  <text class="mapLabel" x="500" y="72" text-anchor="middle" font-size="19" font-weight="700" opacity=".9">הַר הַבַּיִת — ת״ק אמה על ת״ק אמה</text>
+  <!-- royal stoa south -->
+  <rect x="44" y="536" width="912" height="40" fill="#2c3760"/>
+  <text class="mapLabel" x="500" y="562" text-anchor="middle" font-size="14" opacity=".8">הסטיו המלכותי</text>
+  ${[...Array(20)].map((_,i)=>`<circle cx="${78+i*46}" cy="547" r="4" fill="#57648f"/>`).join('')}
+  <!-- cheil band around inner complex -->
+  <rect x="96" y="180" width="850" height="240" fill="#57648f" stroke="#7482b3" stroke-width="2" rx="4"/>
+  <text class="mapLabel" x="920" y="205" text-anchor="middle" font-size="13" opacity=".85">החיל והסורג</text>
+  <!-- Ezrat Nashim 135x135 -->
+  ${area(630,166,270,270,'#7d6b3a','ezratNashim','עזרת הנשים — 135×135 אמה')}
+  <text class="mapLabel" x="765" y="295" text-anchor="middle" font-size="17" font-weight="700">עזרת הנשים</text>
+  <text class="mapLabel" x="765" y="318" text-anchor="middle" font-size="12" opacity=".8">135 × 135 אמה</text>
+  <!-- 4 lishkot -->
+  ${[[634,170,'לשכת\nהמצורעים'],[830,170,'לשכת\nהעצים'],[634,370,'לשכת\nהשמנים'],[830,370,'לשכת\nהנזירים']].map(([x,y,t])=>{
+    const [a,b]=t.split('\n');
+    return `<rect x="${x}" y="${y}" width="66" height="62" fill="#6b5a2c" stroke="#8f7947"/><text class="mapLabel" x="${x+33}" y="${y+28}" text-anchor="middle" font-size="10.5">${a}</text><text class="mapLabel" x="${x+33}" y="${y+43}" text-anchor="middle" font-size="10.5">${b}</text>`;
+  }).join('')}
+  <!-- 15 steps -->
+  ${[...Array(5)].map((_,i)=>`<path d="M ${612-i*5} 262 a ${40+i*9} ${40+i*9} 0 0 1 0 76" fill="none" stroke="#c9b06a" stroke-width="2.4"/>`).join('')}
+  <!-- Azara 187x135 -->
+  ${area(104,166,506,270,'#9c8443','azara','העזרה — 187×135 אמה')}
+  <!-- ezrat israel strip -->
+  ${area(588,166,22,270,'#ab923f','azara','עזרת ישראל — רוחב 11 אמה')}
+  <text class="mapLabel" x="599" y="300" text-anchor="middle" font-size="11.5" transform="rotate(-90 599 300)">עזרת ישראל</text>
+  ${area(566,166,22,270,'#b59a3d','duchan','עזרת הכהנים והדוכן — רוחב 11 אמה')}
+  <text class="mapLabel" x="577" y="300" text-anchor="middle" font-size="11.5" transform="rotate(-90 577 300)">עזרת הכהנים</text>
+  <!-- Nicanor gate -->
+  <rect x="602" y="284" width="24" height="34" fill="url(#mGold)" ${interactive?`class="mapArea" data-key="maalot" data-label="שער ניקנור וט״ו המעלות"`:''}/>
+  <text class="mapLabel" x="614" y="270" text-anchor="middle" font-size="11.5">שער ניקנור</text>
+  <!-- Mizbeach -->
+  ${area(400,262,78,78,'#8a683b','mizbeach','המזבח החיצון — 32×32 אמה')}
+  <text class="mapLabel" x="439" y="296" text-anchor="middle" font-size="12" font-weight="700">המזבח</text>
+  <text class="mapLabel" x="439" y="312" text-anchor="middle" font-size="10" opacity=".8">32×32</text>
+  <rect x="411" y="340" width="56" height="66" fill="#77592f" stroke="#8f7947" ${interactive?`class="mapArea" data-key="mizbeach" data-label="הכבש — 32×16 אמה, מדרום למזבח"`:''}/>
+  <text class="mapLabel" x="439" y="378" text-anchor="middle" font-size="11">הכבש</text>
+  <!-- kiyor -->
+  <circle cx="346" cy="248" r="12" fill="#e8a25c" stroke="#8f4f1e" stroke-width="2" ${interactive?`class="mapArea" data-key="kiyor" data-label="הכיור — קידוש ידיים ורגליים"`:''}/>
+  <text class="mapLabel" x="346" y="228" text-anchor="middle" font-size="11">הכיור</text>
+  <!-- Heichal complex -->
+  ${area(120,192,240,218,'#c9a94e','ulam','בית ההיכל — 100×100 אמה')}
+  <!-- ulam strip -->
+  ${area(334,192,26,218,'#d9bb60','ulam','האולם — רוחב 11 אמה')}
+  <text class="mapLabel" x="347" y="300" text-anchor="middle" font-size="12" transform="rotate(-90 347 300)" fill="#241a05">האולם</text>
+  <!-- kodesh -->
+  ${area(216,252,118,98,'#e0c264','kodesh','הקודש — 40×20 אמה: מנורה, שולחן, מזבח הזהב')}
+  <text class="mapLabel" x="275" y="296" text-anchor="middle" font-size="12.5" fill="#241a05" font-weight="700">הקודש</text>
+  <!-- kelim -->
+  <circle cx="300" cy="322" r="6" fill="#8a6410" ${interactive?`class="mapArea" data-key="kodesh" data-label="המנורה — בדרום"`:''}/>
+  <rect x="294" y="272" width="12" height="8" fill="#8a6410" ${interactive?`class="mapArea" data-key="kodesh" data-label="שולחן לחם הפנים — בצפון"`:''}/>
+  <rect x="264" y="294" width="10" height="10" fill="#8a6410" ${interactive?`class="mapArea" data-key="kodesh" data-label="מזבח הקטורת — באמצע"`:''}/>
+  <!-- kodesh hakodashim -->
+  ${area(144,252,64,98,'#e8c15c','kodashim','קודש הקודשים — 20×20 אמה, ובו אבן השתייה')}
+  <text class="mapLabel" x="176" y="294" text-anchor="middle" font-size="11" fill="#241a05" font-weight="700">קודש</text>
+  <text class="mapLabel" x="176" y="310" text-anchor="middle" font-size="11" fill="#241a05" font-weight="700">הקודשים</text>
+  <!-- gates around azara -->
+  ${[[200,160,'שער הניצוץ'],[330,160,'שער הקרבן'],[460,160,'בית המוקד'],[200,442,'שער הדלק'],[330,442,'שער הבכורות'],[460,442,'שער המים']].map(([x,y,t])=>
+    `<rect x="${x-13}" y="${y-4}" width="26" height="12" fill="#c9b06a"/><text class="mapLabel" x="${x}" y="${y<300?y-12:y+26}" text-anchor="middle" font-size="10.5" opacity=".85">${t}</text>`).join('')}
+  <!-- huldah gates -->
+  <g ${interactive?`class="mapArea" data-key="huldah" data-label="שערי חולדה — הכניסה הראשית מדרום"`:''}>
+    <rect x="600" y="570" width="34" height="16" fill="url(#mGold)"/><rect x="648" y="570" width="34" height="16" fill="url(#mGold)"/>
+  </g>
+  <text class="mapLabel" x="641" y="605" text-anchor="middle" font-size="12">שערי חולדה</text>
+  <!-- compass -->
+  <g transform="translate(70,105)"><circle r="26" fill="rgba(255,255,255,.06)" stroke="#57648f"/><path d="M0 -20 L6 4 L0 0 L-6 4 Z" fill="#f0cf7e"/><text class="mapLabel" x="0" y="-32" text-anchor="middle" font-size="13">צפון</text><text class="mapLabel" x="52" y="4" text-anchor="middle" font-size="12" opacity=".8">מזרח →</text></g>`;
+  if(cur){
+    s+=`<g class="marker" transform="translate(${cur.x},${cur.y})">
+      <circle r="13" fill="#f0cf7e" opacity=".35"/><circle r="7" fill="#f5a623" stroke="#fff" stroke-width="2.4"/>
+      <path d="M0 -22 l6 9 h-12 z" fill="#f5a623"/></g>`;
+  }
+  s+='</svg>';
+  return s;
+}
+
+/* ============================================================
+   QUIZ DATA
+============================================================ */
+const QUIZ=[
+ {q:'מה היו מידותיו של הר הבית לפי המשנה?',opts:['ת״ק אמה על ת״ק אמה','מאה אמה על מאה אמה','אלף אמה על אלף אמה','135 אמה על 135 אמה'],a:0,exp:'משנה מידות ב, א: ״הר הבית היה חמש מאות אמה על חמש מאות אמה״ — כ־240 מטר.'},
+ {q:'כיצד נכנסו והקיפו הבאים להר הבית?',opts:['נכנסים מימין ויוצאים משמאל','נכנסים משמאל ויוצאים מימין','כל אחד כרצונו','דרך שער ניקנור בלבד'],a:0,exp:'״כל הנכנסין להר הבית נכנסין דרך ימין ומקיפין ויוצאין דרך שמאל״ — חוץ מאבל ומנודה, שהקיפו לשמאל כדי שינחמו אותם.'},
+ {q:'כנגד מה נקבעו ט״ו המעלות שבין עזרת נשים לעזרת ישראל?',opts:['ט״ו שירי המעלות שבתהילים','ט״ו ימי חודש ניסן','ט״ו סוגי הקרבנות','גובה החומה באמות'],a:0,exp:'עליהן עמדו הלויים בשיר — מעלה כנגד כל ״שיר המעלות״ שבתהילים (מידות ב, ה).'},
+ {q:'מדוע לא צופו דלתות שער ניקנור זהב?',opts:['מפני הנס שנעשה בהן בים','כי לא היה די זהב','כי ניקנור סירב','כדי שלא ייגנבו'],a:0,exp:'נעשה להן נס בים — הדלת שהוטלה לגלים צפה ועלתה בנמל עכו — ״שנחושתן מוצהבת הייתה״ (יומא לח ע״א).'},
+ {q:'מה תפקיד ״חוט הסקרא״ שעל המזבח?',opts:['להבדיל בין דמים עליונים לתחתונים','לסמן את גובה האש','לקשט את המזבח','למדוד את גשמי השנה'],a:0,exp:'קו אדום שחגר את אמצע המזבח: דם חטאת נזרק למעלה ממנו, ודם עולה ושלמים — למטה (מידות ג, א).'},
+ {q:'מי עשה לכיור שנים עשר דדים (ברזים)?',opts:['בן קטין','ניקנור','הורדוס','בן ארזה'],a:0,exp:'בן קטין — כדי שי״ב הכהנים העוסקים בתמיד יקדשו ידיהם ורגליהם כאחת. הוא גם התקין את המוכני (יומא ג, י).'},
+ {q:'אילו כלים עמדו בקודש (ההיכל), ומה מקומם?',opts:['מנורה בדרום, שולחן בצפון, מזבח הזהב באמצע','ארון באמצע, מנורה בצפון','מנורה בצפון, שולחן בדרום','כיור ומזבח אבן'],a:0,exp:'המנורה בדרום, שולחן לחם הפנים בצפון, ומזבח הקטורת ביניהם, משוך כלפי חוץ.'},
+ {q:'מה היה בקודש הקודשים בימי הבית השני?',opts:['אבן השתייה בלבד','ארון הברית','המנורה','שולחן הזהב'],a:0,exp:'הארון נגנז בסוף ימי בית ראשון. ״משניטל הארון — אבן הייתה שם... ושתיה הייתה נקראת״ (יומא ה, ב).'}
+];
+
+/* ============================================================
+   APP LOGIC
+============================================================ */
+let cur=0, quizIdx=0, quizScore=0;
+const $=id=>document.getElementById(id);
+
+function switchPage(id){
+  ['hero','tour','mapPage','quizPage'].forEach(p=>{
+    const el=$(p);
+    if(p===id){el.style.display='block'}
+    else{el.style.display='none'}
+  });
+  window.scrollTo({top:0});
+}
+function goHome(){switchPage('hero')}
+function startTour(){switchPage('tour');render()}
+function showMap(){switchPage('mapPage');renderBigMap()}
+function showQuiz(){switchPage('quizPage');startQuiz()}
+
+function render(){
+  const st=STATIONS[cur];
+  $('sceneHolder').innerHTML=SCENES[st.key]();
+  $('whereChip').textContent='📍 '+st.where;
+  $('stKicker').textContent=st.kicker;
+  $('stTitle').textContent=st.title;
+  $('stLead').innerHTML=st.lead;
+  $('stFacts').innerHTML=st.facts.map(f=>`<div class="fact"><div class="fl">${f[0]}</div><div class="fv">${f[1]}</div></div>`).join('');
+  $('stSource').innerHTML=`<div class="q">${st.source.q}</div><div class="ref">— ${st.source.ref}</div>`;
+  $('dykBox').innerHTML=st.dyk; $('dykBox').classList.remove('open'); $('dykArrow').textContent='▾';
+  $('btnPrev').disabled=cur===0;
+  $('btnNext').textContent=st.final?'🏆 אל החידון':'התחנה הבאה ←';
+  $('stCount').textContent=`תחנה ${cur+1} מתוך ${STATIONS.length}`;
+  // kedusha dots
+  $('kedusha').innerHTML=STATIONS.map((s,i)=>`<span class="dot ${i<cur?'done':''} ${i===cur?'now':''}" title="${s.title}" onclick="jump(${i})"></span>`).join('');
+  // minimap
+  $('miniMap').innerHTML=buildMapSVG(true,st.key);
+  bindMapAreas($('miniMap'));
+}
+function move(d){
+  if(d>0&&STATIONS[cur].final){showQuiz();return}
+  cur=Math.max(0,Math.min(STATIONS.length-1,cur+d));
+  render();
+}
+function jump(i){cur=i;render();switchPage('tour')}
+function toggleDyk(){
+  const b=$('dykBox');b.classList.toggle('open');
+  $('dykArrow').textContent=b.classList.contains('open')?'▴':'▾';
+}
+
+/* map interactivity */
+const tip=$('mapTip');
+function bindMapAreas(root){
+  root.querySelectorAll('.mapArea').forEach(el=>{
+    el.addEventListener('mousemove',e=>{
+      tip.style.display='block';
+      tip.textContent=el.dataset.label;
+      tip.style.left=Math.min(e.clientX+14,window.innerWidth-260)+'px';
+      tip.style.top=(e.clientY+14)+'px';
+    });
+    el.addEventListener('mouseleave',()=>tip.style.display='none');
+    el.addEventListener('click',()=>{
+      tip.style.display='none';
+      const key=el.dataset.key;
+      const i=STATIONS.findIndex(s=>s.key===key);
+      if(i>=0){jump(i)}
+    });
+  });
+}
+function renderBigMap(){
+  $('bigMap').innerHTML=buildMapSVG(true,STATIONS[cur].key);
+  bindMapAreas($('bigMap'));
+}
+
+/* quiz */
+function startQuiz(){
+  quizIdx=0;quizScore=0;
+  $('quizResult').style.display='none';
+  $('quizCard').style.display='block';
+  renderQuiz();
+}
+function renderQuiz(){
+  const q=QUIZ[quizIdx];
+  // shuffle options while tracking answer
+  const order=q.opts.map((_,i)=>i).sort(()=>Math.random()-.5);
+  $('quizCard').innerHTML=`
+    <div class="qProgress">שאלה ${quizIdx+1} מתוך ${QUIZ.length} · ניקוד: ${quizScore}</div>
+    <h3>${q.q}</h3>
+    ${order.map(i=>`<button class="qOpt" data-i="${i}" onclick="answer(this,${i===q.a?1:0})">${q.opts[i]}</button>`).join('')}
+    <div class="qFeedback" id="qFb"></div>`;
+}
+function answer(btn,correct){
+  const q=QUIZ[quizIdx];
+  document.querySelectorAll('.qOpt').forEach(b=>{
+    b.disabled=true;
+    if(+b.dataset.i===q.a)b.classList.add('correct');
+  });
+  if(correct){quizScore++;}else{btn.classList.add('wrong')}
+  const fb=$('qFb');
+  fb.className='qFeedback show '+(correct?'good':'bad');
+  fb.innerHTML=(correct?'✅ נכון! ':'❌ לא בדיוק. ')+q.exp+
+    `<div style="margin-top:10px"><button class="btn btn-gold" style="padding:9px 26px;font-size:.95rem" onclick="nextQ()">${quizIdx<QUIZ.length-1?'לשאלה הבאה ←':'לתוצאה 🏁'}</button></div>`;
+}
+function nextQ(){
+  quizIdx++;
+  if(quizIdx<QUIZ.length){renderQuiz()}
+  else{
+    $('quizCard').style.display='none';
+    $('quizResult').style.display='block';
+    $('scoreNum').textContent=`${quizScore} / ${QUIZ.length}`;
+    const msgs=[
+      [8,'מושלם! ראויים אתם להיות מורי דרך במקדש 🏆'],
+      [6,'כל הכבוד! עוד סיבוב אחד במסע ותהיו מומחים 🌟'],
+      [4,'יפה מאוד — שווה לעבור שוב על התחנות ולנסות שוב 💪'],
+      [0,'המסע ארוך והדרך רבה — חִזרו לטיול ונסו שוב! 🕊️']
+    ];
+    $('scoreMsg').textContent=msgs.find(m=>quizScore>=m[0])[1];
+  }
+}
+
+/* keyboard nav */
+document.addEventListener('keydown',e=>{
+  if($('tour').style.display!=='block')return;
+  if(e.key==='ArrowLeft')move(1);   // RTL: left = forward
+  if(e.key==='ArrowRight')move(-1);
+});
+
+/* hero stars */
+(function(){
+  const f=$('starField');let h='';
+  for(let i=0;i<70;i++){
+    h+=`<span class="star" style="left:${(i*137)%100}%;top:${(i*61)%60}%;width:${1+(i%3)}px;height:${1+(i%3)}px;animation-delay:${(i%50)/10}s"></span>`;
+  }
+  f.innerHTML=h;
+})();
+
+/* initial page state */
+switchPage('hero');
+</script>
+</body>
+</html>
