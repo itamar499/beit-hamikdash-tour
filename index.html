@@ -99,13 +99,15 @@ h1,h2,h3,.serif{font-family:'Frank Ruhl Libre',serif}
 }
 .sceneBox svg{display:block;width:100%;height:auto}
 .sceneCaption{
-  position:absolute;bottom:0;right:0;left:0;padding:26px 20px 12px;
-  background:linear-gradient(0deg,rgba(5,8,20,.85),transparent);
-  display:flex;align-items:flex-end;justify-content:space-between;gap:10px;
+  position:absolute;top:0;right:0;left:0;padding:12px 16px 30px;
+  background:linear-gradient(180deg,rgba(5,8,20,.8),transparent);
+  display:flex;align-items:flex-start;justify-content:flex-start;gap:10px;
+  pointer-events:none;
 }
 .sceneCaption .where{
-  font-size:.85rem;color:var(--gold-light);background:rgba(9,13,32,.65);
-  border:1px solid rgba(240,207,126,.45);padding:4px 12px;border-radius:99px;font-weight:500;
+  font-size:.85rem;color:var(--gold-light);background:rgba(9,13,32,.72);
+  border:1px solid rgba(240,207,126,.45);padding:5px 13px;border-radius:99px;font-weight:500;
+  max-width:calc(100% - 8px);line-height:1.5;
 }
 .stationCard{
   margin-top:-26px;position:relative;z-index:2;
