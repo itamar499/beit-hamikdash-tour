@@ -225,6 +225,9 @@ footer b{color:rgba(240,207,126,.8)}
 @keyframes glow{0%,100%{opacity:.5}50%{opacity:1}}
 .marker{animation:bob 1.6s infinite ease-in-out}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.ember{animation:emberUp 2.6s ease-out infinite}
+@keyframes emberUp{0%{transform:translateY(0);opacity:.95}70%{opacity:.5}100%{transform:translateY(-120px);opacity:0}}
+.mote{animation:twinkle 3.5s infinite ease-in-out}
 
 @media(max-width:640px){
   .stationCard{padding:22px 18px}
@@ -251,51 +254,58 @@ footer b{color:rgba(240,207,126,.8)}
   <svg id="heroTemple" viewBox="0 0 640 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <defs>
       <linearGradient id="hgold" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#f6dc95"/><stop offset="1" stop-color="#c1912a"/>
-      </linearGradient>
-      <linearGradient id="hstone" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#efe3c0"/><stop offset="1" stop-color="#c8b285"/>
+        <stop offset="0" stop-color="#fff0b8"/><stop offset=".45" stop-color="#e8c15c"/><stop offset="1" stop-color="#9a7015"/>
       </linearGradient>
       <radialGradient id="hglow" cx=".5" cy=".45" r=".6">
         <stop offset="0" stop-color="#f0cf7e" stop-opacity=".55"/><stop offset="1" stop-color="#f0cf7e" stop-opacity="0"/>
       </radialGradient>
+      <linearGradient id="hshadow" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#000" stop-opacity=".8"/><stop offset="1" stop-color="#241a05" stop-opacity=".25"/>
+      </linearGradient>
+      <pattern id="hashlar" width="56" height="24" patternUnits="userSpaceOnUse">
+        <rect width="56" height="24" fill="#cdb98c"/>
+        <rect x=".8" y=".8" width="26" height="10.5" fill="#dbc99d" stroke="#a78d5e" stroke-width=".9"/>
+        <rect x="28.8" y=".8" width="26" height="10.5" fill="#d4c093" stroke="#a78d5e" stroke-width=".9"/>
+        <rect x="-13.2" y="12.8" width="26" height="10.5" fill="#d7c396" stroke="#a78d5e" stroke-width=".9"/>
+        <rect x="14.8" y="12.8" width="26" height="10.5" fill="#decca1" stroke="#a78d5e" stroke-width=".9"/>
+        <rect x="42.8" y="12.8" width="26" height="10.5" fill="#d4c093" stroke="#a78d5e" stroke-width=".9"/>
+      </pattern>
     </defs>
     <ellipse cx="320" cy="150" rx="300" ry="140" fill="url(#hglow)" class="glowPulse"/>
+    <!-- hills -->
+    <path d="M0 262 Q150 226 320 244 T640 238 V300 H0 Z" fill="#2c3358" opacity=".55"/>
     <!-- podium -->
-    <rect x="80" y="252" width="480" height="14" fill="#a08a5b"/>
-    <rect x="100" y="238" width="440" height="14" fill="#b39a67"/>
-    <rect x="120" y="224" width="400" height="14" fill="#c4ab77"/>
-    <!-- facade 100x100 -->
-    <rect x="170" y="80" width="300" height="144" fill="url(#hstone)" stroke="#8f7947" stroke-width="2"/>
-    <!-- golden crown line -->
+    <rect x="80" y="252" width="480" height="14" fill="#a08a5b"/><rect x="80" y="252" width="480" height="3" fill="#e9dab0" opacity=".8"/>
+    <rect x="100" y="238" width="440" height="14" fill="#b39a67"/><rect x="100" y="238" width="440" height="3" fill="#eeddb2" opacity=".8"/>
+    <rect x="120" y="224" width="400" height="14" fill="#c4ab77"/><rect x="120" y="224" width="400" height="3" fill="#f2e3ba" opacity=".8"/>
+    <!-- facade -->
+    <rect x="170" y="80" width="300" height="144" fill="url(#hashlar)" stroke="#8f7947" stroke-width="2"/>
+    <rect x="170" y="80" width="300" height="144" fill="#fff" opacity=".07"/>
+    <rect x="186" y="92" width="14" height="132" fill="#e7d7ab" stroke="#a78d5e" stroke-width="1"/>
+    <rect x="440" y="92" width="14" height="132" fill="#e7d7ab" stroke="#a78d5e" stroke-width="1"/>
+    <rect x="216" y="100" width="11" height="124" fill="#e2d2a5" stroke="#a78d5e" stroke-width=".8"/>
+    <rect x="413" y="100" width="11" height="124" fill="#e2d2a5" stroke="#a78d5e" stroke-width=".8"/>
+    <!-- golden crown + spikes -->
     <rect x="162" y="70" width="316" height="14" fill="url(#hgold)"/>
     <g fill="url(#hgold)">
-      <rect x="170" y="58" width="10" height="14"/><rect x="196" y="58" width="10" height="14"/>
-      <rect x="222" y="58" width="10" height="14"/><rect x="248" y="58" width="10" height="14"/>
-      <rect x="274" y="58" width="10" height="14"/><rect x="300" y="58" width="10" height="14"/>
-      <rect x="326" y="58" width="10" height="14"/><rect x="352" y="58" width="10" height="14"/>
-      <rect x="378" y="58" width="10" height="14"/><rect x="404" y="58" width="10" height="14"/>
-      <rect x="430" y="58" width="10" height="14"/><rect x="456" y="58" width="10" height="14"/>
+      <path d="M170 70 l5.5 -13 5.5 13 z"/><path d="M196 70 l5.5 -13 5.5 13 z"/><path d="M222 70 l5.5 -13 5.5 13 z"/>
+      <path d="M248 70 l5.5 -13 5.5 13 z"/><path d="M274 70 l5.5 -13 5.5 13 z"/><path d="M300 70 l5.5 -13 5.5 13 z"/>
+      <path d="M326 70 l5.5 -13 5.5 13 z"/><path d="M352 70 l5.5 -13 5.5 13 z"/><path d="M378 70 l5.5 -13 5.5 13 z"/>
+      <path d="M404 70 l5.5 -13 5.5 13 z"/><path d="M430 70 l5.5 -13 5.5 13 z"/><path d="M456 70 l5.5 -13 5.5 13 z"/>
     </g>
     <!-- entrance -->
-    <rect x="285" y="120" width="70" height="104" fill="#3a2f14"/>
-    <rect x="285" y="120" width="70" height="10" fill="url(#hgold)"/>
+    <rect x="285" y="120" width="70" height="104" fill="url(#hshadow)"/>
     <rect x="279" y="112" width="82" height="10" fill="url(#hgold)"/>
-    <!-- golden vine -->
-    <path d="M295 132 q25 16 50 0" stroke="#e8c15c" stroke-width="3" fill="none"/>
-    <circle cx="305" cy="138" r="3.4" fill="#e8c15c"/><circle cx="320" cy="141" r="3.4" fill="#e8c15c"/><circle cx="335" cy="138" r="3.4" fill="#e8c15c"/>
-    <!-- side pilasters -->
-    <rect x="182" y="92" width="16" height="132" fill="#d9c797" stroke="#8f7947"/>
-    <rect x="442" y="92" width="16" height="132" fill="#d9c797" stroke="#8f7947"/>
-    <rect x="214" y="100" width="12" height="124" fill="#e4d4a8"/>
-    <rect x="414" y="100" width="12" height="124" fill="#e4d4a8"/>
-    <!-- smoke from altar (right/east) -->
+    <path d="M295 132 q16 12 30 4 q14 -8 30 4" stroke="#eec95e" stroke-width="3" fill="none"/>
+    <circle cx="305" cy="140" r="3" fill="#eec95e"/><circle cx="320" cy="142" r="3" fill="#dfb545"/><circle cx="335" cy="140" r="3" fill="#eec95e"/>
+    <rect x="306" y="152" width="28" height="72" fill="url(#hgold)" opacity=".85"/>
+    <line x1="320" y1="152" x2="320" y2="224" stroke="#8a6410" stroke-width="2"/>
+    <!-- altar + smoke -->
     <g>
       <circle class="smoke" cx="530" cy="215" r="12" fill="#cfd4de" style="animation-delay:0s"/>
       <circle class="smoke" cx="536" cy="215" r="9" fill="#dde1e8" style="animation-delay:2.2s"/>
       <circle class="smoke" cx="524" cy="215" r="10" fill="#c4cad6" style="animation-delay:4.4s"/>
     </g>
-    <!-- altar -->
     <path d="M495 252 h70 l-8 -34 h-54 z" fill="#b3a077" stroke="#8f7947"/>
     <rect x="500" y="212" width="60" height="8" fill="#a08a5b"/>
     <path class="flame" d="M523 214 q-6 -12 7 -22 q-2 10 6 14 q6 -6 4 -14 q10 12 -1 22 z" fill="#f5a623"/>
@@ -417,486 +427,717 @@ footer b{color:rgba(240,207,126,.8)}
 
 <script>
 /* ============================================================
-   SVG SCENE HELPERS
+   SVG SCENE FOUNDATION — gradients, textures, atmosphere
 ============================================================ */
 const SKY = {
-  dawn:'<linearGradient id="skyDawn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0e1533"/><stop offset=".55" stop-color="#2b3a6b"/><stop offset="1" stop-color="#c98d4b"/></linearGradient>',
-  day:'<linearGradient id="skyDay" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#274b7e"/><stop offset=".6" stop-color="#5a83b3"/><stop offset="1" stop-color="#cfd9e4"/></linearGradient>',
-  gold:'<linearGradient id="skyGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a2247"/><stop offset=".55" stop-color="#4a4a7d"/><stop offset="1" stop-color="#d9a45b"/></linearGradient>',
-  dark:'<radialGradient id="skyDark" cx=".5" cy=".6" r=".9"><stop offset="0" stop-color="#241c07"/><stop offset="1" stop-color="#07050f"/></radialGradient>'
+  dawn:`<linearGradient id="skyDawn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#070b21"/><stop offset=".35" stop-color="#1c2a55"/><stop offset=".62" stop-color="#41528c"/><stop offset=".82" stop-color="#9c6b4e"/><stop offset="1" stop-color="#e8b165"/></linearGradient>`,
+  day:`<linearGradient id="skyDay" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1d3f74"/><stop offset=".45" stop-color="#4776ad"/><stop offset=".78" stop-color="#8fb4d4"/><stop offset="1" stop-color="#e3d9c2"/></linearGradient>`,
+  gold:`<linearGradient id="skyGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#131a3d"/><stop offset=".4" stop-color="#3d3f76"/><stop offset=".72" stop-color="#8c5f74"/><stop offset="1" stop-color="#e89a55"/></linearGradient>`,
+  dark:`<radialGradient id="skyDark" cx=".5" cy=".62" r=".95"><stop offset="0" stop-color="#2b2109"/><stop offset=".55" stop-color="#140f1e"/><stop offset="1" stop-color="#05040c"/></radialGradient>`
 };
 const DEFS = `
 <defs>
 ${SKY.dawn}${SKY.day}${SKY.gold}${SKY.dark}
-<linearGradient id="gStone" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#efe3c0"/><stop offset="1" stop-color="#c3ab7c"/></linearGradient>
-<linearGradient id="gStone2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e0d0a6"/><stop offset="1" stop-color="#a8946a"/></linearGradient>
-<linearGradient id="gGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6dc95"/><stop offset="1" stop-color="#b8860b"/></linearGradient>
-<linearGradient id="gCopper" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8a25c"/><stop offset="1" stop-color="#8f4f1e"/></linearGradient>
-<linearGradient id="gMarble" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4f0e4"/><stop offset=".5" stop-color="#d7d9d3"/><stop offset="1" stop-color="#eef4ee"/></linearGradient>
-<radialGradient id="gGlow" cx=".5" cy=".5" r=".55"><stop offset="0" stop-color="#f0cf7e" stop-opacity=".7"/><stop offset="1" stop-color="#f0cf7e" stop-opacity="0"/></radialGradient>
+<linearGradient id="gStone" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f2e7c4"/><stop offset=".5" stop-color="#d9c69a"/><stop offset="1" stop-color="#b39a6b"/></linearGradient>
+<linearGradient id="gStone2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#dfcda1"/><stop offset="1" stop-color="#9c855c"/></linearGradient>
+<linearGradient id="gCol" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f4e9c6"/><stop offset=".45" stop-color="#d6c295"/><stop offset="1" stop-color="#96805a"/></linearGradient>
+<linearGradient id="gGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff0b8"/><stop offset=".25" stop-color="#f0d078"/><stop offset=".55" stop-color="#c8992f"/><stop offset=".8" stop-color="#a37414"/><stop offset="1" stop-color="#d4ab4a"/></linearGradient>
+<linearGradient id="gCopper" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4b876"/><stop offset=".4" stop-color="#c97e3d"/><stop offset=".75" stop-color="#8a4a1c"/><stop offset="1" stop-color="#6b3814"/></linearGradient>
+<linearGradient id="gCopperSheen" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#ffe2b0" stop-opacity=".45"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<linearGradient id="gMarble" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6f2e6"/><stop offset=".5" stop-color="#dcded8"/><stop offset="1" stop-color="#eef2ea"/></linearGradient>
+<linearGradient id="gWater" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfeef7"/><stop offset="1" stop-color="#6fb2ca"/></linearGradient>
+<linearGradient id="gDoorShadow" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".78"/><stop offset="1" stop-color="#241a05" stop-opacity=".22"/></linearGradient>
+<radialGradient id="gGlow"><stop offset="0" stop-color="#ffe9a8" stop-opacity=".6"/><stop offset=".55" stop-color="#f0cf7e" stop-opacity=".26"/><stop offset="1" stop-color="#f0cf7e" stop-opacity="0"/></radialGradient>
+<radialGradient id="gGlowFire"><stop offset="0" stop-color="#ffd27a" stop-opacity=".8"/><stop offset=".5" stop-color="#ff9c3a" stop-opacity=".32"/><stop offset="1" stop-color="#ff9c3a" stop-opacity="0"/></radialGradient>
+<radialGradient id="gSmoke"><stop offset="0" stop-color="#d9dde8" stop-opacity=".55"/><stop offset="1" stop-color="#d9dde8" stop-opacity="0"/></radialGradient>
+<radialGradient id="gSun"><stop offset="0" stop-color="#fff4d0"/><stop offset=".35" stop-color="#ffd98a" stop-opacity=".9"/><stop offset="1" stop-color="#ffb85c" stop-opacity="0"/></radialGradient>
 <radialGradient id="gFire" cx=".5" cy=".8" r=".8"><stop offset="0" stop-color="#fff3c4"/><stop offset=".45" stop-color="#f5a623"/><stop offset="1" stop-color="#c0392b"/></radialGradient>
+<radialGradient id="vig" cx="50%" cy="40%" r="78%"><stop offset=".6" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#060a18" stop-opacity=".52"/></radialGradient>
+<pattern id="ashlar" width="112" height="46" patternUnits="userSpaceOnUse">
+  <rect width="112" height="46" fill="#c9b384"/>
+  <rect x="1" y="1" width="54" height="21" fill="#d8c496" stroke="#a78d5e" stroke-width="1.6"/>
+  <rect x="57" y="1" width="54" height="21" fill="#d2bd8f" stroke="#a78d5e" stroke-width="1.6"/>
+  <rect x="-27" y="24" width="54" height="21" fill="#d5c092" stroke="#a78d5e" stroke-width="1.6"/>
+  <rect x="29" y="24" width="54" height="21" fill="#dbc79a" stroke="#a78d5e" stroke-width="1.6"/>
+  <rect x="85" y="24" width="54" height="21" fill="#d2bd8f" stroke="#a78d5e" stroke-width="1.6"/>
+  <rect x="5" y="4" width="46" height="5" fill="#e9dab0" opacity=".65"/>
+  <rect x="61" y="4" width="46" height="5" fill="#e9dab0" opacity=".65"/>
+  <rect x="33" y="27" width="46" height="5" fill="#e9dab0" opacity=".65"/>
+</pattern>
+<pattern id="pave" width="84" height="36" patternUnits="userSpaceOnUse">
+  <rect width="84" height="36" fill="#c6b183"/>
+  <path d="M0 .8 H84 M0 18.8 H84" stroke="#a58b5d" stroke-width="1.6" opacity=".55"/>
+  <path d="M22 .8 V18.8 M64 18.8 V36.8 M42 .8 V18.8 M8 18.8 V36.8" stroke="#a58b5d" stroke-width="1.3" opacity=".45"/>
+  <rect x="2" y="2" width="18" height="4" fill="#dbc99d" opacity=".5"/>
+  <rect x="46" y="20" width="16" height="4" fill="#dbc99d" opacity=".5"/>
+</pattern>
 </defs>`;
 
-function person(x,y,s=1,color='#5b4a2f'){
-  return `<g transform="translate(${x},${y}) scale(${s})">
-    <circle cx="0" cy="-30" r="7" fill="${color}"/>
-    <path d="M-9 -22 q9 -6 18 0 l3 34 q-12 5 -24 0 z" fill="${color}"/>
+/* ---------- atmosphere & architecture helpers ---------- */
+function scene(inner,sky='skyDawn'){
+  return `<svg viewBox="0 0 1000 460" xmlns="http://www.w3.org/2000/svg" role="img">${DEFS}
+  <rect width="1000" height="460" fill="url(#${sky})"/>${inner}
+  <rect width="1000" height="460" fill="url(#vig)"/></svg>`;
+}
+function stars(n=40){
+  let s='';for(let i=0;i<n;i++){const x=(i*263)%1000,y=(i*97)%190;
+  s+=`<circle class="mote" cx="${x}" cy="${y}" r="${0.9+(i%3)*0.6}" fill="#fff" opacity="${0.3+(i%5)/9}" style="animation-delay:${(i%7)*0.5}s"/>`}return s;
+}
+function sun(x,y,r=90){
+  return `<circle cx="${x}" cy="${y}" r="${r}" fill="url(#gSun)"/><circle cx="${x}" cy="${y}" r="${r*0.26}" fill="#fff6da"/>`;
+}
+function hills(y=250){
+  return `<path d="M0 ${y} Q140 ${y-46} 300 ${y-18} T620 ${y-32} T1000 ${y-8} V460 H0 Z" fill="#4a5382" opacity=".5"/>
+  <path d="M0 ${y+32} Q200 ${y-8} 430 ${y+20} T1000 ${y+24} V460 H0 Z" fill="#39406b" opacity=".65"/>`;
+}
+function city(y=316,op=1){
+  let out='';
+  for(let i=0;i<16;i++){
+    const x=i*64+((i*37)%18)-10, w=44+((i*23)%26), h=22+((i*41)%36);
+    out+=`<rect x="${x}" y="${y-h}" width="${w}" height="${h}" fill="#2e2f52"/>`;
+    if(i%3===0) out+=`<path d="M${x+w/2-11} ${y-h} a11 11 0 0 1 22 0 z" fill="#262747"/>`;
+    if(i%2===0) out+=`<circle cx="${x+9+(i%5)*6}" cy="${y-h+11}" r="1.7" fill="#f5c96a" opacity=".85"/>`;
+  }
+  return `<g opacity="${op}">${out}</g>`;
+}
+function tree(x,y,s=1){
+  return `<g transform="translate(${x},${y}) scale(${s})" opacity=".92">
+    <path d="M-3 0 Q-6 -16 -2 -30 L2 -30 Q5 -14 3 0 Z" fill="#3a3323"/>
+    <ellipse cx="-14" cy="-36" rx="16" ry="10" fill="#4a5236"/>
+    <ellipse cx="11" cy="-44" rx="19" ry="12" fill="#556043"/>
+    <ellipse cx="-1" cy="-33" rx="14" ry="9" fill="#49543a"/>
   </g>`;
 }
-function crowd(cx,y,n,spread,s=1,colors=['#5b4a2f','#6e5a3a','#4a3c26','#7d6647','#59431f']){
-  let out='';
-  for(let i=0;i<n;i++){
-    const x=cx+(i-(n-1)/2)*(spread/Math.max(n-1,1))+((i*37)%11-5);
-    out+=person(x,y+((i*53)%9-4),s*(0.9+((i*29)%5)/22),colors[i%colors.length]);
-  }
-  return out;
-}
-function column(x,y,h,w=18){
+function column(x,y,h,w=20){
+  const t=y-h;
   return `<g>
-    <rect x="${x-w/2-4}" y="${y-h}" width="${w+8}" height="8" fill="#d9c797" stroke="#8f7947" stroke-width="1"/>
-    <path d="M${x-w/2-6} ${y-h+8} h${w+12} l-4 8 h-${w+4} z" fill="#cbb682"/>
-    <rect x="${x-w/2}" y="${y-h+16}" width="${w}" height="${h-24}" fill="url(#gStone)" stroke="#8f7947" stroke-width="1"/>
-    <rect x="${x-w/2+3}" y="${y-h+16}" width="3" height="${h-24}" fill="#fff" opacity=".35"/>
-    <rect x="${x-w/2-5}" y="${y-8}" width="${w+10}" height="8" fill="#b3a077" stroke="#8f7947" stroke-width="1"/>
+    <rect x="${x-w*0.95}" y="${t}" width="${w*1.9}" height="7" fill="#e5d5a8" stroke="#8a7148" stroke-width="1"/>
+    <path d="M${x-w*0.8} ${t+7} h${w*1.6} l-${w*0.35} 9 h-${w*0.9} z" fill="#cdb98c"/>
+    <rect x="${x-w/2}" y="${t+16}" width="${w}" height="${h-30}" fill="url(#gCol)"/>
+    <line x1="${x-w*0.18}" y1="${t+18}" x2="${x-w*0.18}" y2="${y-14}" stroke="#8a7148" stroke-width="1" opacity=".3"/>
+    <line x1="${x+w*0.14}" y1="${t+18}" x2="${x+w*0.14}" y2="${y-14}" stroke="#8a7148" stroke-width="1" opacity=".2"/>
+    <rect x="${x-w*0.7}" y="${y-14}" width="${w*1.4}" height="7" fill="#cdb98c"/>
+    <rect x="${x-w*0.85}" y="${y-7}" width="${w*1.7}" height="7" fill="#b39a6b" stroke="#8a7148" stroke-width="1"/>
   </g>`;
 }
 function fire(x,y,s=1){
   return `<g transform="translate(${x},${y}) scale(${s})">
-    <ellipse cx="0" cy="4" rx="26" ry="8" fill="url(#gFire)" opacity=".55"/>
-    <path class="flame" d="M-14 2 q-6 -22 10 -34 q-3 14 8 20 q9 -9 5 -22 q16 18 -1 36 z" fill="#f5a623"/>
-    <path class="flame2" d="M-6 2 q-3 -12 6 -19 q-1 8 5 11 q4 -5 3 -12 q9 11 -1 20 z" fill="#ffd766"/>
+    <ellipse cx="0" cy="-8" rx="30" ry="22" fill="url(#gGlowFire)"/>
+    <path class="flame" d="M-16 2 C-20 -14 -12 -26 2 -38 C-2 -26 6 -22 10 -14 C14 -20 13 -26 10 -32 C22 -20 20 -6 12 2 Z" fill="#e2711d"/>
+    <path class="flame2" d="M-9 2 C-12 -8 -6 -18 1 -24 C-1 -16 4 -13 6 -8 C8 -12 8 -16 6 -19 C13 -10 10 -2 6 2 Z" fill="#f9a825"/>
+    <path class="flame" d="M-4 2 C-5 -4 -2 -10 1 -13 C1 -8 3 -7 4 -4 C6 -7 5 -9 5 -11 C8 -5 6 0 3 2 Z" fill="#ffe082"/>
   </g>`;
 }
 function smokeCol(x,y,s=1){
   return `<g transform="translate(${x},${y}) scale(${s})">
-    <circle class="smoke" cx="0" cy="0" r="14" fill="#cfd4de" style="animation-delay:0s"/>
-    <circle class="smoke" cx="6" cy="0" r="11" fill="#dde1e8" style="animation-delay:1.8s"/>
-    <circle class="smoke" cx="-6" cy="0" r="12" fill="#c4cad6" style="animation-delay:3.6s"/>
-    <circle class="smoke" cx="2" cy="0" r="10" fill="#e6e9ee" style="animation-delay:5.2s"/>
+    <circle class="smoke" cx="0" cy="0" r="16" fill="url(#gSmoke)" style="animation-delay:0s"/>
+    <circle class="smoke" cx="7" cy="0" r="13" fill="url(#gSmoke)" style="animation-delay:1.8s"/>
+    <circle class="smoke" cx="-7" cy="0" r="14" fill="url(#gSmoke)" style="animation-delay:3.6s"/>
+    <circle class="smoke" cx="3" cy="0" r="12" fill="url(#gSmoke)" style="animation-delay:5.2s"/>
   </g>`;
 }
-function scene(inner,sky='skyDawn',vb='0 0 1000 460'){
-  return `<svg viewBox="${vb}" xmlns="http://www.w3.org/2000/svg" role="img">${DEFS}
-  <rect width="1000" height="460" fill="url(#${sky})"/>${inner}</svg>`;
+function embers(x,y,n=6){
+  let out='';
+  for(let i=0;i<n;i++){
+    out+=`<circle class="ember" cx="${x+((i*17)%44)-22}" cy="${y}" r="${1.5+(i%3)*0.7}" fill="#ffb340" style="animation-delay:${(i*0.47).toFixed(2)}s"/>`;
+  }
+  return out;
 }
-function stars(n=40){
-  let s='';for(let i=0;i<n;i++){const x=(i*263)%1000,y=(i*97)%200;
-  s+=`<circle cx="${x}" cy="${y}" r="${1+(i%3)*0.6}" fill="#fff" opacity="${0.3+(i%5)/8}"/>`}return s;
+function lamb(x,y,s=1){
+  return `<g transform="translate(${x},${y}) scale(${s})">
+    <ellipse cx="0" cy="6" rx="13" ry="3" fill="#000" opacity=".2"/>
+    <ellipse cx="0" cy="-8" rx="13" ry="8" fill="#efe9da"/>
+    <circle cx="12" cy="-13" r="5" fill="#e6dfcf"/>
+    <circle cx="14.5" cy="-14" r="1" fill="#2a2416"/>
+    <path d="M10 -19 q-3 -4 1 -6" stroke="#cfc6b2" stroke-width="2" fill="none"/>
+    <rect x="-8" y="-2" width="2.6" height="8" fill="#b8ad94"/><rect x="-2" y="-2" width="2.6" height="8" fill="#b8ad94"/>
+    <rect x="4" y="-2" width="2.6" height="8" fill="#b8ad94"/><rect x="9" y="-2" width="2.6" height="8" fill="#b8ad94"/>
+  </g>`;
+}
+function dove(x,y,s=1){
+  return `<g transform="translate(${x},${y}) scale(${s})" fill="#ece6d6" opacity=".92">
+    <path d="M0 0 q7 -8 14 0 q-7 -2.5 -14 0"/>
+  </g>`;
+}
+/* detailed Heichal facade — local coords: 0..480 wide, baseline y=280 */
+function heichalFacade(){
+  return `<g>
+    <ellipse cx="240" cy="130" rx="330" ry="130" fill="url(#gGlow)"/>
+    <rect x="0" y="60" width="480" height="220" fill="url(#ashlar)" stroke="#8a7148" stroke-width="2.5"/>
+    <rect x="0" y="60" width="480" height="220" fill="#fff" opacity=".08"/>
+    ${[26,120,340,434].map(px=>`<rect x="${px}" y="76" width="20" height="204" fill="#e7d7ab" stroke="#8a7148" stroke-width="1.2"/><rect x="${px-3}" y="70" width="26" height="8" fill="#cdb98c"/>`).join('')}
+    <rect x="-10" y="52" width="500" height="10" fill="#b39a6b"/>
+    <rect x="-14" y="36" width="508" height="16" fill="url(#gGold)"/>
+    <g fill="url(#gGold)">${[...Array(24)].map((_,i)=>`<path d="M${2+i*20} 36 l5 -13 5 13 z"/>`).join('')}</g>
+    <rect x="192" y="130" width="96" height="150" fill="url(#gDoorShadow)"/>
+    <rect x="184" y="118" width="112" height="14" fill="url(#gGold)"/>
+    <path d="M200 146 q20 16 40 4 q20 -12 40 4" stroke="#eec95e" stroke-width="4" fill="none"/>
+    ${[212,232,252,268].map((gx,i)=>`<circle cx="${gx}" cy="${152+(i%2?7:1)}" r="4.4" fill="#eec95e"/>`).join('')}
+    <rect x="216" y="170" width="48" height="110" fill="url(#gGold)" opacity=".9"/>
+    <line x1="240" y1="170" x2="240" y2="280" stroke="#8a6410" stroke-width="2.5"/>
+  </g>`;
 }
 
 /* ============================================================
-   SCENES (per station)
+   SCENES — 13 illustrated stations (architecture, light, fire)
 ============================================================ */
 const SCENES = {
 
 huldah(){ // שערי חולדה — המדרגות הדרומיות
   let steps='';
   for(let i=0;i<11;i++){
-    steps+=`<rect x="${80+i*8}" y="${430-i*16}" width="${840-i*16}" height="16" fill="${i%2?'#c8b285':'#d8c9a3'}" stroke="#9c8757" stroke-width=".6"/>`;
+    const y=430-i*16, x=84+i*8, w=832-i*16;
+    steps+=`<rect x="${x}" y="${y}" width="${w}" height="16" fill="${i%2?'#c3ad7e':'#d6c396'}"/>
+    <rect x="${x}" y="${y}" width="${w}" height="3" fill="#efe2bb" opacity=".85"/>
+    <rect x="${x}" y="${y+13}" width="${w}" height="3" fill="#8a7148" opacity=".3"/>`;
   }
+  const gate=(cx,lit)=>`
+    <path d="M${cx-58} 282 v-92 a58 58 0 0 1 116 0 v92 z" fill="#5c4a28"/>
+    <path d="M${cx-50} 282 v-88 a50 50 0 0 1 100 0 v88 z" fill="#3a2d14"/>
+    <path d="M${cx-58} 282 v-92 a58 58 0 0 1 116 0 v92" fill="none" stroke="#8a7148" stroke-width="5"/>
+    <path d="M${cx-50} 282 v-88 a50 50 0 0 1 100 0 v88" fill="none" stroke="url(#gGold)" stroke-width="6"/>
+    <path d="M${cx-7} 166 l7 -14 7 14 z" fill="#e7d7ab"/>
+    ${lit?`<path d="M${cx-42} 282 v-82 a42 42 0 0 1 84 0 v82 z" fill="#f5c96a" opacity=".26"/>`
+    :`<rect x="${cx-42}" y="218" width="40" height="64" fill="#4a3418"/><rect x="${cx+2}" y="218" width="40" height="64" fill="#523a1c"/>
+    ${[0,1,2].map(r=>`<circle cx="${cx-22}" cy="${230+r*18}" r="2" fill="#2a1d0c"/><circle cx="${cx+22}" cy="${230+r*18}" r="2" fill="#2a1d0c"/>`).join('')}`}`;
   return scene(`
-  ${stars()}
-  <circle cx="850" cy="80" r="26" fill="#f6ecd2" opacity=".9"/>
-  <circle cx="840" cy="74" r="26" fill="url(#skyDawn)" opacity=".85"/>
-  <!-- Temple mount wall -->
-  <rect x="0" y="150" width="1000" height="130" fill="url(#gStone2)"/>
-  ${[0,1,2,3].map(r=>[...Array(10)].map((_,c)=>`<rect x="${c*104+(r%2?52:0)-52}" y="${150+r*33}" width="102" height="31" fill="none" stroke="#8f7947" stroke-width="1.4" opacity=".55"/>`).join('')).join('')}
-  <!-- Two Huldah gates -->
-  <g>
-    <path d="M330 280 v-85 a45 45 0 0 1 90 0 v85 z" fill="#2e2410"/>
-    <path d="M330 280 v-85 a45 45 0 0 1 90 0 v85" fill="none" stroke="url(#gGold)" stroke-width="7"/>
-    <path d="M580 280 v-85 a45 45 0 0 1 90 0 v85 z" fill="#2e2410"/>
-    <path d="M580 280 v-85 a45 45 0 0 1 90 0 v85" fill="none" stroke="url(#gGold)" stroke-width="7"/>
-  </g>
-  <ellipse cx="375" cy="235" rx="60" ry="70" fill="url(#gGlow)" class="glowPulse"/>
+  ${stars(34)}
+  ${sun(120,150,110)}
+  ${hills(206)}
+  ${city(256,.5)}
+  <!-- southern wall -->
+  <rect x="0" y="128" width="1000" height="152" fill="url(#ashlar)"/>
+  <rect x="0" y="128" width="1000" height="152" fill="#3a2d14" opacity=".08"/>
+  <rect x="0" y="118" width="1000" height="12" fill="#e7d7ab"/>
+  <g fill="#d8c496">${[...Array(25)].map((_,i)=>`<rect x="${i*40+6}" y="103" width="22" height="15"/>`).join('')}</g>
+  ${gate(376,true)}
+  ${gate(626,false)}
+  <ellipse cx="376" cy="248" rx="90" ry="68" fill="url(#gGlow)"/>
   ${steps}
-  <!-- pilgrims ascending -->
-  ${crowd(500,395,7,340,1.05)}
-  ${crowd(380,345,5,200,.85)}
-  ${person(620,300,.7,'#6e5a3a')}${person(660,306,.72,'#4a3c26')}
-  <!-- lambs -->
-  <g transform="translate(300,398)"><ellipse cx="0" cy="0" rx="14" ry="9" fill="#efe9db"/><circle cx="13" cy="-5" r="5.5" fill="#efe9db"/><rect x="-8" y="6" width="3" height="8" fill="#bfb49c"/><rect x="5" y="6" width="3" height="8" fill="#bfb49c"/></g>
-  <g transform="translate(700,392) scale(.9)"><ellipse cx="0" cy="0" rx="14" ry="9" fill="#efe9db"/><circle cx="13" cy="-5" r="5.5" fill="#efe9db"/><rect x="-8" y="6" width="3" height="8" fill="#bfb49c"/><rect x="5" y="6" width="3" height="8" fill="#bfb49c"/></g>
-  `,'skyDawn');
+  ${tree(52,438,1.3)}${tree(950,432,1.05)}
+  <!-- bikkurim baskets on the steps -->
+  <g transform="translate(300,404)">
+    <path d="M-16 0 h32 l-5 -18 h-22 z" fill="#a5824a" stroke="#6e5124" stroke-width="1.5"/>
+    <path d="M-11 -18 q11 -8 22 0" stroke="#6e5124" stroke-width="2" fill="none"/>
+    <circle cx="-4" cy="-21" r="3.4" fill="#7a3b5e"/><circle cx="4" cy="-23" r="3.4" fill="#8a5a2e"/><circle cx="0" cy="-17" r="3.4" fill="#5e7a3b"/>
+  </g>
+  <g transform="translate(692,390) scale(.85)">
+    <path d="M-16 0 h32 l-5 -18 h-22 z" fill="#b3905a" stroke="#6e5124" stroke-width="1.5"/>
+    <circle cx="-3" cy="-20" r="3.2" fill="#7a3b5e"/><circle cx="5" cy="-22" r="3.2" fill="#5e7a3b"/>
+  </g>
+  ${lamb(210,410,1.05)}${lamb(560,352,.8)}
+  ${dove(300,80,1.1)}${dove(340,96,.85)}${dove(262,102,.7)}
+`,'skyDawn');
 },
 
 harHabayit(){ // הר הבית והסטיו המלכותי
   let cols='';
-  for(let i=0;i<9;i++){ cols+=column(90+i*103,330,190,22); }
+  for(let i=0;i<9;i++){ cols+=column(84+i*104,336,206,24); }
+  let coffers='';
+  for(let i=0;i<18;i++){ coffers+=`<rect x="${34+i*52}" y="112" width="40" height="14" fill="#6e5a35"/>`; }
   return scene(`
-  <circle cx="140" cy="90" r="30" fill="#f9e9b0" opacity=".95"/>
-  <!-- royal stoa roof -->
-  <path d="M40 128 h920 l-26 -34 h-868 z" fill="#8f7947"/>
-  <rect x="52" y="128" width="896" height="14" fill="#b3a077"/>
+  ${sun(140,84,80)}
+  ${hills(196)}
+  <g transform="translate(620,160) scale(.62)">${heichalFacade()}</g>
+  ${smokeCol(920,196,.9)}
+  <!-- stoa roof -->
+  <path d="M20 96 h960 l-30 -34 h-900 z" fill="#7a643a"/>
+  <rect x="26" y="96" width="948" height="12" fill="#b39a6b"/>
+  <rect x="26" y="108" width="948" height="22" fill="#8a7148"/>
+  ${coffers}
   ${cols}
-  <rect x="0" y="330" width="1000" height="130" fill="url(#gStone2)"/>
-  <rect x="0" y="330" width="1000" height="10" fill="#9c8757"/>
-  <!-- distant temple -->
-  <g transform="translate(700,150) scale(.62)" opacity=".97">
-    <rect x="0" y="120" width="300" height="160" fill="url(#gStone)" stroke="#8f7947" stroke-width="2"/>
-    <rect x="-10" y="106" width="320" height="16" fill="url(#gGold)"/>
-    <g fill="url(#gGold)">${[...Array(11)].map((_,i)=>`<rect x="${4+i*28}" y="92" width="10" height="14"/>`).join('')}</g>
-    <rect x="115" y="160" width="70" height="120" fill="#3a2f14"/>
-    <rect x="109" y="150" width="82" height="12" fill="url(#gGold)"/>
-    <ellipse cx="150" cy="118" rx="190" ry="60" fill="url(#gGlow)" class="glowPulse"/>
+  <!-- marble floor -->
+  <rect x="0" y="336" width="1000" height="124" fill="url(#gMarble)"/>
+  <path d="M0 342 H1000 M0 372 H1000 M0 410 H1000" stroke="#b8b3a2" stroke-width="1.6" opacity=".65"/>
+  ${[...Array(12)].map((_,i)=>`<line x1="${i*90-40}" y1="336" x2="${i*98-70}" y2="460" stroke="#b8b3a2" stroke-width="1.2" opacity=".45"/>`).join('')}
+  ${[...Array(9)].map((_,i)=>`<rect x="${84+i*104-9}" y="338" width="18" height="48" fill="#8a7148" opacity=".12"/>`).join('')}
+  <!-- shekel exchange table -->
+  <g transform="translate(160,398)">
+    <rect x="-46" y="-20" width="92" height="9" fill="#6e5124"/>
+    <rect x="-38" y="-11" width="7" height="28" fill="#4a3418"/><rect x="31" y="-11" width="7" height="28" fill="#4a3418"/>
+    <circle cx="-16" cy="-24" r="3.4" fill="#eec95e"/><circle cx="-4" cy="-25" r="3.4" fill="#eec95e"/><circle cx="8" cy="-24" r="3.4" fill="#eec95e"/>
+    <rect x="16" y="-31" width="15" height="10" fill="#8a7148"/><rect x="18" y="-29" width="11" height="2" fill="#eec95e"/>
   </g>
-  ${smokeCol(818,180,.9)}
-  <!-- people walking right to left (entering right, circling) -->
-  ${crowd(300,420,8,420,1.1)}
-  ${crowd(600,390,5,260,.9)}
-  ${person(150,400,1,'#7d6647')}
-  <!-- money changers table -->
-  <g transform="translate(120,352)"><rect x="-34" y="-14" width="68" height="8" fill="#7a5b2e"/><rect x="-28" y="-6" width="6" height="18" fill="#5b431f"/><rect x="22" y="-6" width="6" height="18" fill="#5b431f"/><circle cx="-10" cy="-18" r="3" fill="#e8c15c"/><circle cx="0" cy="-19" r="3" fill="#e8c15c"/><circle cx="10" cy="-18" r="3" fill="#e8c15c"/></g>
-  `,'skyDay');
+  <!-- dove cages stand -->
+  <g transform="translate(840,398)">
+    <rect x="-34" y="-42" width="68" height="42" fill="none" stroke="#6e5124" stroke-width="3"/>
+    <line x1="-34" y1="-21" x2="34" y2="-21" stroke="#6e5124" stroke-width="2.4"/>
+    <line x1="-12" y1="-42" x2="-12" y2="0" stroke="#6e5124" stroke-width="2"/><line x1="12" y1="-42" x2="12" y2="0" stroke="#6e5124" stroke-width="2"/>
+    ${dove(-23,-28,.62)}${dove(2,-6,.62)}${dove(24,-30,.62)}
+  </g>
+  ${lamb(600,428,1.05)}${lamb(548,436,.9)}
+  ${dove(310,66,1)}${dove(346,82,.8)}${dove(276,90,.65)}${dove(700,340,.7)}
+`,'skyDay');
 },
 
 soreg(){ // הסורג והחיל
   let lattice='';
-  for(let i=0;i<26;i++){
-    lattice+=`<line x1="${i*44-30}" y1="352" x2="${i*44+30}" y2="272" stroke="#7a5b2e" stroke-width="7"/>
-              <line x1="${i*44+30}" y1="352" x2="${i*44-30}" y2="272" stroke="#8a683b" stroke-width="7"/>`;
+  for(let i=0;i<24;i++){
+    const x=i*46-20;
+    lattice+=`<line x1="${x-26}" y1="350" x2="${x+26}" y2="284" stroke="#6e5124" stroke-width="5"/>
+              <line x1="${x+26}" y1="350" x2="${x-26}" y2="284" stroke="#87683a" stroke-width="5"/>`;
+  }
+  let posts='';
+  for(let i=0;i<9;i++){
+    const x=i*124+14;
+    posts+=`<rect x="${x-5}" y="278" width="10" height="78" fill="#5c4a28"/><rect x="${x-8}" y="271" width="16" height="8" fill="#7a643a"/>`;
   }
   let steps='';
   for(let i=0;i<12;i++){
-    steps+=`<rect x="${240+i*20}" y="${268-i*9}" width="${520-i*40}" height="9" fill="${i%2?'#c8b285':'#d8c9a3'}" stroke="#9c8757" stroke-width=".5"/>`;
+    const w=560-i*34, y=268-i*9;
+    steps+=`<rect x="${(1000-w)/2}" y="${y}" width="${w}" height="9" fill="${i%2?'#c3ad7e':'#d9c69a'}"/>
+    <rect x="${(1000-w)/2}" y="${y}" width="${w}" height="2" fill="#efe2bb" opacity=".8"/>`;
   }
   return scene(`
-  <circle cx="130" cy="80" r="28" fill="#f9e9b0" opacity=".9"/>
-  <!-- inner walls in distance -->
-  <rect x="150" y="60" width="700" height="100" fill="url(#gStone2)" opacity=".95"/>
-  <g transform="translate(430,52)"><rect x="0" y="0" width="140" height="108" fill="#3a2f14"/><rect x="-8" y="-10" width="156" height="12" fill="url(#gGold)"/></g>
-  ${steps}
-  <!-- cheil strip -->
-  <rect x="0" y="352" width="1000" height="24" fill="#cbb682"/>
-  <g>${lattice}</g>
-  <rect x="0" y="346" width="1000" height="8" fill="#6e5124"/>
-  <rect x="0" y="270" width="1000" height="8" fill="#6e5124"/>
-  <!-- warning tablet (greek inscription) -->
-  <g transform="translate(700,250)">
-    <rect x="-64" y="-38" width="128" height="76" rx="6" fill="url(#gMarble)" stroke="#8f8f85" stroke-width="2"/>
-    <text x="0" y="-14" text-anchor="middle" font-size="13" fill="#7c2d1c" font-family="serif">ΜΗΘΕΝΑ ΑΛΛΟΓΕΝΗ</text>
-    <text x="0" y="4" text-anchor="middle" font-size="13" fill="#7c2d1c" font-family="serif">ΕΙΣΠΟΡΕΥΕΣΘΑΙ</text>
-    <text x="0" y="24" text-anchor="middle" font-size="11" fill="#9c5a48" font-family="serif">— אין לנוכרי להיכנס —</text>
+  ${sun(120,70,66)}
+  <!-- azarah wall bg -->
+  <rect x="120" y="52" width="760" height="116" fill="url(#ashlar)"/>
+  <rect x="120" y="52" width="760" height="116" fill="#fff" opacity=".14"/>
+  <rect x="106" y="42" width="788" height="12" fill="#e7d7ab"/>
+  <g transform="translate(436,40)">
+    <rect x="0" y="12" width="128" height="116" fill="#3a2d14"/>
+    <rect x="-8" y="0" width="144" height="14" fill="url(#gGold)"/>
+    <rect x="10" y="24" width="50" height="104" fill="#523a1c"/><rect x="68" y="24" width="50" height="104" fill="#5c421f"/>
   </g>
-  ${crowd(280,436,6,300,1.1)}
-  ${person(620,430,1.15,'#4a3c26')}
-  <rect x="0" y="376" width="1000" height="84" fill="url(#gStone2)"/>
-  ${crowd(500,448,5,600,1)}
-  `,'skyDay');
+  <rect x="0" y="168" width="1000" height="100" fill="#cdb98c"/>
+  <rect x="0" y="168" width="1000" height="6" fill="#a8905f"/>
+  ${steps}
+  <!-- cheil strip + soreg -->
+  <rect x="0" y="350" width="1000" height="26" fill="#c3ad7e"/>
+  ${lattice}${posts}
+  <rect x="0" y="280" width="1000" height="7" fill="#5c4a28"/>
+  <rect x="0" y="348" width="1000" height="7" fill="#6e5124"/>
+  <!-- greek warning tablet -->
+  <g transform="translate(760,244)">
+    <rect x="-70" y="-44" width="140" height="88" rx="5" fill="url(#gMarble)" stroke="#8f8f85" stroke-width="2.5"/>
+    <rect x="-62" y="-36" width="124" height="72" fill="none" stroke="#a5a59b" stroke-width="1.4"/>
+    <text x="0" y="-16" text-anchor="middle" font-size="13.5" fill="#7c2d1c" font-family="serif" font-weight="bold">ΜΗΘΕΝΑ ΑΛΛΟΓΕΝΗ</text>
+    <text x="0" y="2" text-anchor="middle" font-size="13.5" fill="#7c2d1c" font-family="serif" font-weight="bold">ΕΙΣΠΟΡΕΥΕΣΘΑΙ</text>
+    <text x="0" y="24" text-anchor="middle" font-size="11.5" fill="#9c5a48" font-family="serif">— אין לנוכרי להיכנס —</text>
+  </g>
+  <rect x="0" y="376" width="1000" height="84" fill="url(#pave)"/>
+  ${dove(200,410,.8)}${dove(240,424,.65)}
+`,'skyDay');
 },
 
 ezratNashim(){ // עזרת הנשים
+  const bigMenorah=(x)=>`
+  <g transform="translate(${x},308)">
+    <ellipse cx="0" cy="2" rx="62" ry="7" fill="#000" opacity=".25"/>
+    <path d="M-17 0 h34 l-8 -16 h-18 z" fill="url(#gGold)"/>
+    <rect x="-4.5" y="-150" width="9" height="136" fill="url(#gGold)"/>
+    <path d="M-44 -150 q0 -30 44 -30 q44 0 44 30" fill="none" stroke="url(#gGold)" stroke-width="9"/>
+    ${[[-44,-150],[0,-180],[44,-150]].map(([bx,by])=>`<path d="M${bx-10} ${by} h20 l-4 -9 h-12 z" fill="url(#gGold)"/>`).join('')}
+    ${fire(-44,-160,.6)}${fire(0,-190,.66)}${fire(44,-160,.6)}
+    <g stroke="#7a643a" stroke-width="4"><line x1="18" y1="0" x2="46" y2="-146"/><line x1="34" y1="0" x2="62" y2="-146"/></g>
+    <g stroke="#8a7148" stroke-width="3">${[...Array(6)].map((_,i)=>`<line x1="${21+i*4.6}" y1="${-24-i*24}" x2="${37+i*4.6}" y2="${-24-i*24}"/>`).join('')}</g>
+    <ellipse cx="0" cy="-162" rx="120" ry="70" fill="url(#gGlowFire)" opacity=".7"/>
+    <ellipse cx="0" cy="26" rx="130" ry="24" fill="#f5a623" opacity=".13"/>
+  </g>`;
   return scene(`
-  ${stars(26)}
-  <!-- courtyard -->
-  <rect x="0" y="300" width="1000" height="160" fill="url(#gStone2)"/>
-  <!-- surrounding walls + corner chambers -->
-  <rect x="0" y="120" width="230" height="185" fill="url(#gStone)" stroke="#8f7947" stroke-width="2"/>
-  <rect x="770" y="120" width="230" height="185" fill="url(#gStone)" stroke="#8f7947" stroke-width="2"/>
-  <rect x="230" y="170" width="540" height="135" fill="#cbb682" stroke="#8f7947" stroke-width="2"/>
-  <rect x="440" y="200" width="120" height="105" fill="#3a2f14"/>
-  <rect x="432" y="190" width="136" height="12" fill="url(#gGold)"/>
-  <text x="115" y="200" text-anchor="middle" font-size="21" fill="#5b4a2f" font-family="Heebo" font-weight="700">לשכת העצים</text>
-  <text x="885" y="200" text-anchor="middle" font-size="21" fill="#5b4a2f" font-family="Heebo" font-weight="700">לשכת הנזירים</text>
-  <!-- balcony (gzuztra) -->
-  <rect x="230" y="150" width="540" height="16" fill="#7a5b2e"/>
-  ${[...Array(14)].map((_,i)=>`<rect x="${242+i*38}" y="166" width="6" height="20" fill="#6e5124"/>`).join('')}
-  <!-- four giant menorot of Beit HaShoeva -->
-  <g transform="translate(300,300)">
-    <rect x="-5" y="-130" width="10" height="130" fill="url(#gGold)"/>
-    <path d="M-38 -130 q0 -26 38 -26 q38 0 38 26" fill="none" stroke="url(#gGold)" stroke-width="9"/>
-    ${fire(-38,-136,.5)}${fire(0,-162,.55)}${fire(38,-136,.5)}
+  ${stars(30)}
+  <circle cx="880" cy="64" r="15" fill="#f6ecd2"/>
+  <!-- rear wall + gallery (gzuztra) -->
+  <rect x="150" y="120" width="700" height="188" fill="url(#ashlar)"/>
+  <rect x="150" y="120" width="700" height="188" fill="#1a1030" opacity=".16"/>
+  <rect x="150" y="150" width="700" height="12" fill="#6e5124"/>
+  ${[...Array(17)].map((_,i)=>`<rect x="${162+i*41}" y="162" width="7" height="24" fill="#5c4a28"/>`).join('')}
+  <rect x="150" y="186" width="700" height="7" fill="#7a643a"/>
+  <!-- nikanor gate glimpse -->
+  <g transform="translate(438,196)">
+    <rect x="0" y="0" width="124" height="112" fill="#241a05"/>
+    <rect x="-6" y="-10" width="136" height="12" fill="url(#gGold)"/>
+    <rect x="6" y="10" width="53" height="102" fill="url(#gCopper)"/><rect x="65" y="10" width="53" height="102" fill="url(#gCopper)"/>
+    <rect x="6" y="10" width="112" height="102" fill="url(#gCopperSheen)"/>
   </g>
-  <g transform="translate(700,300)">
-    <rect x="-5" y="-130" width="10" height="130" fill="url(#gGold)"/>
-    <path d="M-38 -130 q0 -26 38 -26 q38 0 38 26" fill="none" stroke="url(#gGold)" stroke-width="9"/>
-    ${fire(-38,-136,.5)}${fire(0,-162,.55)}${fire(38,-136,.5)}
-  </g>
-  <ellipse cx="500" cy="240" rx="330" ry="120" fill="url(#gGlow)" class="glowPulse" opacity=".6"/>
-  <!-- dancers & crowd -->
-  ${crowd(500,410,9,520,1.1)}
-  ${crowd(500,360,6,380,.9)}
-  ${person(430,330,.8)}${person(560,335,.8,'#6e5a3a')}
-  `,'skyGold');
+  <!-- corner chambers -->
+  <rect x="0" y="96" width="212" height="212" fill="url(#ashlar)"/>
+  <rect x="0" y="96" width="212" height="212" fill="#0e0a20" opacity=".2"/>
+  <rect x="788" y="96" width="212" height="212" fill="url(#ashlar)"/>
+  <rect x="788" y="96" width="212" height="212" fill="#0e0a20" opacity=".2"/>
+  <path d="M60 308 v-72 a35 32 0 0 1 70 0 v72 z" fill="#2e2410"/>
+  <path d="M868 308 v-72 a35 32 0 0 1 70 0 v72 z" fill="#2e2410"/>
+  <text x="95" y="176" text-anchor="middle" font-size="19" fill="#4a3a18" font-family="Heebo" font-weight="700">לשכת העצים</text>
+  <text x="903" y="176" text-anchor="middle" font-size="19" fill="#4a3a18" font-family="Heebo" font-weight="700">לשכת הנזירים</text>
+  <!-- pavement -->
+  <rect x="0" y="308" width="1000" height="152" fill="url(#pave)"/>
+  <rect x="0" y="308" width="1000" height="152" fill="#1a1030" opacity=".16"/>
+  ${bigMenorah(300)}${bigMenorah(700)}
+  <!-- light pools on the floor -->
+  <ellipse cx="300" cy="400" rx="150" ry="30" fill="#ffd27a" opacity=".1"/>
+  <ellipse cx="700" cy="400" rx="150" ry="30" fill="#ffd27a" opacity=".1"/>
+  <ellipse cx="500" cy="360" rx="90" ry="18" fill="#ffd27a" opacity=".07"/>
+`,'skyGold');
 },
 
 maalot(){ // ט"ו המעלות ושער ניקנור
   let steps='';
   for(let i=0;i<15;i++){
-    const w=920-i*44, y=440-i*15;
-    steps+=`<path d="M${(1000-w)/2} ${y} q${w/2} -26 ${w} 0 l0 15 q-${w/2} -26 -${w} 0 z" fill="${i%2?'#c8b285':'#dccda8'}" stroke="#9c8757" stroke-width=".8"/>`;
+    const w=940-i*46, y=444-i*15;
+    steps+=`<path d="M${(1000-w)/2} ${y} q${w/2} -30 ${w} 0 l0 15 q-${w/2} -30 -${w} 0 z" fill="${i%2?'#c3ad7e':'#dbc99d'}"/>
+    <path d="M${(1000-w)/2} ${y} q${w/2} -30 ${w} 0" fill="none" stroke="#efe2bb" stroke-width="2.5" opacity=".8"/>`;
   }
+  const doorPanels=(x)=>[0,1].map(c=>[0,1,2].map(r=>`<rect x="${x+8+c*40}" y="${164+r*25}" width="34" height="20" rx="2" fill="#a35c22" stroke="#5c3210" stroke-width="1.4"/><circle cx="${x+25+c*40}" cy="${174+r*25}" r="2.2" fill="#5c3210"/>`).join('')).join('');
   return scene(`
-  ${stars(20)}
-  <!-- Nicanor gate -->
-  <rect x="330" y="30" width="340" height="200" fill="url(#gStone)" stroke="#8f7947" stroke-width="2"/>
-  <path d="M400 230 v-105 a100 100 0 0 1 200 0 v105 z" fill="#241a05"/>
-  <path d="M400 230 v-105 a100 100 0 0 1 200 0 v105" fill="none" stroke="url(#gCopper)" stroke-width="12"/>
-  <rect x="404" y="140" width="94" height="90" fill="url(#gCopper)" opacity=".92"/>
-  <rect x="502" y="140" width="94" height="90" fill="url(#gCopper)" opacity=".92"/>
-  ${[...Array(4)].map((_,i)=>`<circle cx="${426+i*20}" cy="165" r="3.4" fill="#5c3210"/><circle cx="${426+i*20}" cy="205" r="3.4" fill="#5c3210"/><circle cx="${524+i*20}" cy="165" r="3.4" fill="#5c3210"/><circle cx="${524+i*20}" cy="205" r="3.4" fill="#5c3210"/>`).join('')}
-  <ellipse cx="500" cy="150" rx="170" ry="110" fill="url(#gGlow)" class="glowPulse" opacity=".7"/>
-  <rect x="150" y="120" width="180" height="110" fill="url(#gStone2)" stroke="#8f7947"/>
-  <rect x="670" y="120" width="180" height="110" fill="url(#gStone2)" stroke="#8f7947"/>
+  ${stars(24)}
+  <!-- flanking walls -->
+  <rect x="96" y="108" width="240" height="130" fill="url(#ashlar)"/>
+  <rect x="664" y="108" width="240" height="130" fill="url(#ashlar)"/>
+  <rect x="96" y="108" width="240" height="130" fill="#1a1030" opacity=".12"/>
+  <rect x="664" y="108" width="240" height="130" fill="#1a1030" opacity=".12"/>
+  <rect x="84" y="98" width="264" height="12" fill="#e7d7ab"/><rect x="652" y="98" width="264" height="12" fill="#e7d7ab"/>
+  <!-- gate towers -->
+  <rect x="316" y="34" width="78" height="204" fill="url(#ashlar)"/><rect x="606" y="34" width="78" height="204" fill="url(#ashlar)"/>
+  <rect x="308" y="22" width="94" height="14" fill="#e7d7ab"/><rect x="598" y="22" width="94" height="14" fill="#e7d7ab"/>
+  <!-- arch -->
+  <rect x="394" y="90" width="212" height="148" fill="url(#ashlar)"/>
+  <path d="M394 156 a106 106 0 0 1 212 0" fill="none" stroke="#b39a6b" stroke-width="26"/>
+  ${[...Array(9)].map((_,i)=>{const a=Math.PI-(i+0.5)*Math.PI/9;const x1=500+93*Math.cos(a),y1=156-93*Math.sin(a),x2=500+119*Math.cos(a),y2=156-119*Math.sin(a);return `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="#8a7148" stroke-width="2"/>`;}).join('')}
+  <!-- lunette + bronze doors -->
+  <path d="M406 156 a94 94 0 0 1 188 0 z" fill="#1c1408"/>
+  <path d="M418 156 a82 82 0 0 1 164 0 z" fill="url(#gCopper)" opacity=".8"/>
+  ${[...Array(5)].map((_,i)=>{const a=Math.PI-(i+0.5)*Math.PI/5;const x2=500+78*Math.cos(a),y2=156-78*Math.sin(a);return `<line x1="500" y1="156" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="#5c3210" stroke-width="2.4"/>`;}).join('')}
+  <rect x="406" y="156" width="92" height="82" fill="url(#gCopper)"/>
+  <rect x="502" y="156" width="92" height="82" fill="url(#gCopper)"/>
+  <rect x="406" y="156" width="188" height="82" fill="url(#gCopperSheen)"/>
+  ${doorPanels(406)}${doorPanels(502)}
+  <line x1="500" y1="156" x2="500" y2="238" stroke="#5c3210" stroke-width="3"/>
+  <!-- light spilling down the steps -->
+  <path d="M420 238 L300 452 H700 L580 238 Z" fill="url(#gGlow)" opacity=".45"/>
   ${steps}
-  <!-- Levites with instruments on the steps -->
-  ${person(370,392,1)}${person(410,390,1,'#4a3c26')}
-  <g transform="translate(370,352)"><path d="M-8 0 q8 -18 16 0" stroke="#e8c15c" stroke-width="3" fill="none"/><line x1="-8" y1="0" x2="8" y2="0" stroke="#e8c15c" stroke-width="3"/><line x1="-5" y1="-11" x2="-5" y2="0" stroke="#e8c15c" stroke-width="1.6"/><line x1="0" y1="-13" x2="0" y2="0" stroke="#e8c15c" stroke-width="1.6"/><line x1="5" y1="-11" x2="5" y2="0" stroke="#e8c15c" stroke-width="1.6"/></g>
-  ${person(590,390,1,'#6e5a3a')}${person(630,392,1)}
-  <g transform="translate(632,354)"><circle cx="0" cy="0" r="9" fill="none" stroke="#e8c15c" stroke-width="3"/></g>
-  ${person(500,362,1.05,'#59431f')}
-  <g transform="translate(505,332)"><rect x="-2" y="-14" width="4" height="18" fill="#e8c15c" transform="rotate(35)"/></g>
-  ${crowd(500,445,7,700,1.05)}
-  `,'skyGold');
+  <!-- instruments resting on the steps -->
+  <g transform="translate(360,384)">
+    <path d="M-11 0 q11 -24 22 0" stroke="#eec95e" stroke-width="3.8" fill="none"/>
+    <line x1="-11" y1="0" x2="11" y2="0" stroke="#eec95e" stroke-width="3.8"/>
+    <line x1="-6" y1="-14" x2="-6" y2="0" stroke="#eec95e" stroke-width="1.8"/><line x1="0" y1="-17" x2="0" y2="0" stroke="#eec95e" stroke-width="1.8"/><line x1="6" y1="-14" x2="6" y2="0" stroke="#eec95e" stroke-width="1.8"/>
+  </g>
+  <g transform="translate(640,382)">
+    <path d="M-12 4 a14 14 0 1 1 24 0 l-5 -2 a9 9 0 1 0 -14 0 z" fill="#eec95e"/>
+  </g>
+  <g transform="translate(500,414)">
+    <path d="M-26 -4 h20 l7 -4 v8 l-7 -4 z" fill="#e5e7ea" transform="rotate(-14)"/>
+    <path d="M6 -1 h20 l7 -4 v8 l-7 -4 z" fill="#e5e7ea" transform="rotate(14)"/>
+  </g>
+`,'skyGold');
 },
 
 azara(){ // עזרת ישראל
   return scene(`
-  <circle cx="120" cy="70" r="26" fill="#f9e9b0" opacity=".92"/>
-  <!-- Heichal in background -->
-  <g transform="translate(280,18) scale(1.05)">
-    <rect x="0" y="90" width="420" height="180" fill="url(#gStone)" stroke="#8f7947" stroke-width="2"/>
-    <rect x="-12" y="74" width="444" height="18" fill="url(#gGold)"/>
-    <g fill="url(#gGold)">${[...Array(15)].map((_,i)=>`<rect x="${4+i*28}" y="60" width="10" height="14"/>`).join('')}</g>
-    <rect x="165" y="140" width="90" height="130" fill="#241a05"/>
-    <rect x="157" y="128" width="106" height="14" fill="url(#gGold)"/>
-    <path d="M180 155 q30 18 60 0" stroke="#e8c15c" stroke-width="4" fill="none"/>
-    <circle cx="192" cy="162" r="4" fill="#e8c15c"/><circle cx="210" cy="166" r="4" fill="#e8c15c"/><circle cx="228" cy="162" r="4" fill="#e8c15c"/>
-    <ellipse cx="210" cy="140" rx="240" ry="90" fill="url(#gGlow)" class="glowPulse" opacity=".55"/>
+  ${sun(110,64,60)}
+  ${hills(152)}
+  <g transform="translate(210,10) scale(1.08)">${heichalFacade()}</g>
+  <!-- outer altar (east of heichal) -->
+  <g transform="translate(806,182)">
+    <path d="M-84 132 h168 l-12 -34 h-144 z" fill="#c3ad7e" stroke="#8a7148" stroke-width="2"/>
+    <path d="M-72 98 h144 l-14 -64 h-116 z" fill="url(#ashlar)"/>
+    <path d="M-72 98 h144 l-14 -64 h-116 z" fill="#fff" opacity=".18"/>
+    <line x1="-65" y1="66" x2="65" y2="66" stroke="#a52a1a" stroke-width="4.5"/>
+    <rect x="-62" y="24" width="18" height="14" fill="#cdb98c" stroke="#8a7148" stroke-width="1.6"/>
+    <rect x="44" y="24" width="18" height="14" fill="#cdb98c" stroke="#8a7148" stroke-width="1.6"/>
+    ${fire(0,30,1.05)}
+    <ellipse cx="0" cy="28" rx="95" ry="40" fill="url(#gGlowFire)" opacity=".5"/>
   </g>
-  <!-- altar to the right (east of heichal) with smoke -->
-  <g transform="translate(790,190)">
-    <path d="M-70 120 h140 l-14 -68 h-112 z" fill="#b3a077" stroke="#8f7947" stroke-width="2"/>
-    <rect x="-60" y="44" width="120" height="10" fill="#a08a5b"/>
-    <line x1="-63" y1="86" x2="63" y2="86" stroke="#8b2f1c" stroke-width="4"/>
-    ${fire(0,46,1)}
+  ${smokeCol(806,140,1.2)}
+  ${embers(806,150,5)}
+  <rect x="0" y="312" width="1000" height="148" fill="url(#pave)"/>
+  <rect x="0" y="312" width="1000" height="6" fill="#a8905f"/>
+  <!-- laver hint left -->
+  <g transform="translate(120,352) scale(.55)">
+    <path d="M-96 -60 q-6 70 96 70 q102 0 96 -70 q-32 15 -96 15 q-64 0 -96 -15 z" fill="url(#gCopper)" stroke="#5c3210" stroke-width="2.4"/>
+    <ellipse cx="0" cy="-60" rx="96" ry="16" fill="#e8a25c" stroke="#5c3210" stroke-width="2.4"/>
+    <ellipse cx="0" cy="-62" rx="82" ry="11" fill="url(#gWater)"/>
   </g>
-  ${smokeCol(790,190,1.15)}
-  <rect x="0" y="310" width="1000" height="150" fill="url(#gStone2)"/>
-  <rect x="0" y="310" width="1000" height="9" fill="#9c8757"/>
-  <!-- Israelites section - people davening -->
-  ${crowd(430,420,10,660,1.15)}
-  ${crowd(500,375,7,520,.95,['#7d6647','#5b4a2f','#8a7450'])}
-  <!-- kohanim in white near heichal -->
-  ${person(330,352,.85,'#f2ead6')}${person(370,350,.85,'#faf5e8')}${person(660,352,.85,'#f2ead6')}
-  `,'skyDay');
+  ${dove(560,60,.9)}${dove(600,74,.7)}
+`,'skyDay');
 },
 
 duchan(){ // עזרת הכהנים והדוכן
   let steps='';
   for(let i=0;i<3;i++){
-    steps+=`<rect x="${140+i*40}" y="${372-i*22}" width="${720-i*80}" height="22" fill="${i%2?'#c8b285':'#d8c9a3'}" stroke="#9c8757" stroke-width="1"/>`;
+    steps+=`<rect x="${150+i*46}" y="${378-i*26}" width="${700-i*92}" height="26" fill="${i%2?'#c3ad7e':'#d6c396'}"/>
+    <rect x="${150+i*46}" y="${378-i*26}" width="${700-i*92}" height="4" fill="#efe2bb" opacity=".85"/>`;
   }
+  const kinor=(x,y,s=1)=>`<g transform="translate(${x},${y}) scale(${s})">
+    <path d="M-11 0 q11 -24 22 0" stroke="#eec95e" stroke-width="3.8" fill="none"/>
+    <line x1="-11" y1="0" x2="11" y2="0" stroke="#eec95e" stroke-width="3.8"/>
+    <line x1="-6" y1="-14" x2="-6" y2="0" stroke="#eec95e" stroke-width="1.8"/><line x1="0" y1="-17" x2="0" y2="0" stroke="#eec95e" stroke-width="1.8"/><line x1="6" y1="-14" x2="6" y2="0" stroke="#eec95e" stroke-width="1.8"/>
+  </g>`;
+  const nevel=(x,y)=>`<g transform="translate(${x},${y})"><path d="M-12 4 a14 14 0 1 1 24 0 l-5 -2 a9 9 0 1 0 -14 0 z" fill="#eec95e"/></g>`;
   return scene(`
-  <circle cx="880" cy="70" r="26" fill="#f9e9b0" opacity=".92"/>
-  <rect x="0" y="150" width="1000" height="180" fill="url(#gStone2)" opacity=".6"/>
-  <g transform="translate(300,-30) scale(1)" opacity=".9">
-    <rect x="0" y="120" width="400" height="160" fill="url(#gStone)" stroke="#8f7947" stroke-width="2"/>
-    <rect x="-10" y="106" width="420" height="15" fill="url(#gGold)"/>
-    <rect x="160" y="170" width="80" height="110" fill="#241a05"/>
-  </g>
+  ${sun(884,64,58)}
+  <g transform="translate(268,-58)" opacity=".96">${heichalFacade()}</g>
+  <rect x="0" y="0" width="1000" height="238" fill="#cfd9e4" opacity=".1"/>
+  <rect x="0" y="222" width="1000" height="106" fill="url(#ashlar)"/>
+  <rect x="0" y="222" width="1000" height="106" fill="#fff" opacity=".1"/>
   ${steps}
-  <!-- Levites choir standing on duchan -->
-  ${person(310,340,1.05,'#3b3b52')}${person(360,338,1.05,'#454564')}${person(410,340,1.05,'#3b3b52')}
-  ${person(590,340,1.05,'#454564')}${person(640,338,1.05,'#3b3b52')}${person(690,340,1.05,'#454564')}
-  <!-- instruments: kinor, nevel, trumpets -->
-  <g transform="translate(315,305)"><path d="M-9 0 q9 -20 18 0" stroke="#e8c15c" stroke-width="3.4" fill="none"/><line x1="-9" y1="0" x2="9" y2="0" stroke="#e8c15c" stroke-width="3.4"/><line x1="-5" y1="-12" x2="-5" y2="0" stroke="#e8c15c" stroke-width="1.8"/><line x1="0" y1="-15" x2="0" y2="0" stroke="#e8c15c" stroke-width="1.8"/><line x1="5" y1="-12" x2="5" y2="0" stroke="#e8c15c" stroke-width="1.8"/></g>
-  <g transform="translate(645,303)"><path d="M-10 2 a12 12 0 1 1 20 0 l-4 -2 a8 8 0 1 0 -12 0 z" fill="#e8c15c"/></g>
-  <g transform="translate(500,282)">
-    ${person(0,26,1.1,'#59431f')}
-    <rect x="6" y="-8" width="26" height="4" fill="#e8c15c" transform="rotate(-28 6 -8)"/>
-    <rect x="-32" y="4" width="26" height="4" fill="#e8c15c" transform="rotate(208 -6 6)"/>
+  <!-- instruments arrayed on the duchan -->
+  ${kinor(280,344)}${kinor(360,340,.9)}${kinor(440,344)}${kinor(560,344)}${kinor(640,340,.9)}${kinor(720,344)}
+  ${nevel(320,316)}${nevel(680,316)}
+  <!-- pair of silver trumpets crossed, center -->
+  <g transform="translate(500,320)">
+    <path d="M-30 -6 h24 l8 -5 v10 l-8 -5 z" fill="#e5e7ea" transform="rotate(-18)"/>
+    <path d="M6 -12 h24 l8 -5 v10 l-8 -5 z" fill="#e5e7ea" transform="rotate(18)"/>
+    <circle cx="0" cy="-24" r="9" fill="none" stroke="#eec95e" stroke-width="3"/>
+    <circle cx="0" cy="-24" r="3" fill="#eec95e"/>
   </g>
-  <!-- kohanim in white below, one raising hands (birkat kohanim) -->
-  ${person(180,430,1.25,'#faf5e8')}${person(240,432,1.25,'#f2ead6')}${person(760,430,1.25,'#faf5e8')}${person(820,432,1.25,'#f2ead6')}
-  ${crowd(500,445,6,360,1.1)}
-  `,'skyDay');
+  <rect x="0" y="378" width="1000" height="82" fill="url(#pave)"/>
+  <ellipse cx="500" cy="300" rx="330" ry="70" fill="url(#gGlow)" opacity=".3"/>
+`,'skyDay');
 },
 
 mizbeach(){ // המזבח החיצון
+  const logs=(x,y,s=1)=>`<g transform="translate(${x},${y}) scale(${s})">
+    <rect x="-26" y="-7" width="52" height="9" rx="4" fill="#6e4a24" transform="rotate(-8)"/>
+    <rect x="-26" y="-2" width="52" height="9" rx="4" fill="#59431f" transform="rotate(7)"/>
+  </g>`;
   return scene(`
-  ${stars(18)}
-  <circle cx="870" cy="80" r="24" fill="#f6ecd2" opacity=".85"/>
-  <!-- big altar front view: 32x32, chut hasikra, keranot -->
-  <g transform="translate(500,120)">
+  ${stars(26)}
+  ${sun(880,90,60)}
+  <g transform="translate(500,108)">
     <!-- yesod -->
-    <path d="M-330 320 h660 l-18 -40 h-624 z" fill="#a8946a" stroke="#8f7947" stroke-width="2"/>
-    <!-- body to sovev -->
-    <path d="M-312 280 h624 l-22 -130 h-580 z" fill="#b8a678" stroke="#8f7947" stroke-width="2"/>
+    <path d="M-336 328 h672 l-16 -42 h-640 z" fill="#b39a6b" stroke="#8a7148" stroke-width="2"/>
+    <rect x="-336" y="286" width="672" height="4" fill="#e9dab0" opacity=".6"/>
+    <!-- lower body -->
+    <path d="M-320 286 h640 l-20 -128 h-600 z" fill="url(#ashlar)"/>
+    <path d="M-320 286 h640 l-20 -128 h-600 z" fill="#fff" opacity=".12"/>
     <!-- sovev ledge -->
-    <rect x="-292" y="142" width="584" height="12" fill="#94805a"/>
+    <rect x="-300" y="150" width="600" height="12" fill="#96805a"/>
+    <rect x="-300" y="150" width="600" height="4" fill="#e7d7ab" opacity=".7"/>
     <!-- upper body -->
-    <path d="M-290 142 h580 l-16 -100 h-548 z" fill="#c3ab7c" stroke="#8f7947" stroke-width="2"/>
-    <!-- chut hasikra red line -->
-    <line x1="-301" y1="212" x2="301" y2="212" stroke="#a52a1a" stroke-width="6"/>
-    <!-- keranot -->
-    <rect x="-286" y="16" width="34" height="30" fill="#b3a077" stroke="#8f7947" stroke-width="2"/>
-    <rect x="252" y="16" width="34" height="30" fill="#b3a077" stroke="#8f7947" stroke-width="2"/>
-    <!-- top line -->
-    <rect x="-274" y="34" width="548" height="10" fill="#9c8757"/>
-    <!-- maarachot fire -->
-    ${fire(-90,32,1.5)}${fire(60,34,1.1)}${fire(160,36,.8)}
-    <!-- kevesh ramp on the left (south) -->
-    <path d="M-312 280 l-260 62 h96 l182 -62 z" fill="#c8b285" stroke="#8f7947" stroke-width="2" opacity=".98"/>
-    <path d="M-330 320 l-250 22 h580 z" fill="#b3a077" opacity=".6"/>
+    <path d="M-298 150 h596 l-14 -104 h-568 z" fill="url(#ashlar)"/>
+    <path d="M-298 150 h596 l-14 -104 h-568 z" fill="#fff" opacity=".2"/>
+    <!-- chut hasikra -->
+    <line x1="-309" y1="218" x2="309" y2="218" stroke="#a52a1a" stroke-width="6"/>
+    <line x1="-309" y1="223" x2="309" y2="223" stroke="#5c1710" stroke-width="2" opacity=".5"/>
+    <!-- keranot (3D corners) -->
+    <g>
+      <path d="M-292 46 h30 v-32 h-30 z" fill="#d6c396" stroke="#8a7148" stroke-width="1.6"/>
+      <path d="M-262 46 v-32 l12 -6 v32 z" fill="#a8905f" stroke="#8a7148" stroke-width="1.6"/>
+      <path d="M-292 14 l12 -6 h30 l-12 6 z" fill="#e9dab0" stroke="#8a7148" stroke-width="1.2"/>
+    </g>
+    <g>
+      <path d="M262 46 h30 v-32 h-30 z" fill="#d6c396" stroke="#8a7148" stroke-width="1.6"/>
+      <path d="M292 46 v-32 l-12 -6 v32 z" fill="#a8905f" stroke="#8a7148" stroke-width="1.6"/>
+      <path d="M262 14 l12 -6 h30 l-12 6 z" fill="#e9dab0" stroke="#8a7148" stroke-width="1.2"/>
+    </g>
+    <rect x="-284" y="40" width="568" height="8" fill="#8a7148"/>
+    <!-- maarachot: wood + fires -->
+    ${logs(-100,34,1.2)}${logs(80,36,1)}${logs(200,38,.8)}
+    ${fire(-100,36,1.7)}${fire(80,38,1.25)}${fire(200,40,.9)}
+    ${embers(-100,6)}${embers(80,12)}
+    <ellipse cx="0" cy="28" rx="340" ry="90" fill="url(#gGlowFire)" opacity=".45"/>
+    <!-- kevesh (ramp, south) -->
+    <path d="M-320 286 L-596 348 h104 L-306 286 Z" fill="#cdb98c" stroke="#8a7148" stroke-width="2"/>
+    <path d="M-596 348 L-320 286 l0 44 L-566 374 Z" fill="url(#ashlar)"/>
+    <path d="M-596 348 L-320 286 l0 44 L-566 374 Z" fill="#0e0a20" opacity=".12"/>
+    <path d="M-596 348 L-320 286" stroke="#e9dab0" stroke-width="2.5" opacity=".7" fill="none"/>
   </g>
-  ${smokeCol(410,120,1.5)}
-  ${smokeCol(560,130,1)}
-  <!-- kohen ascending the ramp with wood -->
-  ${person(160,428,1.15,'#faf5e8')}
-  ${person(240,415,1.1,'#f2ead6')}
-  ${person(700,442,1.2,'#faf5e8')}
-  <rect x="0" y="442" width="1000" height="18" fill="url(#gStone2)"/>
-  `,'skyDawn');
+  <!-- wood pile beside the ramp -->
+  <g transform="translate(120,446)">
+    ${[0,1,2].map(r=>`<rect x="${-38+r*6}" y="${-8-r*9}" width="${76-r*12}" height="8" rx="4" fill="${r%2?'#59431f':'#6e4a24'}"/>`).join('')}
+  </g>
+  ${smokeCol(400,100,1.6)}${smokeCol(580,112,1.05)}
+  <rect x="0" y="436" width="1000" height="24" fill="url(#pave)"/>
+`,'skyDawn');
 },
 
-kiyor(){ // הכיור
+kiyor(){ // הכיור והמוכני
   return scene(`
-  ${stars(16)}
-  <rect x="0" y="330" width="1000" height="130" fill="url(#gStone2)"/>
-  <!-- heichal steps behind -->
-  ${[...Array(6)].map((_,i)=>`<rect x="${170+i*44}" y="${330-i*14}" width="${660-i*88}" height="14" fill="${i%2?'#c8b285':'#d8c9a3'}" stroke="#9c8757" stroke-width=".6"/>`).join('')}
-  <rect x="220" y="60" width="560" height="186" fill="url(#gStone)" stroke="#8f7947" stroke-width="2"/>
-  <rect x="208" y="46" width="584" height="16" fill="url(#gGold)"/>
-  <rect x="425" y="120" width="150" height="126" fill="#241a05"/>
-  <!-- the kiyor: large copper laver with 12 spouts on stand -->
-  <g transform="translate(500,368)">
-    <ellipse cx="0" cy="26" rx="120" ry="16" fill="#5c4526" opacity=".45"/>
-    <path d="M-96 -60 q0 66 96 66 q96 0 96 -66 q-30 14 -96 14 q-66 0 -96 -14 z" fill="url(#gCopper)" stroke="#6e3a12" stroke-width="2"/>
-    <ellipse cx="0" cy="-60" rx="96" ry="17" fill="#f0b978" stroke="#6e3a12" stroke-width="2"/>
-    <ellipse cx="0" cy="-62" rx="82" ry="12" fill="#7ec8d8" opacity=".85"/>
-    <rect x="-14" y="6" width="28" height="34" fill="url(#gCopper)" stroke="#6e3a12"/>
-    <!-- spouts -->
-    ${[-70,-42,-14,14,42,70].map(x=>`<rect x="${x-4}" y="-34" width="8" height="15" rx="3" fill="#8f4f1e"/><path d="M${x} -18 q2 12 0 22" stroke="#9fd8e8" stroke-width="3.2" fill="none" opacity=".9"/>`).join('')}
-    <ellipse cx="0" cy="10" rx="112" ry="9" fill="#7ec8d8" opacity=".28"/>
+  ${stars(20)}
+  ${[...Array(6)].map((_,i)=>`<rect x="${180+i*44}" y="${318-i*13}" width="${640-i*88}" height="13" fill="${i%2?'#c3ad7e':'#d6c396'}"/><rect x="${180+i*44}" y="${318-i*13}" width="${640-i*88}" height="2.5" fill="#efe2bb" opacity=".8"/>`).join('')}
+  <rect x="230" y="54" width="540" height="192" fill="url(#ashlar)"/>
+  <rect x="230" y="54" width="540" height="192" fill="#fff" opacity=".1"/>
+  <rect x="216" y="42" width="568" height="14" fill="url(#gGold)"/>
+  <rect x="430" y="108" width="140" height="138" fill="url(#gDoorShadow)"/>
+  <ellipse cx="500" cy="150" rx="300" ry="120" fill="url(#gGlow)" opacity=".45"/>
+  <rect x="0" y="318" width="1000" height="142" fill="url(#pave)"/>
+  <!-- wet floor sheen -->
+  <ellipse cx="500" cy="424" rx="190" ry="18" fill="#7ec8d8" opacity=".16"/>
+  <!-- the kiyor -->
+  <g transform="translate(500,372)">
+    <ellipse cx="0" cy="36" rx="130" ry="14" fill="#000" opacity=".28"/>
+    <path d="M-22 6 h44 l9 32 h-62 z" fill="url(#gCopper)" stroke="#5c3210" stroke-width="1.6"/>
+    <path d="M-102 -64 q-6 74 102 74 q108 0 102 -74 q-34 16 -102 16 q-68 0 -102 -16 z" fill="url(#gCopper)" stroke="#5c3210" stroke-width="2.4"/>
+    <path d="M-60 -54 q-9 42 22 56" stroke="#ffe2b0" stroke-width="7" fill="none" opacity=".35"/>
+    <ellipse cx="0" cy="-64" rx="102" ry="18" fill="#e8a25c" stroke="#5c3210" stroke-width="2.4"/>
+    <ellipse cx="0" cy="-66" rx="88" ry="13" fill="url(#gWater)"/>
+    <ellipse cx="-26" cy="-69" rx="30" ry="5" fill="#fff" opacity=".4"/>
+    ${[-76,-46,-16,14,44,74].map(x=>`
+      <path d="M${x-5} -40 h10 v10 q0 5 -5 5 q-5 0 -5 -5 z" fill="#8a4a1c" stroke="#5c3210" stroke-width="1.2"/>
+      <path d="M${x} -25 q1.5 22 0 44" stroke="url(#gWater)" stroke-width="3.6" fill="none" opacity=".95"/>
+      <circle cx="${x+1}" cy="20" r="1.7" fill="#cfeef7" opacity=".8"/>
+      <circle cx="${x-2}" cy="24" r="1.2" fill="#cfeef7" opacity=".6"/>
+    `).join('')}
+    <ellipse cx="0" cy="24" rx="120" ry="8" fill="url(#gWater)" opacity=".3"/>
   </g>
-  <!-- kohanim washing -->
-  ${person(340,420,1.2,'#faf5e8')}${person(660,420,1.2,'#f2ead6')}
-  ${person(240,435,1.05,'#faf5e8')}${person(760,435,1.05,'#faf5e8')}
-  <ellipse cx="500" cy="300" rx="280" ry="120" fill="url(#gGlow)" class="glowPulse" opacity=".45"/>
-  `,'skyDawn');
+  <!-- muchni wheel beside -->
+  <g transform="translate(760,404)">
+    <circle r="34" fill="none" stroke="#6e5124" stroke-width="7"/>
+    <circle r="5" fill="#6e5124"/>
+    ${[0,45,90,135].map(a=>`<line x1="${(30*Math.cos(a*Math.PI/180)).toFixed(1)}" y1="${(30*Math.sin(a*Math.PI/180)).toFixed(1)}" x2="${(-30*Math.cos(a*Math.PI/180)).toFixed(1)}" y2="${(-30*Math.sin(a*Math.PI/180)).toFixed(1)}" stroke="#6e5124" stroke-width="5"/>`).join('')}
+    <path d="M-4 34 q-40 10 -80 4" stroke="#5c4a28" stroke-width="4" fill="none"/>
+  </g>
+`,'skyDawn');
 },
 
 ulam(){ // האולם
   let steps='';
   for(let i=0;i<12;i++){
-    steps+=`<rect x="${90+i*34}" y="${450-i*11}" width="${820-i*68}" height="11" fill="${i%2?'#c8b285':'#dccda8'}" stroke="#9c8757" stroke-width=".5"/>`;
+    const w=830-i*56, y=452-i*11;
+    steps+=`<rect x="${(1000-w)/2}" y="${y}" width="${w}" height="11" fill="${i%2?'#c3ad7e':'#dbc99d'}"/>
+    <rect x="${(1000-w)/2}" y="${y}" width="${w}" height="2.5" fill="#f2e7c4" opacity=".9"/>`;
   }
   return scene(`
-  ${stars(22)}
-  <!-- massive facade 100x100 amot -->
-  <rect x="120" y="26" width="760" height="300" fill="url(#gStone)" stroke="#8f7947" stroke-width="3"/>
-  ${[0,1,2,3,4,5].map(r=>[...Array(8)].map((_,c)=>`<rect x="${122+c*95+(r%2?47:0)}" y="${28+r*50}" width="93" height="48" fill="none" stroke="#8f7947" stroke-width="1" opacity=".4"/>`).join('')).join('')}
-  <rect x="104" y="10" width="792" height="18" fill="url(#gGold)"/>
-  <g fill="url(#gGold)">${[...Array(23)].map((_,i)=>`<rect x="${120+i*34}" y="-4" width="12" height="14"/>`).join('')}</g>
-  <!-- huge open entrance 40x20 amot, no doors -->
-  <rect x="404" y="120" width="192" height="206" fill="#1c1408"/>
-  <rect x="392" y="106" width="216" height="16" fill="url(#gGold)"/>
-  <!-- golden vine above entrance -->
-  <path d="M420 146 q40 30 80 4 q40 -26 80 4" stroke="#e8c15c" stroke-width="5" fill="none"/>
-  ${[440,468,500,532,560].map((x,i)=>`<circle cx="${x}" cy="${152+(i%2?10:2)}" r="6" fill="#e8c15c"/><circle cx="${x+8}" cy="${160+(i%2?8:0)}" r="4.6" fill="#d9ab34"/>`).join('')}
-  <!-- inner heichal doors glimpse -->
-  <rect x="462" y="180" width="76" height="146" fill="url(#gGold)" opacity=".85"/>
-  <line x1="500" y1="180" x2="500" y2="326" stroke="#8a6410" stroke-width="3"/>
-  <ellipse cx="500" cy="210" rx="290" ry="150" fill="url(#gGlow)" class="glowPulse" opacity=".5"/>
+  ${stars(30)}
+  <!-- monumental facade -->
+  <rect x="110" y="30" width="780" height="310" fill="url(#ashlar)"/>
+  <rect x="110" y="30" width="780" height="310" fill="#fff" opacity=".1"/>
+  ${[150,290,646,786].map(px=>`<rect x="${px}" y="52" width="26" height="288" fill="#e7d7ab" stroke="#8a7148" stroke-width="1.4"/><rect x="${px-4}" y="44" width="34" height="10" fill="#cdb98c"/>`).join('')}
+  <rect x="96" y="18" width="808" height="16" fill="url(#gGold)"/>
+  <g fill="url(#gGold)">${[...Array(27)].map((_,i)=>`<path d="M${104+i*29} 18 l6 -14 6 14 z"/>`).join('')}</g>
+  <!-- opening 40x20 amot, no doors -->
+  <rect x="402" y="118" width="196" height="222" fill="url(#gDoorShadow)"/>
+  <rect x="390" y="104" width="220" height="16" fill="url(#gGold)"/>
+  <rect x="396" y="118" width="8" height="222" fill="#6e5124" opacity=".6"/>
+  <rect x="596" y="118" width="8" height="222" fill="#3a2d14" opacity=".7"/>
+  <!-- golden vine with grape clusters -->
+  <path d="M416 150 q30 24 62 8 q26 -13 44 2 q22 17 62 -6" stroke="#eec95e" stroke-width="5.5" fill="none"/>
+  ${[[436,166],[476,158],[516,168],[556,158]].map(([gx,gy])=>`
+    <circle cx="${gx}" cy="${gy+9}" r="4.6" fill="#eec95e"/><circle cx="${gx-6}" cy="${gy+16}" r="4" fill="#dfb545"/><circle cx="${gx+6}" cy="${gy+16}" r="4" fill="#dfb545"/><circle cx="${gx}" cy="${gy+23}" r="3.4" fill="#c89b2f"/>
+    <path d="M${gx-4} ${gy} q-10 -10 -18 -2 q8 8 18 2" fill="#d9ab34"/>
+  `).join('')}
+  <!-- glimpse of golden heichal doors -->
+  <rect x="462" y="196" width="76" height="144" fill="url(#gGold)" opacity=".92"/>
+  ${[0,1].map(c=>[0,1,2].map(r=>`<rect x="${468+c*38}" y="${204+r*46}" width="28" height="38" rx="3" fill="none" stroke="#8a6410" stroke-width="2"/>`).join('')).join('')}
+  <line x1="500" y1="196" x2="500" y2="340" stroke="#8a6410" stroke-width="3"/>
+  <ellipse cx="500" cy="220" rx="300" ry="160" fill="url(#gGlow)" opacity=".5"/>
+  <!-- rays -->
+  <path d="M470 118 L400 340 h40 L502 118 Z" fill="#ffe9a8" opacity=".08"/>
+  <path d="M530 118 L600 340 h-40 L498 118 Z" fill="#ffe9a8" opacity=".08"/>
   ${steps}
-  ${person(300,430,1.2,'#faf5e8')}${person(660,428,1.2,'#f2ead6')}${person(500,442,1.25,'#faf5e8')}
-  `,'skyDawn');
+`,'skyDawn');
 },
 
 kodesh(){ // הקודש: מנורה, שולחן, מזבח הזהב
   return scene(`
-  <rect width="1000" height="460" fill="url(#skyDark)"/>
-  <!-- interior walls covered in gold -->
-  <rect x="0" y="0" width="1000" height="380" fill="#2a1f08"/>
-  <rect x="0" y="0" width="1000" height="380" fill="url(#gGold)" opacity=".14"/>
-  ${[...Array(9)].map((_,i)=>`<rect x="${i*112}" y="0" width="4" height="380" fill="#4a3a12"/>`).join('')}
-  <rect x="0" y="380" width="1000" height="80" fill="#1c1408"/>
-  <ellipse cx="500" cy="380" rx="430" ry="34" fill="#e8c15c" opacity=".08"/>
-  <!-- parochet at back -->
-  <rect x="330" y="40" width="340" height="300" fill="#3b2a4d"/>
-  <path d="M330 40 h340 v300 h-340 z" fill="none" stroke="url(#gGold)" stroke-width="5"/>
-  ${[...Array(7)].map((_,i)=>`<path d="M${352+i*45} 40 q10 150 0 300" stroke="#2a1d38" stroke-width="9" fill="none"/>`).join('')}
-  <g opacity=".8"><path d="M460 150 q20 -24 40 0 q-20 8 -40 0" fill="#c9a94e"/><path d="M540 150 q-20 -24 -40 0 q20 8 40 0" fill="#b8912e"/></g>
-  <!-- Menorah (south = left in this view? place right for RTL drama) -->
-  <g transform="translate(190,378)">
-    <ellipse cx="0" cy="2" rx="70" ry="9" fill="#000" opacity=".4"/>
-    <path d="M-16 0 h32 l-7 -18 h-18 z" fill="url(#gGold)"/>
-    <rect x="-4" y="-120" width="8" height="104" fill="url(#gGold)"/>
-    ${[1,2,3].map(i=>`<path d="M${-i*26} -120 q0 ${26+i*13} ${i*26} ${26+i*13} M${i*26} -120 q0 ${26+i*13} ${-i*26} ${26+i*13}" stroke="url(#gGold)" stroke-width="7" fill="none"/>`).join('')}
-    ${[-78,-52,-26,0,26,52,78].map(x=>`<rect x="${x-5}" y="-128" width="10" height="8" fill="#d9ab34"/>`).join('')}
-    ${[-78,-52,-26,0,26,52,78].map(x=>fire(x,-130,.34)).join('')}
-    <ellipse cx="0" cy="-120" rx="130" ry="80" fill="url(#gGlow)" class="glowPulse" opacity=".7"/>
+  <!-- gold-clad walls -->
+  <rect x="0" y="0" width="1000" height="386" fill="#33270c"/>
+  <rect x="0" y="0" width="1000" height="386" fill="url(#gGold)" opacity=".1"/>
+  ${[...Array(8)].map((_,i)=>`<rect x="${20+i*124}" y="16" width="104" height="354" fill="none" stroke="#57430f" stroke-width="2.5" opacity=".8"/><rect x="${26+i*124}" y="22" width="92" height="342" fill="none" stroke="#6e5a1c" stroke-width="1.2" opacity=".5"/>`).join('')}
+  <ellipse cx="195" cy="240" rx="300" ry="230" fill="url(#gGlowFire)" opacity=".22"/>
+  <rect x="0" y="386" width="1000" height="74" fill="#171007"/>
+  <rect x="0" y="386" width="1000" height="4" fill="#57430f"/>
+  <!-- parochet -->
+  <g transform="translate(330,34)">
+    <rect x="0" y="0" width="340" height="352" fill="#2c1f42"/>
+    ${[...Array(8)].map((_,i)=>`<path d="M${21+i*42} 0 q9 176 0 352" stroke="#1d1330" stroke-width="10" fill="none"/>`).join('')}
+    <rect x="0" y="0" width="340" height="352" fill="none" stroke="url(#gGold)" stroke-width="5"/>
+    <rect x="14" y="34" width="312" height="26" fill="none" stroke="#c9a94e" stroke-width="2" opacity=".7"/>
+    <g opacity=".5" fill="#c9a94e">
+      <path d="M126 158 q-28 -36 -56 -13 q22 24 56 13 z"/>
+      <path d="M214 158 q28 -36 56 -13 q-22 24 -56 13 z"/>
+    </g>
   </g>
-  <!-- Golden altar center -->
+  <!-- Menorah (south) -->
+  <g transform="translate(185,378)">
+    <ellipse cx="0" cy="3" rx="78" ry="9" fill="#000" opacity=".5"/>
+    <path d="M-20 0 h40 l-6 -10 h-8 l-3 -8 h-6 l-3 8 h-8 z" fill="url(#gGold)"/>
+    <rect x="-4.5" y="-128" width="9" height="112" fill="url(#gGold)"/>
+    ${[-30,-56,-82,-104].map(ky=>`<circle cx="0" cy="${ky}" r="5.2" fill="#eec95e"/>`).join('')}
+    ${[1,2,3].map(i=>`<path d="M${-i*27} -128 q0 ${28+i*14} ${i*27} ${28+i*14} M${i*27} -128 q0 ${28+i*14} ${-i*27} ${28+i*14}" stroke="url(#gGold)" stroke-width="7.5" fill="none"/>`).join('')}
+    ${[-81,-54,-27,0,27,54,81].map(x=>`<path d="M${x-6} -132 h12 l-2.5 -7 h-7 z" fill="#eec95e"/>`).join('')}
+    ${[-81,-54,-27,0,27,54,81].map(x=>fire(x,-140,.4)).join('')}
+    <ellipse cx="0" cy="-132" rx="150" ry="92" fill="url(#gGlowFire)" opacity=".6"/>
+  </g>
+  <!-- Golden altar (center) -->
   <g transform="translate(500,382)">
-    <ellipse cx="0" cy="2" rx="52" ry="8" fill="#000" opacity=".4"/>
-    <rect x="-40" y="-92" width="80" height="92" fill="url(#gGold)" stroke="#8a6410" stroke-width="2"/>
-    <rect x="-46" y="-100" width="92" height="10" fill="#e8c15c"/>
-    <rect x="-44" y="-112" width="9" height="14" fill="#d9ab34"/><rect x="35" y="-112" width="9" height="14" fill="#d9ab34"/>
-    ${smokeCol(0,-116,.55)}
-    ${fire(0,-104,.5)}
+    <ellipse cx="0" cy="3" rx="56" ry="8" fill="#000" opacity=".45"/>
+    <rect x="-42" y="-96" width="84" height="96" fill="url(#gGold)"/>
+    <rect x="-42" y="-96" width="84" height="96" fill="none" stroke="#8a6410" stroke-width="2"/>
+    <rect x="-48" y="-106" width="96" height="10" fill="#eec95e"/>
+    <rect x="-48" y="-98" width="96" height="3" fill="#8a6410" opacity=".6"/>
+    <rect x="-46" y="-118" width="9" height="13" fill="#dfb545"/><rect x="37" y="-118" width="9" height="13" fill="#dfb545"/>
+    <rect x="-30" y="-78" width="60" height="52" fill="none" stroke="#8a6410" stroke-width="1.6" opacity=".7"/>
+    ${fire(0,-108,.5)}
+    <path class="smoke" d="M0 -122 q8 -20 -2 -38 q-8 -16 2 -30" stroke="#d9dde8" stroke-width="5" fill="none" opacity=".5"/>
+    <!-- incense pan beside -->
+    <g transform="translate(78,-6)"><ellipse cx="0" cy="0" rx="14" ry="5" fill="url(#gGold)"/><rect x="12" y="-2.5" width="22" height="5" rx="2.5" fill="url(#gGold)"/></g>
   </g>
-  <!-- Shulchan with lechem hapanim -->
-  <g transform="translate(810,380)">
-    <ellipse cx="0" cy="2" rx="66" ry="9" fill="#000" opacity=".4"/>
-    <rect x="-60" y="-64" width="120" height="12" fill="url(#gGold)" stroke="#8a6410"/>
-    <rect x="-52" y="-52" width="10" height="52" fill="#d9ab34"/><rect x="42" y="-52" width="10" height="52" fill="#d9ab34"/>
-    ${[0,1,2,3,4,5].map(i=>`<rect x="-46" y="${-78-i*11}" width="40" height="9" rx="4" fill="#f0dcae" stroke="#c9a94e"/>`).join('')}
-    ${[0,1,2,3,4,5].map(i=>`<rect x="8" y="${-78-i*11}" width="40" height="9" rx="4" fill="#f0dcae" stroke="#c9a94e"/>`).join('')}
+  <!-- Shulchan (north) with lechem hapanim -->
+  <g transform="translate(812,380)">
+    <ellipse cx="0" cy="3" rx="72" ry="9" fill="#000" opacity=".45"/>
+    <rect x="-58" y="-66" width="116" height="7" fill="#eec95e"/>
+    <rect x="-64" y="-59" width="128" height="13" fill="url(#gGold)"/>
+    <rect x="-64" y="-46" width="128" height="4" fill="#8a6410" opacity=".7"/>
+    <rect x="-56" y="-46" width="11" height="46" fill="url(#gGold)"/><rect x="45" y="-46" width="11" height="46" fill="url(#gGold)"/>
+    <path d="M-50 -66 v-74 M50 -66 v-74" stroke="#dfb545" stroke-width="5"/>
+    ${[0,1,2,3,4,5].map(i=>`<rect x="-46" y="${-80-i*12}" width="42" height="10" rx="5" fill="#f2e3b6" stroke="#c9a94e" stroke-width="1.2"/>`).join('')}
+    ${[0,1,2,3,4,5].map(i=>`<rect x="4" y="${-80-i*12}" width="42" height="10" rx="5" fill="#ead9a6" stroke="#c9a94e" stroke-width="1.2"/>`).join('')}
+    ${[0,1,2,3,4].map(i=>`<line x1="-50" y1="${-86-i*12}" x2="-4" y2="${-86-i*12}" stroke="#dfb545" stroke-width="2" opacity=".55"/>`).join('')}
   </g>
-  <!-- kohen with ketoret -->
-  ${person(390,436,1.3,'#faf5e8')}
-  `,'skyDark','0 0 1000 460');
+  <ellipse cx="500" cy="442" rx="420" ry="24" fill="url(#gGlowFire)" opacity=".1"/>
+`,'skyDark');
 },
 
 kodashim(){ // קודש הקודשים
+  const curtain=(x,flip)=>`
+  <g transform="translate(${x},0)${flip?' scale(-1,1)':''}">
+    <rect x="0" y="0" width="398" height="460" fill="#2c1f42"/>
+    ${[...Array(6)].map((_,i)=>`<path d="M${30+i*66} 0 q14 230 0 460" stroke="#1d1330" stroke-width="14" fill="none"/>`).join('')}
+    ${[...Array(6)].map((_,i)=>`<path d="M${44+i*66} 0 q10 230 0 460" stroke="#3d2c5c" stroke-width="5" fill="none" opacity=".7"/>`).join('')}
+    <rect x="386" y="0" width="12" height="460" fill="url(#gGold)" opacity=".55"/>
+    <rect x="372" y="0" width="7" height="460" fill="#c9a94e" opacity=".3"/>
+  </g>`;
   return scene(`
-  <rect width="1000" height="460" fill="url(#skyDark)"/>
-  <!-- two curtains with amah gap -->
-  <rect x="0" y="0" width="395" height="460" fill="#332347"/>
-  ${[...Array(5)].map((_,i)=>`<path d="M${28+i*80} 0 q12 230 0 460" stroke="#241832" stroke-width="12" fill="none"/>`).join('')}
-  <rect x="605" y="0" width="395" height="460" fill="#332347"/>
-  ${[...Array(5)].map((_,i)=>`<path d="M${633+i*80} 0 q12 230 0 460" stroke="#241832" stroke-width="12" fill="none"/>`).join('')}
-  <path d="M395 0 h8 v460 h-8 z" fill="url(#gGold)" opacity=".7"/>
-  <path d="M597 0 h8 v460 h-8 z" fill="url(#gGold)" opacity=".7"/>
-  <!-- inside: darkness and the Even HaShtiya -->
-  <rect x="403" y="0" width="194" height="460" fill="#0a0714"/>
-  <g transform="translate(500,340)">
-    <ellipse cx="0" cy="26" rx="120" ry="20" fill="#000" opacity=".5"/>
-    <path d="M-105 24 q-12 -46 28 -64 q6 -26 44 -26 q40 -4 52 22 q36 8 30 44 q10 24 -14 24 z" fill="#8f8574" stroke="#6b6152" stroke-width="3"/>
-    <path d="M-70 -18 q30 -14 80 -6 M-88 6 q60 -16 148 -2" stroke="#7a7060" stroke-width="2.4" fill="none" opacity=".8"/>
+  <rect x="398" y="0" width="204" height="460" fill="#080512"/>
+  <!-- light beam -->
+  <path d="M462 0 L406 330 h188 L538 0 z" fill="#f0cf7e" opacity=".1" class="glowPulse"/>
+  ${[...Array(12)].map((_,i)=>`<circle class="mote" cx="${445+(i*23)%110}" cy="${60+(i*47)%240}" r="${1+(i%3)*0.5}" fill="#ffe9a8" opacity=".5" style="animation-delay:${(i*0.4).toFixed(1)}s"/>`).join('')}
+  <!-- Even HaShtiya — faceted rock -->
+  <g transform="translate(500,352)">
+    <ellipse cx="0" cy="26" rx="125" ry="18" fill="#000" opacity=".55"/>
+    <path d="M-108 22 L-92 -30 L-46 -56 L18 -62 L74 -44 L104 -6 L96 22 Z" fill="#8f8574" stroke="#5c5344" stroke-width="2.5"/>
+    <path d="M-92 -30 L-46 -56 L-30 -12 L-70 6 Z" fill="#9c927f"/>
+    <path d="M-46 -56 L18 -62 L26 -18 L-30 -12 Z" fill="#a89d88"/>
+    <path d="M18 -62 L74 -44 L64 -4 L26 -18 Z" fill="#948a76"/>
+    <path d="M74 -44 L104 -6 L96 22 L64 -4 Z" fill="#83795f"/>
+    <path d="M-108 22 L-70 6 L-30 -12 L26 -18 L64 -4 L96 22 Z" fill="#8a8070"/>
+    <path d="M-46 -56 L18 -62" stroke="#c2b89e" stroke-width="2" opacity=".8"/>
   </g>
-  <ellipse cx="500" cy="230" rx="130" ry="200" fill="url(#gGlow)" class="glowPulse" opacity=".35"/>
-  <!-- shechina light beam -->
-  <path d="M470 0 L410 320 h180 L530 0 z" fill="#f0cf7e" opacity=".13" class="glowPulse"/>
-  <text x="500" y="120" text-anchor="middle" font-family="Frank Ruhl Libre" font-size="30" fill="#e8c15c" opacity=".9">אֶבֶן הַשְּׁתִיָּה</text>
-  <text x="500" y="152" text-anchor="middle" font-family="Heebo" font-size="15" fill="#c9b06a" opacity=".8">שֶׁמִּמֶּנָּה הֻשְׁתַּת הָעוֹלָם</text>
-  `,'skyDark');
+  <ellipse cx="500" cy="240" rx="140" ry="210" fill="url(#gGlow)" opacity=".28"/>
+  ${curtain(0,false)}${curtain(1000,true)}
+  <text x="500" y="118" text-anchor="middle" font-family="Frank Ruhl Libre" font-size="31" fill="#eec95e" opacity=".95">אֶבֶן הַשְּׁתִיָּה</text>
+  <text x="500" y="150" text-anchor="middle" font-family="Heebo" font-size="15" fill="#c9b06a" opacity=".85">שֶׁמִּמֶּנָּה הֻשְׁתַּת הָעוֹלָם</text>
+`,'skyDark');
 },
 
 finale(){ // מבט פרידה
   return scene(`
-  ${stars(50)}
-  <circle cx="160" cy="90" r="34" fill="#f6ecd2" opacity=".95"/>
-  <!-- panoramic temple on the mount -->
-  <path d="M0 340 q250 -70 500 -60 q250 -10 500 60 v120 h-1000 z" fill="#2c2c50"/>
-  <path d="M0 372 q250 -60 500 -52 q250 -8 500 52 v88 h-1000 z" fill="#232345"/>
-  <g transform="translate(320,108) scale(.75)">
-    <rect x="-60" y="180" width="600" height="70" fill="url(#gStone2)"/>
-    <rect x="0" y="60" width="480" height="140" fill="url(#gStone)" stroke="#8f7947" stroke-width="2"/>
-    <rect x="-14" y="44" width="508" height="18" fill="url(#gGold)"/>
-    <g fill="url(#gGold)">${[...Array(16)].map((_,i)=>`<rect x="${6+i*30}" y="30" width="11" height="15"/>`).join('')}</g>
-    <rect x="195" y="110" width="90" height="90" fill="#241a05"/>
-    <rect x="187" y="98" width="106" height="13" fill="url(#gGold)"/>
-    <ellipse cx="240" cy="90" rx="330" ry="110" fill="url(#gGlow)" class="glowPulse"/>
-    ${smokeCol(560,180,1.2)}
-    <path d="M520 250 h80 l-9 -36 h-62 z" fill="#b3a077"/>
-    ${fire(560,212,.9)}
+  ${stars(60)}
+  <circle cx="150" cy="84" r="30" fill="#f6ecd2"/><circle cx="138" cy="76" r="27" fill="#131a3d" opacity=".92"/>
+  ${hills(238)}
+  <!-- platform -->
+  <path d="M60 330 L940 330 L900 386 L100 386 Z" fill="url(#ashlar)"/>
+  <path d="M60 330 L940 330 L900 386 L100 386 Z" fill="#1a1030" opacity=".3"/>
+  <!-- court walls with crenellation -->
+  <rect x="200" y="284" width="600" height="48" fill="url(#ashlar)"/>
+  <rect x="200" y="284" width="600" height="48" fill="#1a1030" opacity=".2"/>
+  ${[...Array(14)].map((_,i)=>`<rect x="${206+i*43}" y="276" width="16" height="10" fill="#cdb98c"/>`).join('')}
+  <!-- heichal -->
+  <g transform="translate(346,118) scale(.64)">${heichalFacade()}</g>
+  <!-- altar + smoke -->
+  <g transform="translate(724,296)">
+    <path d="M-40 36 h80 l-8 -30 h-64 z" fill="#b39a6b" stroke="#8a7148" stroke-width="1.6"/>
+    <rect x="-34" y="2" width="68 " height="6" fill="#96805a"/>
+    ${fire(0,4,.7)}
   </g>
-  ${crowd(500,442,9,700,1.05)}
-  <text x="500" y="60" text-anchor="middle" font-family="Frank Ruhl Libre" font-size="26" fill="#f0cf7e">״וְעָשׂוּ לִי מִקְדָּשׁ וְשָׁכַנְתִּי בְּתוֹכָם״</text>
-  `,'skyGold');
+  ${smokeCol(724,270,1.25)}
+  <!-- road up to the mount -->
+  <path d="M474 386 L446 460 h116 L528 386 Z" fill="#c3ad7e" opacity=".45"/>
+  ${city(460,.95)}
+  ${tree(80,332,1)}${tree(926,338,.9)}
+  <text x="500" y="58" text-anchor="middle" font-family="Frank Ruhl Libre" font-size="26" fill="#f0cf7e">״וְעָשׂוּ לִי מִקְדָּשׁ וְשָׁכַנְתִּי בְּתוֹכָם״</text>
+`,'skyGold');
 }
 };
 
@@ -1152,9 +1393,7 @@ function render(){
   $('btnPrev').disabled=cur===0;
   $('btnNext').textContent=st.final?'🏆 אל החידון':'התחנה הבאה ←';
   $('stCount').textContent=`תחנה ${cur+1} מתוך ${STATIONS.length}`;
-  // kedusha dots
   $('kedusha').innerHTML=STATIONS.map((s,i)=>`<span class="dot ${i<cur?'done':''} ${i===cur?'now':''}" title="${s.title}" onclick="jump(${i})"></span>`).join('');
-  // minimap
   $('miniMap').innerHTML=buildMapSVG(true,st.key);
   bindMapAreas($('miniMap'));
 }
@@ -1202,7 +1441,6 @@ function startQuiz(){
 }
 function renderQuiz(){
   const q=QUIZ[quizIdx];
-  // shuffle options while tracking answer
   const order=q.opts.map((_,i)=>i).sort(()=>Math.random()-.5);
   $('quizCard').innerHTML=`
     <div class="qProgress">שאלה ${quizIdx+1} מתוך ${QUIZ.length} · ניקוד: ${quizScore}</div>
